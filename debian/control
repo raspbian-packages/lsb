@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, libz1, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, cpio, cron, file, libc6-dev | libc-dev, locales, lpr, m4, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), python (>> 2.2.2), ${misc:Depends}, ${depends}
+Depends: lsb-release, libz1, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, cpio, cron, file, libc6-dev | libc-dev, locales, lpr, m4, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), python (>> 2.2.2), ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
 Conflicts: python (>> 2.5), libutahglx1, lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
@@ -89,3 +89,17 @@ Description: Linux Standard Base 2.0 support package
  presence does not imply that we believe that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
+
+Package: lsb-base
+Architecture: all
+Depends: sed, ncurses-bin
+Replaces: lsb (<< 2.0-5)
+Conflicts: lsb (<< 2.0-5)
+Description: Linux Standard Base 2.0 init script functionality
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package only includes the init-functions shell library, which
+ may be used by other packages' initialization scripts for console
+ logging and other purposes.

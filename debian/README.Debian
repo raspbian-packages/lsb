@@ -19,7 +19,7 @@ contact the vendor of the lsb package to resolve the problem.
 
 PACKAGE LAYOUT
 
-The LSB implementation in Debian is currently divided into four
+The LSB implementation in Debian is currently divided into five
 packages:
 
 * The "lsb-core" package depends on the Debian packages that are
@@ -27,8 +27,7 @@ packages:
   roughly equivalent to the LSB 1.3 specification, except X11 libraries
   are not required.  It also includes some subroutines that are used
   by LSB-compliant applications when they are being installed or
-  removed, and a series of functions used by init.d scripts in some
-  LSB packages.
+  removed.
 
 * The "lsb-graphics" package depends on the X11 libraries required for
   the LSB-Graphics 2.0 specification.
@@ -38,6 +37,11 @@ packages:
 
 * The "lsb" package depends on the above three packages, and exists
   for backwards compatibility purposes with LSB 1.3.
+
+* The "lsb-base" package includes a number of functions used by init.d
+  scripts in some LSB packages; this package was separated in Debian's
+  lsb 2.0-6 package so other packages could make use of the init
+  functionality without requiring a full LSB installation.
 
 The first three packages are architecture-specific because of
 differences in the requirements of the LSB on various binary
@@ -178,7 +182,7 @@ woody was Python 2.1.  To backport to woody:
 For proper LSB conformance in woody, you will also need to backport
 other Debian packages, including alien.
 
-The default version of Python in Debian 3.1 (sarge) is Python 2.3.4.
+The default version of Python in Debian 3.1 (sarge) is Python 2.3.5.
 
 COMPLIANCE TESTING
 
@@ -190,6 +194,6 @@ any reports of its success or failure.
 An example init script that tests some of these features is provided
 as /usr/share/doc/lsb/examples/init-skeleton.
 
- -- Chris Lawrence <lawrencc@debian.org>, Mon Sep 20 21:37:40 2004
+ -- Chris Lawrence <lawrencc@debian.org>, Fri Mar  4 17:41:50 2005
 
  LocalWords:  LSB

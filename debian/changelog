@@ -1,18 +1,201 @@
-lsb (1.2-5.woody.1) stable; urgency=high
+lsb (2.0-5) unstable; urgency=low
 
-  * Support LSB 1.2 in woody.  Includes all changes through 1.2-6 in sid.
-  * Fix call to shadowconfig in postinst.  (Closed: #166041)
+  * Upload to unstable.  (Closes: #278093)
+  * Ignore empty headers in init files.  (Closes: #292835)
+  * Add Czech translation of the debconf messages.  (Closes: #288015)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 30 Jan 2005 08:01:29 -0600
+
+lsb (2.0-4) experimental; urgency=low
+
+  * Fix path of HTML docs in debian/doc-base.lsb-core  (Closes: #278357)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 26 Oct 2004 09:16:46 -0500
+
+lsb (2.0-3) experimental; urgency=low
+
+  * Fix x86-64 ls-lsb symlink.  (Closes: #278093)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 24 Oct 2004 19:50:00 -0500
+
+lsb (2.0-2) experimental; urgency=low
+
+  * Upload to experimental so we don't break lsb 2.0-1 in unstable as it
+    tries to migrate to sarge.
+  * Split into lsb-core, lsb-graphics, and lsb-cxx packages, leaving lsb
+    as a metapackage (lsb-graphics and lsb-cxx are also metapackages).
+  * Include /lib64 in the AMD64 package rather than running mkdir in the
+    postinst.
+  * Revise README.Debian for LSB 2.0 and the package split; ensure LSB
+    package install instructions are in the first page of text.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 20 Sep 2004 21:38:36 -0500
+
+lsb (2.0-1) unstable; urgency=high
+
+  * Add lsb-core-{noarch,[arch]} Provides.
+  * Symlink ld-lsb.so.2 to appropriate dynamic linker.
+  * Add Japanese translation of debconf template.  (Closes: #270926)
+  * Depend on ia32-libs on amd64.  (Closes: #259976)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 19 Sep 2004 18:01:07 -0500
+
+lsb (1.3-9) unstable; urgency=low
+
+  * Added Danish po file.  (Closes: #234406)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 23 Feb 2004 15:04:37 -0600
+
+lsb (1.3-8) unstable; urgency=low
+
+  * Added German po file.  (Closes: #223120)
+  * Depend on exim4 | m-t-a instead of exim | m-t-a.  (Closes: #228588)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 31 Jan 2004 20:49:47 -0600
+
+lsb (1.3-7) unstable; urgency=medium
+
+  * Conflict with libutahglx1 instead of depending on xlibmesa3-gl.
+    This will allow XFree86 4.3.0's libgl1 to be installed on the system.
+  * Move conflicts with Python to 2.5, since 2.4 is not expected to be
+    backwards incompatible with anything in the lsb package.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 18 Nov 2003 12:02:01 -0600
+
+lsb (1.3-6) unstable; urgency=medium
+
+  * Depend on alien 8.36 or later.  (Closes: #220177)
+  * Depend on xlibmesa3-gl instead of libgl1.  (Closes: #220523)
+  * If the pathname supplied to install_initd or remove_initd exists
+    relative to the cwd, use it rather than prepending /etc/init.d.
+    (Closes: #207851)
+  * Added notes for backporting to woody to README.Debian.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 17 Nov 2003 10:05:29 -0600
+
+lsb (1.3-5) unstable; urgency=low
+
+  * Note in README.Debian that the --lsbsysinit option in /etc/crontab is
+    required for strict LSB compliance.  (Closes: #214896)
+  * Re-enable $netdaemons facility in the "internal registry" again, as
+    gLSB 1.1 included it and some packages appear to still use it.
+    (Closes: #210578)
+  * Use ld.so.1 symlink instead of the glibc-version-dependent location
+    for s390.  (Closes: #216824)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 22 Oct 2003 13:17:25 -0500
+
+lsb (1.3-4) unstable; urgency=low
+
+  "cobaco":
+  * Add Dutch translation of debconf template.  (Closes: #204921)
+  Matt Taggart:
+  * Add ia64 to description.  (Closes: #207694)
+  Tobias Burnus:
+  * Provide a skeleton LSB init script.  (Closes: #207715)
+  * Numerous improvements to init-functions.  (Closes: #207639)
+  Me:
+  * Support broken uses of install_initd and remove_initd.
+    (See #207851; still pondering on start_daemon's behavior.)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 10 Sep 2003 17:40:24 -0500
+
+lsb (1.3-3) unstable; urgency=low
+
+  * Depend on pax.  (Closes: #203545)
+  * Add ld.so symlink for ia64.  (Closes: #203541)
+  * Improved French translation.  (Closes: #202692)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri,  8 Aug 2003 18:13:08 -0400
+
+lsb (1.3-2) unstable; urgency=low
+
+  * Use iteritems instead of the default iterator when saving the
+    init script dependency dictionary.  (Closes: #202012)
+  * Add a link to Matt Taggart's DebConf2 talk to README.Debian.
+    (Closes: #198600)
+  * Add French translation of debconf prompts.  (Closes: #201626)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 21 Jul 2003 12:19:34 -0400
+
+lsb (1.3-1) unstable; urgency=low
+
+  * First release of LSB 1.3 for Debian.
+  * Convert everything to Python 2.2+ style.
+  * Clean up the parsing of header lines to be fully compliant.
+  * Add po-debconf patch.  (Closes: #186853)
+  * Don't retry if a signal specified in killproc.  (Closes: #167759)
+  * Revise pidofproc to return a failure code if no pid found.
+    (Closes: #190719)
+  * Properly treat Required-Start and Required-Stop as strict dependencies
+    (install_initd will now fail if they cannot be fulfilled.)
+  * remove_initd will now fail if removing the init script would cause
+    another LSB package to be missing a dependency.  (However, the
+    tracking for these dependencies was not done in the past.  As this is
+    part of gLSB 1.9, this should not be a problem.)
+  * The previous two items were in a single report.  (Closes: #198293)
+  * Support Should-Start and Should-Stop from gLSB 1.9.  (Closes: #198277)
+    (A warning message will be output if a facility requested is unavailable.)
+  * Support -p argument to killproc, pidofproc and start_daemon, per gLSB 1.9.
+    (Closes: #197794)
+  * Set up the ld-lsb symlink in the postinst, so it can vary between
+    architectures, and remove in the prerm.  (Closes: #183617)
+    Currently only defined for IA32 (i386), PPC32 (powerpc) and S390
+    (s390); please let me know the correct link for IA64 (ia64) and any
+    other ports that may be floating out there.  (I'm only interested in
+    architectures that appear at http://www.linuxbase.org/spec/.)
+  * Purge the lsb registry on package removal.
+  * Depend on mawk | gawk; original-awk may not be SUS-compliant.
+    (See http://www.linuxbase.org/spec/refspecs/LSB_1.3.0/gLSB/gLSB/awk.html)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 24 Jun 2003 03:06:37 -0500
+
+lsb (1.2-6) unstable; urgency=medium
+
+  * Fix call to shadowconfig in postinst.  (Closes: #166041)
   * Add text to the debconf template that lets the user know that shadow
     passwords are not needed by most LSB applications.
-  * Remove duplicate --retry 5 from start-stop-daemon call.  (Closed: #165395)
-  * Fix bugs in the init script registry code.  (Closed: #165038)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 26 Oct 2002 07:20:54 -0500
+
+lsb (1.2-5) unstable; urgency=medium
+
+  * Remove duplicate --retry 5 from start-stop-daemon call.  (Closes: #165395)
+  * Fix bugs in the init script registry code.  (Closes: #165038)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 22 Oct 2002 06:23:03 -0500
+
+lsb (1.2-4) unstable; urgency=low
+
   * Support more specifications for the signal in "killproc".
-    (Closed: #163109)
+    (Closes: #163109)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri,  4 Oct 2002 07:09:22 -0500
+
+lsb (1.2-3) unstable; urgency=low
+
   * Return non-zero exit status if "pidofproc" can't find the process.
-    (Closed: #157314)
-  * Fix silly typos in install_initd.  (Closed: #152544)
-  * Fix duplicated --retry 5.  (Closed: #152552)
-  * Added support for facilities introduced in gLSB 1.2.  (Closed: #148568)
+    (Closes: #157314)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 21 Aug 2002 13:20:09 -0500
+
+lsb (1.2-2) unstable; urgency=low
+
+  * Fix silly typos in install_initd.  (Closes: #152544)
+  * Fix duplicated --retry 5.  (Closes: #152552)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 10 Jul 2002 15:48:10 -0500
+
+lsb (1.2-1) unstable; urgency=low
+
+  * ADV: Matt Taggart will be giving a presentation on LSB in Debian at
+    Debconf2 on Sunday afternoon; your attendence and attentiveness is
+    strongly encouraged :-)
+
+  * First release of LSB 1.2 (hopefully-)compliant package.
+  * Added link to joeyh's LSB testing page to README.Debian.
+  * Revised README.Debian in light of LSB 1.2's improved verbiage.
+  * Added support for facilities introduced in gLSB 1.2.  (Closes: #148568)
     - $time: start >= S24, stop <= K21
     - $portmap: start >= S19, stop <= K34
   * Removed support for the $netdaemons facility, which vanished from the
@@ -116,4 +299,3 @@ lsb (1.1.0-1) unstable; urgency=low
   * Initial Release.  (Closes: #134658)
 
  -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Feb 2002 14:07:32 -0600
-

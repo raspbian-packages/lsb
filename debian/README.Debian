@@ -3,12 +3,7 @@ lsb for Debian
 
 This package provides the Linux Standard Base on Debian systems.  The
 LSB is a specification for allowing the same binary package to be used
-on multiple distributions.
-
-The "lsb" package depends on a number of other Debian packages that
-are required for full LSB compliance.  It also includes some
-subroutines that are used by some LSB-compliant applications when they
-are being installed or removed.
+on multiple distributions.  
 
 INSTALLING LSB PACKAGES
 
@@ -22,24 +17,53 @@ installed by dpkg.  If this fails, there may be a problem with either
 the lsb package (most likely) or alien (less likely), and you should
 contact the vendor of the lsb package to resolve the problem.
 
+PACKAGE LAYOUT
+
+The LSB implementation in Debian is currently divided into four
+packages:
+
+* The "lsb-core" package depends on the Debian packages that are
+  required to comply with the LSB-Core 2.0 specification; this is
+  roughly equivalent to the LSB 1.3 specification, except X11 libraries
+  are not required.  It also includes some subroutines that are used
+  by LSB-compliant applications when they are being installed or
+  removed, and a series of functions used by init.d scripts in some
+  LSB packages.
+
+* The "lsb-graphics" package depends on the X11 libraries required for
+  the LSB-Graphics 2.0 specification.
+
+* The "lsb-cxx" package depends on libstdc++5, required for the
+  LSB-CXX (LSB-C++) 2.0 specification.
+
+* The "lsb" package depends on the above three packages, and exists
+  for backwards compatibility purposes with LSB 1.3.
+
+The first three packages are architecture-specific because of
+differences in the requirements of the LSB on various binary
+architectures.  In particular, each package provides
+lsb-{module}-noarch and lsb-{module}-{arch} virtual packages.
+
 IMPLEMENTATION ISSUES
 
 This package attempts to implement the core LSB specification.  Much
 of the implementation is drawn on a talk by Wichert Akkerman
 (http://www.liacs.nl/~wichert/talks/LSBDistro/html/) and Matt
 Taggart's discussion of LSB 1.0 and Debian.  Matt's discussion is
-provided in the /usr/share/doc/lsb/html directory.
+provided in the /usr/share/doc/lsb/html directory.  Matt has also
+produced a slideshow on LSB in Debian, which can be found at:
+http://people.debian.org/~taggart/debconf2/
 
-It does so in a number of ways:
+This package implements the LSB specification by:
 
-- Depending upon packages that implement OS services required by the
+- depending upon packages that implement OS services required by the
   LSB, including libraries and programs.
 
-- Including the ld-lsb.so.1 symlink to the dynamic linker.
+- including the correct symlink to the dynamic linker.
 
-- Providing the LSB init script functionality.  Some of the LSB init
+- providing the LSB init script functionality.  Some of the LSB init
   functionality cannot be implemented without cooperation from other
-  packages or changes in policy for woody+1; however, the remainder is
+  packages or changes in policy for sarge+1; however, the remainder is
   provided here.
 
 The intent of this package is to provide a best current practice way
@@ -51,24 +75,25 @@ construed as a statement that Debian is LSB-compliant.
 
 The specification is available at http://www.linuxbase.org/spec/
 
-DEVIATIONS FROM LSB 1.2
+DEVIATIONS FROM LSB 2.0
 
 The package and its dependencies implement all of LSB on Debian, with
 these exceptions:
 
-- LSB 1.2 assumes a 2.4 kernel.  Debian ships a 2.2 kernel by default
-  as of woody, although 2.4 is optional.  There is no way in the
-  Debian system to ensure a package is only installed on a specific
-  kernel release.  Running LSB applications on 2.2 kernels may result
-  in subtle bugs or failures, particularly if they depend on large
-  file support or new syscall interfaces introduced in Linux 2.3+.
+- LSB 2.0 assumes a 2.4 kernel.  Debian ships a 2.4 kernel by default
+  on most architectures as of sarge, although 2.2 and 2.6 are
+  optional.  There is no way in the Debian system to ensure a package
+  is only installed on a specific kernel release.  Running LSB
+  applications on 2.2 kernels may result in subtle bugs or failures,
+  particularly if they depend on large file support or new syscall
+  interfaces introduced in Linux 2.3+.
 
   (We do not consider this a bug in the package.)
 
-- LSB 1.2 doesn't fully specify what the init_functions should do.  I
+- LSB 2.0 doesn't fully specify what the init_functions should do.  I
   have chosen to implement them in a way that is consistent with
   Debian current practice, using the start-stop-daemon utility and the
-  echo command.  For woody+1, I expect a nicer init logging facility
+  echo command.  For sarge+1, I expect a nicer init logging facility
   that could be used.
 
 - LSB specifies no way for a binary to request that a pid file be
@@ -95,10 +120,12 @@ these exceptions:
 - The LSB specifies that cron scripts can be placed in cron.daily and
   other directories; however, Debian's run-parts appears to ignore
   these scripts if they contain a dot in their names.  (See #118646)
-  Once this deficiency is fixed, a versioned dependency will be added
-  to this package.
+  You can work around this problem by editing /etc/crontab and
+  specifying the --lsbsysinit option; it is hoped that eventually
+  Debian will include this option by default.
 
-  (This appears to be a deficiency in debianutils.)
+  (This is a known deficiency in debianutils, and is required for
+  backwards compatibility with expected behavior on earlier systems.)
 
 - The results of running the LSB test suite against Debian with the
   LSB package and its dependencies installed are available at
@@ -124,11 +151,34 @@ DESIGN DECISIONS
   /var/lib/lsb/facilities.  Priorities are assigned to the system
   facilities as found on my sid systems as of today; perhaps system
   facilities should be registered by the appropriate packages, and not
-  managed by the lsb package, but that is a woody+1 policy decision.
+  managed by the lsb package, but that is a sarge+1 policy decision.
+
+- As of 1.3-1, a second registry of init script dependencies is
+  retained in /var/lib/lsb/depends.  This is used to ensure that an
+  LSB package will not be removed if it provides an LSB facility that is
+  used by another LSB package.  (If you rely on this functionality and
+  are upgrading from the 1.2 series, you will need to manually reinstall
+  all of your LSB packages.)
 
 - The facility handling scripts are written in Python.  I am not
   particularly attached to them being written in Python, but at the
   same time I do not forsee rewriting them in $language_of_choice.
+
+BACKPORTING TO DEBIAN 3.0 (WOODY)
+
+The scripts install_initd and remove_initd are written in Python and
+require Python 2.2 or later to operate correctly.  Woody (Debian 3.0)
+included the python2.2 package, but the default version of Python in
+woody was Python 2.1.  To backport to woody:
+
+- Change the python dependency to depend on python2.2 rather than python
+- Change the #! lines of install_initd and remove_initd to point to
+  /usr/bin/python2.2
+
+For proper LSB conformance in woody, you will also need to backport
+other Debian packages, including alien.
+
+The default version of Python in Debian 3.1 (sarge) is Python 2.3.4.
 
 COMPLIANCE TESTING
 
@@ -137,4 +187,9 @@ script functionality of the spec.  I am therefore unable to say
 whether this package actually works as advertised.  I would appreciate
 any reports of its success or failure.
 
- -- Chris Lawrence <lawrencc@debian.org>, Sun, 17 Feb 2002 14:07:32 -0600
+An example init script that tests some of these features is provided
+as /usr/share/doc/lsb/examples/init-skeleton.
+
+ -- Chris Lawrence <lawrencc@debian.org>, Mon Sep 20 21:37:40 2004
+
+ LocalWords:  LSB

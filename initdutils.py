@@ -1,47 +1,91 @@
 # Support for scanning init scripts for LSB info
 
-import re, sys, os
+import re, sys, os, cStringIO
 
-FACILITIES = '/var/lib/lsb/facilities'
+try:
+    assert True
+except:
+    True = 1
+    False = 0
+
+class RFC822Parser(dict):
+    "A dictionary-like object."
+    __linere = re.compile(r'([^:]+):\s*(.*)$')
+    
+    def __init__(self, fileob=None, strob=None, startcol=0, basedict=None):
+        if not fileob and not strob:
+            raise ValueError, 'need a file or string'
+        if not basedict:
+            basedict = {}
+        
+        super(RFC822Parser, self).__init__(basedict)
+
+        if not fileob:
+            fileob = cStringIO.StringIO(strob)
+
+        key = None
+        for line in fileob:
+            if startcol:
+                line = line[startcol:]
+
+            if not line.strip():
+                continue
+
+            # Continuation line
+            if line[0].isspace():
+                if not key:
+                    continue
+                self[key] += '\n' + line.strip()
+                continue
+
+            m = self.__linere.match(line)
+            if not m:
+                # Not a valid RFC822 header
+                continue
+            key, value = m.groups()
+            self[key] = value.strip()
+
+# End of RFC882Parser
+
+LSBLIB = '/var/lib/lsb'
+FACILITIES = os.path.join(LSBLIB, 'facilities')
+DEPENDS = os.path.join(LSBLIB, 'depends')
 
 beginre = re.compile(re.escape('### BEGIN INIT INFO'))
 endre = re.compile(re.escape('### END INIT INFO'))
-linere = re.compile(r'\#\s+([^:]+):\s*(.*)')
+#linere = re.compile(r'\#\s+([^:]+):\s*(.*)')
 
 def scan_initfile(initfile):
-    headers = {'Description': []}
-    scanning = 0
+    headerlines = ''
+    scanning = False
     
-    for line in open(initfile).xreadlines():
+    for line in file(initfile):
         line = line.rstrip()
         if beginre.match(line):
-            scanning = 1
+            scanning = True
             continue
         elif scanning and endre.match(line):
-            scanning = 0
+            scanning = False
             continue
         elif not scanning:
             continue
 
-        if line[0] != '#':
-            continue
+        if line.startswith('# '):
+            headerlines += line[2:] + '\n'
+        elif line.startswith('#\t'):
+            headerlines += line[1:] + '\n'
 
-        if line[1:3] == '  ' or line[1] == '\t':
-            headers['Description'].append(line[1:].strip())
-            continue
-
-        match = linere.match(line)
-        if not match:
-            print >> sys.stderr, "Warning: ignoring invalid init info line"
-            print >> sys.stderr, "-> %s" % line
-            continue
-
-        header, body = match.groups()
-        if header == "Description":
-            headers[header].append(body.strip())
-        elif header in ('Default-Start', 'Default-Stop'):
+    inheaders = RFC822Parser(strob=headerlines)
+    headers = {}
+    for header, body in inheaders.iteritems():
+        # Ignore empty headers
+        if not body.strip():
+            break
+        
+        if header in ('Default-Start', 'Default-Stop'):
             headers[header] = map(int, body.split())
-        elif header in ('Required-Start', 'Required-Stop', 'Provides'):
+        elif header in ('Required-Start', 'Required-Stop', 'Provides',
+                        'Should-Start', 'Should-Stop'):
             headers[header] = body.split()
         else:
             headers[header] = body
@@ -56,9 +100,10 @@ def save_facilities(facilities):
             pass
         return
     
-    fh = open(FACILITIES, 'w')
+    fh = file(FACILITIES, 'w')
     for facility, entries in facilities.items():
-        if facility[0] == '$': continue
+        # Ignore system facilities
+        if facility.startswith('$'): continue
         for (scriptname, pri) in entries.items():
             start, stop = pri
             print >> fh, "%(scriptname)s %(facility)s %(start)d %(stop)d" % locals()
@@ -76,3 +121,28 @@ def load_facilities():
                 print >> sys.stderr, 'Invalid facility line', line
 
     return facilities
+
+def load_depends():
+    depends = {}
+
+    if os.path.exists(DEPENDS):
+        independs = RFC822Parser(fileob=file(DEPENDS))
+        for initfile, facilities in independs.iteritems():
+            depends[initfile] = facilities.split()
+    return depends
+
+def save_depends(depends):
+    if not depends:
+        try:
+            os.unlink(DEPENDS)
+        except OSError:
+            pass
+        return
+    
+    fh = file(DEPENDS, 'w')
+    for initfile, facilities in depends.iteritems():
+        print >> fh, '%s: %s' % (initfile, ' '.join(facilities))
+    fh.close()
+
+if __name__ == '__main__':
+    print scan_initfile('init-fragment')

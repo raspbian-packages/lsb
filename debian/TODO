@@ -1,0 +1,5 @@
+A quickie TODO list for lsb*:
+
+* Move dynamic linker symlinks from postinst into package itself.
+* Support additional Debian architectures.
+* Only build lsb-* for LSB architectures in Debian.

@@ -5,19 +5,26 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# This is the debhelper compatibility version to use.
-export DH_COMPAT=3
-
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_BUILD_ARCH      ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
 ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -g
 endif
 ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
+endif
+
+# Map Debian architectures to LSB architectures
+lsbarch=${DEB_BUILD_ARCH}
+ifeq (${lsbarch}, i386)
+	lsbarch=ia32
+endif
+ifeq (${lsbarch}, powerpc)
+	lsbarch=ppc32
 endif
 
 configure: configure-stamp
@@ -41,7 +48,7 @@ build-stamp: configure-stamp
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp *.py[co]
+	rm -f build-stamp configure-stamp *.py[co] debian/lsb*substvars
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) clean
@@ -56,10 +63,8 @@ install: build
 
 	# Add here commands to install the package into debian/lsb.
 	#$(MAKE) install DESTDIR=$(CURDIR)/debian/lsb
-	# IA32 spec:
-	ln -s ld-linux.so.2 debian/lsb/lib/ld-lsb.so.1
-	cp initdutils.py install_initd remove_initd debian/lsb/usr/lib/lsb
-	cp init-functions debian/lsb/lib/lsb
+	cp initdutils.py install_initd remove_initd debian/lsb-core/usr/lib/lsb
+	cp init-functions debian/lsb-core/lib/lsb
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -71,7 +76,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdebconf	
 	dh_installdocs
-	dh_installexamples
+	dh_installexamples init-skeleton
 	dh_installmenu
 #	dh_installlogrotate
 #	dh_installemacsen
@@ -83,6 +88,7 @@ binary-arch: build install
 	dh_installinfo
 #	dh_undocumented
 	dh_installchangelogs 
+	@[ ${DEB_BUILD_ARCH} = 'amd64' ] && mkdir -p debian/lsb-core/lib64 && echo >> debian/lsb-core.substvars "depends=ia32-libs" || true
 	dh_link
 	dh_strip
 	dh_compress
@@ -91,6 +97,9 @@ binary-arch: build install
 	dh_installdeb
 #	dh_perl
 	dh_shlibdeps
+	@echo >> debian/lsb-core.substvars "provides=lsb-core-${lsbarch}"
+	@echo >> debian/lsb-cxx.substvars "provides=lsb-cxx-${lsbarch}"
+	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

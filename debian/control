@@ -2,22 +2,87 @@ Source: lsb
 Section: misc
 Priority: extra
 Maintainer: Chris Lawrence <lawrencc@debian.org>
-Build-Depends-Indep: debhelper (>> 3.0.0)
-Standards-Version: 3.5.2
+Build-Depends: debhelper (>= 4.1.13), po-debconf (>= 0.5.0)
+Standards-Version: 3.6.1
+
+Package: lsb-core
+Architecture: any
+Depends: lsb-release, libz1, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, cpio, cron, file, libc6-dev | libc-dev, locales, lpr, m4, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), python (>> 2.2.2), ${misc:Depends}, ${depends}
+Provides: lsb-core-noarch, ${provides}
+Conflicts: python (>> 2.5), libutahglx1, lsb (<< 2.0-2)
+Replaces: lsb (<< 2.0-2)
+Description: Linux Standard Base 2.0 core support package
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package provides an implementation of the core of version 2.0 of
+ the Linux Standard Base for Debian on the Intel x86, Intel ia64
+ (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
+ kernel.  Future revisions of the specification and this package may
+ support the LSB on additional architectures and kernels.
+ .
+ The intent of this package is to provide a best current practice way
+ of installing and running LSB packages on Debian GNU/Linux.  Its
+ presence does not imply that we believe that Debian fully complies
+ with the Linux Standard Base, and should not be construed as a
+ statement that Debian is LSB-compliant.
+
+Package: lsb-graphics
+Architecture: any
+Depends: lsb-core, xlibmesa3-gl | libgl1, xlibs, ${misc:Depends}
+Provides: lsb-graphics-noarch, ${provides}
+Description: Linux Standard Base 2.0 graphics support package
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package provides an implementation of version 2.0 of the Linux
+ Standard Base graphics specification for Debian on the Intel x86,
+ Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
+ the Linux kernel.  Future revisions of the specification and this
+ package may support the LSB on additional architectures and kernels.
+ .
+ The intent of this package is to provide a best current practice way
+ of installing and running LSB packages on Debian GNU/Linux.  Its
+ presence does not imply that we believe that Debian fully complies
+ with the Linux Standard Base, and should not be construed as a
+ statement that Debian is LSB-compliant.
+
+Package: lsb-cxx
+Architecture: any
+Depends: lsb-core, libstdc++5, ${misc:Depends}
+Provides: lsb-cxx-noarch, ${provides}
+Description: Linux Standard Base 2.0 C++ support package
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package provides an implementation of version 2.0 of the Linux
+ Standard Base C++ (CXX) specification for Debian on the Intel x86,
+ Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
+ the Linux kernel.  Future revisions of the specification and this
+ package may support the LSB on additional architectures and kernels.
+ .
+ The intent of this package is to provide a best current practice way
+ of installing and running LSB packages on Debian GNU/Linux.  Its
+ presence does not imply that we believe that Debian fully complies
+ with the Linux Standard Base, and should not be construed as a
+ statement that Debian is LSB-compliant.
 
 Package: lsb
 Architecture: all
-Depends: lsb-release, libgl1, xlibs, libz1, exim | mail-transport-agent, at, bc, binutils, bsdmainutils, cpio, cron, file, libc6-dev | libc-dev, locales, lpr, m4, make, man-db, mawk | awk, ncurses-term, passwd, patch, procps, psmisc, rsync, alien (>= 8.00), python (>> 2.1), ${misc:Depends}
-Conflicts: python (>> 2.3)
-Description: Linux Standard Base 1.2 core support package
+Depends: lsb-core, lsb-graphics, lsb-cxx
+Description: Linux Standard Base 2.0 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
- core system that third-party applications can depend upon.
+ core system that third-party applications written for Linux can
+ depend upon.
  .
- This package provides an implementation of version 1.2 of the Linux
- Standard Base for Debian on the Intel x86 and PowerPC 32-bit
- architectures with the Linux kernel.  Future revisions of the
- specification and this package may support the LSB on additional
- architectures and kernels.
+ This package provides an implementation of all modules of version 2.0
+ of the Linux Standard Base for Debian on the Intel x86, Intel ia64
+ (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
+ kernel.  Future revisions of the specification and this package may
+ support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
  of installing and running LSB packages on Debian GNU/Linux.  Its

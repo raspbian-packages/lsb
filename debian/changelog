@@ -1,0 +1,96 @@
+lsb (1.1.0-11) unstable; urgency=low
+
+  * Note that Debian's run-parts ignores certain lsb cron.* scripts, in
+    violation of the LSB specification.  See #118646.
+    (If necessary, run-parts may be diverted by this package to conform.)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 15 Apr 2002 02:25:51 -0500
+
+lsb (1.1.0-10) unstable; urgency=low
+
+  * Force removal of rc.d links in remove_initd.  (Closes: #139400)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 21 Mar 2002 22:43:01 -0600
+
+lsb (1.1.0-9) unstable; urgency=low
+
+  * Improve error handing in {install,remove}_initd when no argument is
+    specified.
+  * Fix minor syntax error in outputing the facilities file.
+  * Move facilities file handling into the initdutils module.
+  * Changed facilities file format to allow multiple init scripts to
+    provide the same facility w/o crashing.
+  * These changes should solve all the init script handing bugs; thanks to
+    Tobias Burnus <tburnus@physik.fu-berlin.de> for his testing.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 19 Mar 2002 20:40:50 -0600
+
+lsb (1.1.0-8) unstable; urgency=low
+
+  * Fix typo in debian/rules.  (Closes: #138945)
+  * Rewrite the init script handling to improve modularity.
+  * Fix typos in regexes in init script handling.  (Closes: #138946)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 19 Mar 2002 14:47:43 -0600
+
+lsb (1.1.0-7) unstable; urgency=low
+
+  * Fix remove_initd in line with the changes to install_initd.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Mar 2002 19:46:21 -0600
+
+lsb (1.1.0-6) unstable; urgency=medium
+
+  * Fix typos in init functions.  (Closes: #138766)
+  * Move init-functions to /lib/lsb.  (Closes: #138762)
+  * Fix logic errors in start_daemon.  (Closes: #138771)
+  * Fix init script header processing to accomodate minor deviations from
+    the LSB spec.  (Closes: #138789)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Mar 2002 18:27:42 -0600
+
+lsb (1.1.0-5) unstable; urgency=low
+
+  * Include /usr/X11R6/bin to make the LSB test suite happy.  Document
+    LSB's lack of specification of an X server or any clients as required
+    for compliance (hence making it odd that /usr/X11R6/bin would be
+    needed, as it could conceivably be empty).  (Closes: #136713)
+  * Prompt on installation if shadow passwords appear to be disabled, and
+    enable them if requested.  (Closes: #136806)
+  * Fix the spelling of Matt Taggart's name in README.Debian.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri,  8 Mar 2002 23:19:39 -0600
+
+lsb (1.1.0-4) unstable; urgency=low
+
+  * Clean up directories to omit those present in current base-files.
+  * Rearrange README.Debian to put installation discussion near the top.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 24 Feb 2002 23:51:05 -0600
+
+lsb (1.1.0-3) unstable; urgency=low
+
+  * Release candidate.
+  * Include HTML files from Matt Taggart <taggart@debian.org> comparing
+    the LSB spec to Debian.
+  * Clean up dependency list.
+  * Convert to arch-independent package.
+  * Add lsb(8) manpage.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 24 Feb 2002 21:42:26 -0600
+
+lsb (1.1.0-2) unstable; urgency=low
+
+  * Update README.Debian and install_initd to implement a few changes:
+    - uid/gid for bin is documented.
+    - treat RL 2-5 as the same, because nothing else sensible seems
+      available.
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 18 Feb 2002 20:08:23 -0600
+
+lsb (1.1.0-1) unstable; urgency=low
+
+  * Initial Release.  (Closes: #134658)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Feb 2002 14:07:32 -0600
+

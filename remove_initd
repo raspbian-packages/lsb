@@ -1,0 +1,28 @@
+#!/usr/bin/python
+
+import sys, re, os, initdutils
+
+if len(sys.argv) > 1:
+    initfile = sys.argv[1]
+else:
+    print >> sys.stderr, 'Usage: %s /etc/init.d/<init-script>' % sys.argv[0]
+    sys.exit(1)
+
+headers = initdutils.scan_initfile(initfile)
+
+provides = headers.get('Provides')
+if provides:
+    facilities = initdutils.load_facilities()
+
+    for facility in provides:
+        if facilities.has_key(facility):
+            entries = []
+            for entry in facilities[facility]:
+                if entry[0] != initfile:
+                    entries.append(entry)
+            facilities[facility] = entries
+
+    initdutils.save_facilities(facilities)
+
+initfile = initfile.replace('/etc/init.d/', '')
+os.system('/usr/sbin/update-rc.d -f %s remove' % initfile)

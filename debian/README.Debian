@@ -1,0 +1,163 @@
+lsb for Debian
+--------------
+
+This package provides the Linux Standard Base on Debian systems.  The
+LSB is a specification for allowing the same binary package to be used
+on multiple distributions.
+
+The "lsb" package depends on a number of other Debian packages that
+are required for full LSB compliance.  It also includes some
+subroutines that are used by some LSB-compliant applications when they
+are being installed or removed.
+
+INSTALLING LSB PACKAGES
+
+The "alien" package supports LSB packages on Debian.  For example, to
+install an LSB package "lsb-mozilla-1.2-1_i386.rpm", type (as root):
+
+alien -i lsb-mozilla-1.2-1_i386.rpm
+
+Ideally, the package should be converted to a Debian package and then
+installed by dpkg.  If this fails, there may be a problem with either
+the lsb package (most likely) or alien (less likely), and you should
+contact the vendor of the lsb package to resolve the problem.
+
+IMPLEMENTATION ISSUES
+
+This package attempts to implement the core LSB specification.  Much
+of the implementation is drawn on a talk by Wichert Akkerman
+(http://www.liacs.nl/~wichert/talks/LSBDistro/html/) and Matt
+Taggart's discussion of LSB 1.0 and Debian.  Matt's discussion is
+provided in the /usr/share/doc/lsb/html directory.
+
+It does so in a number of ways:
+
+- Depending upon packages that implement OS services required by the
+  LSB, including libraries and programs.
+
+- Including the ld-lsb.so.1 symlink to the dynamic linker.
+
+- Providing the LSB init script functionality.  Some of the LSB init
+  functionality cannot be implemented without cooperation from other
+  packages or changes in policy for woody+1; however, the remainder is
+  provided here.
+
+The intent of this package is to provide a best current practice way
+of installing LSB packages on Debian woody on the ia32 architecture.
+Its presence does not imply that I believe that Debian fully complies
+with the Linux Standard Base, and should not be construed as a
+statement that Debian is LSB-compliant.
+
+The specification is available at http://www.linuxbase.org/spec/
+
+DEVIATIONS FROM LSB 1.1
+
+The package and its dependencies implement all of LSB on Debian, with
+these exceptions:
+
+- LSB 1.1 assumes a 2.4 kernel.  Debian ships a 2.2 kernel by default
+  as of woody, although 2.4 is optional.  There is no way in the
+  Debian system to ensure a package is only installed on a specific
+  kernel release.  Running LSB applications on 2.2 kernels may result
+  in subtle bugs or failures, particularly if they depend on large
+  file support or new syscall interfaces introduced in Linux 2.3+.
+
+  (We do not consider this a bug in the package.)
+
+- LSB 1.1 specifies definitions for run levels 2-5 that correspond
+  with most Red Hat-like distributions.  Debian does not specify run
+  levels 3-5, and RL 2 can theoretically encompass any of LSB 2-5.
+
+  (LSB probably should implement init dependencies for facilities
+  expected in run levels, rather than using run levels directly.)
+
+  As LSB's "run levels" are virtual run levels that can be remapped by
+  distribuitions (per discussion on the LSB lists), we treat runlevels
+  as follows:
+
+  LSB <-> Debian
+   0        0
+   1        1
+   2        2,3,4,5
+   3        2,3,4,5
+   4        2,3,4,5
+   5        2,3,4,5
+   6        6
+
+- LSB 1.1 doesn't fully specify what the init_functions should do.  I
+  have chosen to implement them in a way that is consistent with
+  Debian current practice, using the start-stop-daemon utility and the
+  echo command.  For woody+1, I expect a nicer init logging facility
+  that could be used.
+
+- LSB specifies no way for a binary to request that a pid file be
+  created for it, and the spec is ambiguous about whether start_daemon
+  should create the pid file, therefore I assume the binary will
+  produce its own /var/run/basename.pid file.
+
+- LSB 1.1 specifies that the bin user and group should have uid 1 and
+  gid 1 respectively.  Debian uses uid 2, gid 2.  This could only
+  break applications that use numeric uid/gids, which is bad hoodoo
+  anyway, but it deviates from the spec.
+
+  We believe this requirement will be removed in a subsequent revision
+  of the LSB specification.
+
+- Debian only implements certain features of adduser if shadow
+  passwords are enabled.  The lsb package, as of 1.1.0-5, will prompt
+  the user to enable shadow passwords if they appear to be disabled;
+  however, it does not force this choice on the administrator.
+  Administrators who disable shadow passwords may find that some LSB
+  applications fail to operate correctly as a result.
+
+  (We do not consider this a bug in the package.)
+
+- The LSB specifies that several X libraries must be available on the
+  system, but does not specify the presence of either an X server or
+  any X clients.  However, many LSB packages may expect these things
+  to be present, despite their absence from the spec.
+
+  (This may be a deficiency in the spec.  However, we comply as-written.)
+
+- The LSB specifies that cron scripts can be placed in cron.daily and
+  other directories; however, Debian's run-parts appears to ignore
+  these scripts if they contain a dot in their names.  (See #118646)
+  Once this deficiency is fixed, a versioned dependency will be added
+  to this package.
+
+  (This appears to be a deficiency in debianutils.)
+
+There may be other deviations from the spec; they are bugs in this
+package and should be reported as such using Debian's bug tracking
+system: see reportbug(1) or your favorite bug reporting tool.  (The
+aforementioned deviations are generally bugs in the package that
+cannot be easily fixed, or are bugs in the specification itself that
+we hope to resolve in the near future.)
+
+For more discussion of these deviations, see:
+
+http://lists.debian.org/lsb-spec/2001/lsb-spec-200107/msg00002.html
+  (a discussion of deficiencies in LSB 1.0, most of which remain.)
+
+DESIGN DECISIONS
+
+- I implemented the LSB init dependencies based on Debian policy's
+  update-rc.d support.  A registry of package-provided facilities and
+  their start and stop priorities is retained in
+  /var/lib/lsb/facilities.  Priorities are assigned to the system
+  facilities as found on my unstable boxen as of today; perhaps system
+  facilities should be registered by the appropriate packages, and not
+  managed by the lsb package, but that is a woody+1 policy decision.
+
+- The facility handling scripts are written in Python.  I am not
+  particularly attached to them being written in Python, but at the
+  same time I do not forsee rewriting them in $language_of_choice.
+
+COMPLIANCE TESTING
+
+I have been unable to locate any LSB package that tests the init
+script functionality of the spec.  I am therefore unable to say
+whether this package actually works as advertised.  I would appreciate
+any reports of its success or failure.
+
+ -- Chris Lawrence <lawrencc@debian.org>, Sun, 17 Feb 2002 14:07:32 -0600

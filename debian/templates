@@ -1,0 +1,17 @@
+Template: lsb/shadowconfig
+Type: boolean
+Default: true
+Description: Should shadow passwords be enabled?
+ The Linux Standard Base requires that certain features of adduser(8)
+ be available to conforming applications (such as password aging).
+ Debian only provides these features when shadow passwords are
+ enabled; however, your system currently has shadow passwords
+ disabled.
+ .
+ Generally speaking, it is considered good practice to enable shadow
+ passwords.  However, there are some situations in which shadow
+ passwords may not work properly (most notably, if non-root users need
+ to authenticate passwords against /etc/passwd).
+ .
+ If you answer in the affirmative, the command 'shadowconfig on' will
+ be run to enable shadow passwords.

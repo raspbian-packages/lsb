@@ -1,0 +1,193 @@
+This file provides a mapping from the LSB 1.0 spec to the corresponding packages
+in the Debian "unstable" release.
+
+Last Updated: July 16th, 2001
+
+Chapter 10
+----------
+Library		Package
+-------		-------
+libc		libc6,locales
+libm		libc6
+libpthread	libc6
+libdl		libc6
+libcrypt	libc6
+librt		libc6
+
+
+Chapter 11
+----------
+Library		Package
+-------		-------
+libz		zlib1g
+libncurses	libncurses5,ncurses-base,ncurses-bin,ncurses-term
+libutil		libc6
+
+
+Chapter 12
+----------
+Library		Package
+-------		-------
+libX11		xlibs
+libXext		xlibs
+libsm		xlibs
+libice		xlibs
+libXt		xlibs
+libGL		xlibmesa3
+
+
+Chapter 13
+----------
+Command		Package
+-------		-------
+rpm		alien
+
+
+Chapter 14
+----------
+Command		Package
+-------		-------
+ar		binutils
+at		at
+awk		mawk
+basename	shellutils
+batch		at
+bc		bc
+cat		textutils
+chfn		passwd
+chgrp		fileutils
+chmod		fileutils
+chown		fileutils
+chsh		passwd
+cksum		textutils
+cmp		diff
+col		bsdmainutils
+comm		textutils
+cp		fileutils
+cpio		cpio
+crontab		cron
+csplit		textutils
+cut		textutils
+date		shellutils
+dd		fileutils
+df		fileutils
+diff		diff
+dirname		shellutils
+du		fileutils
+echo		shellutils
+egrep		grep
+env		shellutils
+expand		textutils
+expr		shellutils
+false		shellutils
+fgrep		grep
+file		file
+find		findutils
+fold		textutils
+fuser		psmisc
+gencat		libc6-dev
+getconf		libc6-dev
+grep		grep
+groupadd	passwd
+groupdel	passwd
+groupmod	passwd
+groups		shellutils
+gunzip		gzip
+gzip		gzip
+head		textutils
+hostname	hostname
+iconv		libc6
+id		shellutils
+install		fileutils
+ipcrm		util-linux
+ipcs		util-linux
+join		textutils
+kill		procps
+killall		psmisc
+ln		fileutils
+locale		libc6,locales
+localedef	libc6,locales
+logname		shellutils
+lpr		lpr
+ls		fileutils
+lsb_release	lsb-release
+m4		m4
+make		make
+man		man-db
+md5sum		dpkg
+mkdir		fileutils
+mkfifo		fileutils
+mknod		fileutils
+mktemp		debianutils
+more		util-linux
+mount		mount
+mv		fileutils
+newgrp		login
+nice		shellutils
+nl		textutils
+nohup		shellutils
+od		textutils
+passwd		passwd
+paste		textutils
+patch		patch
+pathchk		shellutils
+pidof		sysvinit
+pr		textutils
+printf		shellutils
+ps		procps
+pwd		shellutils
+renice		bsdutils
+rm		fileutils
+rmdir		fileutils
+rsync		rsync
+sed		sed
+sendmail	exim
+sh		bash
+sleep		shellutils
+sort		textutils
+split		textutils
+strip		binutils
+stty		shellutils
+su		login
+sum		textutils
+sync		fileutils
+tail		textutils
+tar		tar
+tee		shellutils
+test		shellutils
+time		bash
+touch		fileutils
+tr		textutils
+true		shellutils
+tsort		textutils
+tty		shellutils
+umount		mount
+uname		shellutils
+unexpand	textutils
+uniq		textutils
+useradd		passwd
+userdel		passwd
+usermod		passwd
+wc		textutils
+xargs		findutils
+
+
+Chapter 15 - Shell
+------------------
+posix		bash
+
+
+Chapter 16 - users & groups
+---------------------------
+		base-passwd
+
+
+Chapter 17 - FHS		
+----------------
+		base-files
+
+
+Chapter 18
+----------
+cron		cron
+init		sysvinit

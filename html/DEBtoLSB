@@ -1,0 +1,63 @@
+This file provides a mapping from Debian packages needed by the LSB 1.0 spec
+to the requirements of the spec that they fulfill. Section of the spec is
+"Chapter 14 - Commands" unless otherwise noted.
+
+Last Updated: August 2, 2001
+
+Debian Package  Parts of LSB 1.0
+--------------  ----------------
+lsb-release	lsb_release
+alien		lsb package format (Ch. 13)
+at		at,batch
+base-files	FHS (Ch. 17)
+base-passwd	defined users and groups (Ch. 16)
+bash		sh,time, a posix shell for /bin/sh (Ch. 15)
+bc		bc
+binutils	ar,strip
+bsdmainutils	col
+bsdutils	renice
+cpio		cpio
+cron		crontab,cron (Ch. 18)
+debianutils	mktemp
+diff		cmp,diff
+dpkg		md5sum
+exim		sendmail
+file		file
+fileutils	chgrp,chmod,chown,cp,dd,df,du,install,ln,ls,mkdir,mv,rm,
+		rmdir,sync,touch,find,xargs
+grep		egrep,fgrep,grep
+gzip		gunzip,gzip
+hostname	hostname
+libc6		libc,libm,libpthread,libdl,libcrypt,librt(Ch. 10)
+		libutil (Ch. 11)
+		iconv,locale,localedef
+libc6-dev	gencat,getconf
+libncurses5	libncurses (Ch. 11)
+locales		libc,locale,localedef
+login		newgrp,su
+lpr		lpr
+m4		m4
+make		make
+man-db		man
+mawk		awk
+mount		mount,umount
+ncurses-base	libncurses (Ch. 11)
+ncurses-bin	libncurses (Ch. 11)
+ncurses-term	libncurses (Ch. 11)
+passwd		chfn,chsh,groupadd,groupdel,groupmod,passwd,useradd,userdel,
+		usermod
+patch		patch
+procps		kill,ps
+psmisc		fuser,killall
+rsync		rsync
+sed		sed
+shellutils	basename,date,dirname,echo,env,expr,false,groups,id,logname,
+		nice,nohup,pathchk,printf,pwd,sleep,stty,tee,test,true,tty,uname
+sysvinit	init (Ch. 18), pidof
+tar		tar
+textutils	cat,cksum,comm,csplit,cut,expand,fold,head,join,nl,od,paste,pr,
+		sort,split,sum,tail,tr,tsort,unexpand,uniq,wc
+util-linux	ipcrm,ipcs,more
+xlibmesa3	libGL (Ch. 12)
+xlibs		libX11,libXext,libSM,libICE,libXt (Ch. 12)
+zlib1g		libz (Ch. 11)

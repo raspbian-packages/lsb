@@ -1,0 +1,10 @@
+Document: lsb
+Title: LSB as it Relates to Debian 
+Author: Matt Taggart <taggart@debian.org>
+Abstract: This document compares the general Linux Standards Base written
+ specification to Debian.
+Section: misc
+
+Format: HTML
+Index: /usr/share/doc/lsb/html/index.html
+Files: /usr/share/doc/lsb/html/*

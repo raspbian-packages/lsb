@@ -1,0 +1,81 @@
+# /lib/lsb/init-functions for Debian -*- shell-script -*-
+#
+#Copyright (c) 2002 Chris Lawrence
+#All rights reserved.
+#
+#Redistribution and use in source and binary forms, with or without
+#modification, are permitted provided that the following conditions
+#are met:
+#1. Redistributions of source code must retain the above copyright
+#   notice, this list of conditions and the following disclaimer.
+#2. Redistributions in binary form must reproduce the above copyright
+#   notice, this list of conditions and the following disclaimer in the
+#   documentation and/or other materials provided with the distribution.
+#3. Neither the name of the author nor the names of other contributors
+#   may be used to endorse or promote products derived from this software
+#   without specific prior written permission.
+#
+#THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+#ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+#ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+#OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+#HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+#LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+#OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+#SUCH DAMAGE.
+
+start_daemon () {
+    local force nice
+    set -- `POSIXLY_CORRECT=1 getopt "fn:" $*`
+    force=0
+    nice=0
+
+    for i in $*; do
+        case $i in
+            -f)  force=1; shift;;
+            -n)  nice=$2; shift 2;;
+            --)  shift; break;;
+        esac
+    done
+
+    exec=$1; shift
+
+    if [ $force = 1 ]; then
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- $*
+    else
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- $*
+    fi
+}
+
+# The definition of "return" in the LSB documentation is ambiguous.
+pidofproc () {
+    if [ -e /var/run/$1.pid ]; then
+        cat /var/run/$1.pid
+    else
+        echo
+    fi
+    return 0
+}
+
+# start-stop-daemon uses the same algorithm as "pidofproc" above.
+killproc () {
+    if [ $2 ]; then
+        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --signal $2 --quiet --oknodo
+    else
+        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --retry 5 --quiet --oknodo
+    fi
+}
+
+# Something fancier might be nice.  But it meets the spec.
+log_success_msg () {
+    echo "Success: $1"
+}
+log_failure_msg () {
+    echo "Failure: $1"
+}
+log_warning_msg () {
+    echo "Warning: $1"
+}

@@ -1,0 +1,91 @@
+#!/usr/bin/python
+
+import sys, re, os, initdutils
+
+if len(sys.argv) > 1:
+    initfile = sys.argv[1]
+else:
+    print >> sys.stderr, 'Usage: %s /etc/init.d/<init-script>' % sys.argv[0]
+    sys.exit(1)
+
+# Default priorities
+startpri = stoppri = 20
+defstart = [2, 3, 4, 5]
+defstop = [0, 1, 6]
+
+# Priorities of these facilities in Debian
+os_facilities = {
+    "$local_fs" : {'lsb' : (0, 100)},
+    "$network" : {'lsb' : (10, 50)},
+    "$remote_fs" : {'lsb ': (19, 20)},
+    "$named" : {'lsb': (19, 19)},
+    "$syslog" : {'lsb' : (10, 89)},
+    "$netdaemons" : {'lsb': (80, 19)},
+    }
+
+facilities = initdutils.load_facilities()
+facilities.update(os_facilities)
+
+headers = initdutils.scan_initfile(initfile)
+
+reqstart = headers.get('Required-Start', [])
+if reqstart:
+    startpri = 5
+    for facility in reqstart:
+        if not facilities.has_key(facility):
+            print >> sys.stderr, 'Missing expected start facility', facility
+        else:
+            for script, pri in facilities[facility].items():
+                if script != initfile:
+                    start, stop = pri
+                    startpri = max(startpri, start+1)
+    startpri = min(max(startpri, 1), 99)
+
+reqstop = headers.get('Required-Stop', [])
+if reqstop:
+    stoppri = 95
+    for facility in reqstop:
+        if not facilities.has_key(facility):
+            print >> sys.stderr, 'Missing expected stop facility', facility
+        else:
+            for script, pri in facilities[facility].items():
+                if script != initfile:
+                    start, stop = pri
+                    stoppri = min(stoppri, stop-1)
+    stoppri = min(max(stoppri, 1), 99)
+
+provides = headers.get('Provides', [])
+if provides:
+    for facility in provides:
+        if facility[0] == '$':
+            print >> sys.stderr, 'Ignoring system-provided facility', facility
+            continue
+        if not facilities.has_key(facility):
+            facilities[facility] = {}
+
+        facilities[facility][initfile] = (startpri, stoppri)
+    initdutils.save_facilities(facilities)
+
+defstart = headers.get('Default-Start', defstart)
+defstop = headers.get('Default-Stop', defstop)
+
+# A set type would be nice... [range(2,6) = 2..5]
+for level in range(2,6):
+    if level in defstart:
+        for i in range(2,6):
+            if i not in defstart:
+                defstart.append(i)
+    if level in defstop:
+        for i in range(2,6):
+            if i not in defstop:
+                defstop.append(i)
+
+defstart.sort()
+defstop.sort()
+
+start_runlevels = " ".join(map(str, defstart))
+stop_runlevels = " ".join(map(str, defstop))
+
+initfile = initfile.replace('/etc/init.d/', '')
+
+os.system("/usr/sbin/update-rc.d %(initfile)s start %(startpri)d %(start_runlevels)s . stop %(stoppri)d %(stop_runlevels)s ." % locals())

@@ -1,3 +1,10 @@
+lsb (2.0-7) unstable; urgency=high
+
+  * Fix Replaces line to use the correct version in lsb-base.
+    (Closes: #301694, RC; Closes: #301747)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 27 Mar 2005 21:42:24 -0600
+
 lsb (2.0-6) unstable; urgency=low
 
   * Create lsb package in binary-indep step.  (Closes: #297788)

@@ -56,11 +56,10 @@ def save_facilities(facilities):
             pass
         return
     
-    items = facilities.items()
     fh = open(FACILITIES, 'w')
-    for facility, entries in items:
+    for facility, entries in facilities.items():
         if facility[0] == '$': continue
-        for scriptname, pri in entries.items():
+        for (scriptname, pri) in entries.items():
             start, stop = pri
             print >> fh, "%(scriptname)s %(facility)s %(start)d %(stop)d" % locals()
     fh.close()
@@ -71,7 +70,8 @@ def load_facilities():
         for line in open(FACILITIES).xreadlines():
             try:
                 scriptname, name, start, stop = line.strip().split()
-                facilities.get(name, {})[scriptname] = (int(start), int(stop))
+                facilities.setdefault(name, {})[scriptname] = (int(start),
+                                                               int(stop))
             except ValueError, x:
                 print >> sys.stderr, 'Invalid facility line', line
 

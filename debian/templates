@@ -8,6 +8,9 @@ Description: Should shadow passwords be enabled?
  enabled; however, your system currently has shadow passwords
  disabled.
  .
+ Most LSB applications will work fine with either setting, but 100%
+ conformance requires shadow passwords to be enabled.
+ .
  Generally speaking, it is considered good practice to enable shadow
  passwords.  However, there are some situations in which shadow
  passwords may not work properly (most notably, if non-root users need

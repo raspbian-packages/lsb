@@ -1,3 +1,26 @@
+lsb (1.2-5.woody.1) stable; urgency=high
+
+  * Support LSB 1.2 in woody.  Includes all changes through 1.2-6 in sid.
+  * Fix call to shadowconfig in postinst.  (Closed: #166041)
+  * Add text to the debconf template that lets the user know that shadow
+    passwords are not needed by most LSB applications.
+  * Remove duplicate --retry 5 from start-stop-daemon call.  (Closed: #165395)
+  * Fix bugs in the init script registry code.  (Closed: #165038)
+  * Support more specifications for the signal in "killproc".
+    (Closed: #163109)
+  * Return non-zero exit status if "pidofproc" can't find the process.
+    (Closed: #157314)
+  * Fix silly typos in install_initd.  (Closed: #152544)
+  * Fix duplicated --retry 5.  (Closed: #152552)
+  * Added support for facilities introduced in gLSB 1.2.  (Closed: #148568)
+    - $time: start >= S24, stop <= K21
+    - $portmap: start >= S19, stop <= K34
+  * Removed support for the $netdaemons facility, which vanished from the
+    specification.  Hopefully nobody is using it...
+  * Call pidof if it's available and /var/run/$1.pid doesn't exist.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue,  2 Jul 2002 19:48:35 -0500
+
 lsb (1.1.0-11) unstable; urgency=low
 
   * Note that Debian's run-parts ignores certain lsb cron.* scripts, in

@@ -9,13 +9,14 @@ Package: lsb
 Architecture: all
 Depends: lsb-release, libgl1, xlibs, libz1, exim | mail-transport-agent, at, bc, binutils, bsdmainutils, cpio, cron, file, libc6-dev | libc-dev, locales, lpr, m4, make, man-db, mawk | awk, ncurses-term, passwd, patch, procps, psmisc, rsync, alien (>= 8.00), python (>> 2.1), ${misc:Depends}
 Conflicts: python (>> 2.3)
-Description: Linux Standard Base 1.1 core support package
+Description: Linux Standard Base 1.2 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications can depend upon.
  .
- This package provides an implementation of version 1.1.0 of the Linux
- Standard Base for Debian on the Intel x86 architecture with the Linux
- kernel.  Future revisions may support the LSB on additional
+ This package provides an implementation of version 1.2 of the Linux
+ Standard Base for Debian on the Intel x86 and PowerPC 32-bit
+ architectures with the Linux kernel.  Future revisions of the
+ specification and this package may support the LSB on additional
  architectures and kernels.
  .
  The intent of this package is to provide a best current practice way

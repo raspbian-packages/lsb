@@ -20,7 +20,11 @@ os_facilities = {
     "$remote_fs" : {'lsb ': (19, 20)},
     "$named" : {'lsb': (19, 19)},
     "$syslog" : {'lsb' : (10, 89)},
-    "$netdaemons" : {'lsb': (80, 19)},
+    # No longer present in gLSB 1.2; dropping
+    #"$netdaemons" : {'lsb': (80, 19)},
+    # gLSB 1.2
+    "$portmap" : {'lsb' : (19, 34)},
+    "$time" : {'lsb' : (24, 21)},
     }
 
 facilities = initdutils.load_facilities()

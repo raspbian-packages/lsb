@@ -43,19 +43,20 @@ It does so in a number of ways:
   provided here.
 
 The intent of this package is to provide a best current practice way
-of installing LSB packages on Debian woody on the ia32 architecture.
-Its presence does not imply that I believe that Debian fully complies
-with the Linux Standard Base, and should not be construed as a
-statement that Debian is LSB-compliant.
+of installing LSB packages on Debian using the Intel and PowerPC
+32-bit architectures with the Linux kernel ("ia32" and "ppc32").  Its
+presence does not imply that I or the Debian project believe that
+Debian fully complies with the Linux Standard Base, and should not be
+construed as a statement that Debian is LSB-compliant.
 
 The specification is available at http://www.linuxbase.org/spec/
 
-DEVIATIONS FROM LSB 1.1
+DEVIATIONS FROM LSB 1.2
 
 The package and its dependencies implement all of LSB on Debian, with
 these exceptions:
 
-- LSB 1.1 assumes a 2.4 kernel.  Debian ships a 2.2 kernel by default
+- LSB 1.2 assumes a 2.4 kernel.  Debian ships a 2.2 kernel by default
   as of woody, although 2.4 is optional.  There is no way in the
   Debian system to ensure a package is only installed on a specific
   kernel release.  Running LSB applications on 2.2 kernels may result
@@ -64,27 +65,7 @@ these exceptions:
 
   (We do not consider this a bug in the package.)
 
-- LSB 1.1 specifies definitions for run levels 2-5 that correspond
-  with most Red Hat-like distributions.  Debian does not specify run
-  levels 3-5, and RL 2 can theoretically encompass any of LSB 2-5.
-
-  (LSB probably should implement init dependencies for facilities
-  expected in run levels, rather than using run levels directly.)
-
-  As LSB's "run levels" are virtual run levels that can be remapped by
-  distribuitions (per discussion on the LSB lists), we treat runlevels
-  as follows:
-
-  LSB <-> Debian
-   0        0
-   1        1
-   2        2,3,4,5
-   3        2,3,4,5
-   4        2,3,4,5
-   5        2,3,4,5
-   6        6
-
-- LSB 1.1 doesn't fully specify what the init_functions should do.  I
+- LSB 1.2 doesn't fully specify what the init_functions should do.  I
   have chosen to implement them in a way that is consistent with
   Debian current practice, using the start-stop-daemon utility and the
   echo command.  For woody+1, I expect a nicer init logging facility
@@ -95,20 +76,12 @@ these exceptions:
   should create the pid file, therefore I assume the binary will
   produce its own /var/run/basename.pid file.
 
-- LSB 1.1 specifies that the bin user and group should have uid 1 and
-  gid 1 respectively.  Debian uses uid 2, gid 2.  This could only
-  break applications that use numeric uid/gids, which is bad hoodoo
-  anyway, but it deviates from the spec.
-
-  We believe this requirement will be removed in a subsequent revision
-  of the LSB specification.
-
 - Debian only implements certain features of adduser if shadow
-  passwords are enabled.  The lsb package, as of 1.1.0-5, will prompt
-  the user to enable shadow passwords if they appear to be disabled;
-  however, it does not force this choice on the administrator.
-  Administrators who disable shadow passwords may find that some LSB
-  applications fail to operate correctly as a result.
+  passwords are enabled.  The lsb package will prompt the user to
+  enable shadow passwords if they appear to be disabled; however, it
+  does not force this choice on the administrator.  Administrators who
+  disable shadow passwords may find that some LSB applications fail to
+  operate correctly as a result.
 
   (We do not consider this a bug in the package.)
 
@@ -127,6 +100,10 @@ these exceptions:
 
   (This appears to be a deficiency in debianutils.)
 
+- The results of running the LSB test suite against Debian with the
+  LSB package and its dependencies installed are available at
+  http://people.debian.org/~joeyh/lsbtest/current/, courtesy of Joey Hess.
+
 There may be other deviations from the spec; they are bugs in this
 package and should be reported as such using Debian's bug tracking
 system: see reportbug(1) or your favorite bug reporting tool.  (The
@@ -137,7 +114,7 @@ we hope to resolve in the near future.)
 For more discussion of these deviations, see:
 
 http://lists.debian.org/lsb-spec/2001/lsb-spec-200107/msg00002.html
-  (a discussion of deficiencies in LSB 1.0, most of which remain.)
+  (a discussion of deficiencies in LSB 1.0, mostly resolved)
 
 DESIGN DECISIONS
 
@@ -145,7 +122,7 @@ DESIGN DECISIONS
   update-rc.d support.  A registry of package-provided facilities and
   their start and stop priorities is retained in
   /var/lib/lsb/facilities.  Priorities are assigned to the system
-  facilities as found on my unstable boxen as of today; perhaps system
+  facilities as found on my sid systems as of today; perhaps system
   facilities should be registered by the appropriate packages, and not
   managed by the lsb package, but that is a woody+1 policy decision.
 

@@ -54,6 +54,8 @@ start_daemon () {
 pidofproc () {
     if [ -e /var/run/$1.pid ]; then
         cat /var/run/$1.pid
+    elif [ -x /bin/pidof ]; then
+        /bin/pidof -s $1
     else
         echo
     fi
@@ -63,9 +65,11 @@ pidofproc () {
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
     if [ $2 ]; then
-        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --signal $2 --quiet --oknodo
+        sig=$(echo $2 | sed -e 's/^-\(.*\)/\1/')
+        sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
+        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --signal $sig --quiet --oknodo
     else
-        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --retry 5 --quiet --oknodo
+        /sbin/start-stop-daemon --stop --pidfile /var/run/$1.pid --retry 5 --quiet --oknodo
     fi
 }
 

@@ -16,10 +16,10 @@ if provides:
 
     for facility in provides:
         if facilities.has_key(facility):
-            entries = []
-            for entry in facilities[facility]:
+            entries = {}
+            for entry in facilities[facility].items():
                 if entry[0] != initfile:
-                    entries.append(entry)
+                    entries[entry[0]] = entry[1]
             facilities[facility] = entries
 
     initdutils.save_facilities(facilities)

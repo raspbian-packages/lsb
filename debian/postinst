@@ -1,11 +1,14 @@
 #!/bin/sh -e
 
+PATH=/sbin:/usr/sbin:$PATH
+export PATH
+
 . /usr/share/debconf/confmodule
 
 if [ ! -e /etc/shadow ]; then
     db_get lsb/shadowconfig
     if [ "$RET" = "true" ]; then
-        /usr/sbin/shadowconfig on >&2 || true
+        shadowconfig on >&2 || true
     fi
 fi
 

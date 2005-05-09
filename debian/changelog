@@ -1,3 +1,11 @@
+lsb (3.0-1) unstable; urgency=low
+
+  * lsb-cxx now depends on libstdc++6 as well as libstdc++5, necessitated
+    by LSB 3.0.
+  * Don't create /lib64 on AMD64.  (Closes: #308220)
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Sun,  8 May 2005 19:11:45 -0500
+
 lsb (2.0-7) unstable; urgency=high
 
   * Fix Replaces line to use the correct version in lsb-base.

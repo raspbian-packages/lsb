@@ -51,7 +51,7 @@ Description: Linux Standard Base 2.0 graphics support package
 
 Package: lsb-cxx
 Architecture: any
-Depends: lsb-core, libstdc++5, ${misc:Depends}
+Depends: lsb-core, libstdc++5, libstdc++6, ${misc:Depends}
 Provides: lsb-cxx-noarch, ${provides}
 Description: Linux Standard Base 2.0 C++ support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

@@ -112,7 +112,7 @@ binary-arch: build install
 	dh_installinfo -a
 #	dh_undocumented
 	dh_installchangelogs -a
-	@[ ${DEB_BUILD_ARCH} = 'amd64' ] && mkdir -p debian/lsb-core/lib64 && echo >> debian/lsb-core.substvars "depends=ia32-libs" || true
+	@[ ${DEB_BUILD_ARCH} = 'amd64' ] && echo >> debian/lsb-core.substvars "depends=ia32-libs" || true
 	dh_link -a
 	dh_strip -a
 	dh_compress -a

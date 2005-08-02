@@ -1,6 +1,7 @@
 # Support for scanning init scripts for LSB info
 
 import re, sys, os, cStringIO
+import cPickle
 
 try:
     assert True
@@ -50,6 +51,7 @@ class RFC822Parser(dict):
 LSBLIB = '/var/lib/lsb'
 FACILITIES = os.path.join(LSBLIB, 'facilities')
 DEPENDS = os.path.join(LSBLIB, 'depends')
+LSBINSTALL = os.path.join(LSBLIB, 'lsbinstall')
 
 beginre = re.compile(re.escape('### BEGIN INIT INFO'))
 endre = re.compile(re.escape('### END INIT INFO'))
@@ -142,6 +144,33 @@ def save_depends(depends):
     fh = file(DEPENDS, 'w')
     for initfile, facilities in depends.iteritems():
         print >> fh, '%s: %s' % (initfile, ' '.join(facilities))
+    fh.close()
+
+# filemap entries are mappings, { (package, filename) : instloc }
+def load_lsbinstall_info():
+    if not os.path.exists(LSBINSTALL):
+        return {}
+    
+    fh = open(LSBINSTALL, 'rb')
+    filemap = cPickle.load(fh)
+    fh.close()
+
+    # Just in case it's corrupted somehow
+    if not isinstance(filemap, dict):
+        return {}
+
+    return filemap
+
+def save_lsbinstall_info(filemap):
+    if not filemap:
+        try:
+            os.unlink(LSBINSTALL)
+        except OSError:
+            pass
+        return
+    
+    fh = open(LSBINSTALL, 'wb')
+    cPickle.dump(fh, filemap)
     fh.close()
 
 if __name__ == '__main__':

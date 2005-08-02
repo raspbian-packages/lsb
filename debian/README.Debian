@@ -79,7 +79,7 @@ construed as a statement that Debian is LSB-compliant.
 
 The specification is available at http://www.linuxbase.org/spec/
 
-DEVIATIONS FROM LSB 2.0
+DEVIATIONS FROM LSB
 
 The package and its dependencies implement all of LSB on Debian, with
 these exceptions:
@@ -131,9 +131,15 @@ these exceptions:
   (This is a known deficiency in debianutils, and is required for
   backwards compatibility with expected behavior on earlier systems.)
 
-- The results of running the LSB test suite against Debian with the
-  LSB package and its dependencies installed are available at
-  http://people.debian.org/~joeyh/lsbtest/current/, courtesy of Joey Hess.
+- /etc/profile.d scripts aren't executed on shell startup by default
+  on Debian systems (see Debian Policy section 9.9 for an explanation).
+  LSB 3.0 is ambiguous on this requirement; /bin/sh is *not* required
+  to execute these scripts, according to its description, but the
+  lsbinstall documentation says that it is.
+
+  Debian policy forbids the use of /etc/profile.d by Debian packages,
+  so it is unlikely this will change (as it might be seen as
+  encouragement for Debian developers to do use it.)
 
 There may be other deviations from the spec; they are bugs in this
 package and should be reported as such using Debian's bug tracking
@@ -164,25 +170,13 @@ DESIGN DECISIONS
   are upgrading from the 1.2 series, you will need to manually reinstall
   all of your LSB packages.)
 
+- As of 3.0-2, a third registry of files installed by lsbinstall is
+  retained in /var/lib/lsb/lsbinstall.  Unlike the other two registries,
+  it is not designed to be human-readable.
+
 - The facility handling scripts are written in Python.  I am not
   particularly attached to them being written in Python, but at the
   same time I do not forsee rewriting them in $language_of_choice.
-
-BACKPORTING TO DEBIAN 3.0 (WOODY)
-
-The scripts install_initd and remove_initd are written in Python and
-require Python 2.2 or later to operate correctly.  Woody (Debian 3.0)
-included the python2.2 package, but the default version of Python in
-woody was Python 2.1.  To backport to woody:
-
-- Change the python dependency to depend on python2.2 rather than python
-- Change the #! lines of install_initd and remove_initd to point to
-  /usr/bin/python2.2
-
-For proper LSB conformance in woody, you will also need to backport
-other Debian packages, including alien.
-
-The default version of Python in Debian 3.1 (sarge) is Python 2.3.5.
 
 COMPLIANCE TESTING
 
@@ -194,6 +188,6 @@ any reports of its success or failure.
 An example init script that tests some of these features is provided
 as /usr/share/doc/lsb/examples/init-skeleton.
 
- -- Chris Lawrence <lawrencc@debian.org>, Fri Mar  4 17:41:50 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Mon Jul 11 18:55:39 2005
 
  LocalWords:  LSB

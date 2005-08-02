@@ -73,7 +73,7 @@ pidofproc () {
     if [ -f "$pidfile" ]; then
         read -d "" line < "$pidfile"
         for i in $line; do
-            if [ -z "$(echo $p | sed 's/[0-9]//g')" -a -d "/proc/$i" ]; then 
+            if [ -z "$(echo $i | sed 's/[0-9]//g')" -a -d "/proc/$i" ]; then 
                 pids="$i $pids"
             fi
         done
@@ -122,29 +122,35 @@ killproc () {
     fi
 }
 
+TPUT=/usr/bin/tput
+EXPR=/usr/bin/expr
+if [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
+    FANCYTTY=1
+else
+    FANCYTTY=0
+fi
+
 log_success_msg () {
-    echo " * $@"
+    echo "$@"
 }
 
 log_failure_msg () {
-    TPUT=/usr/bin/tput
-    if [ -x $TPUT ] && $TPUT hpa 60 >/dev/null 2>&1; then
+    if $FANCYTTY; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
-        echo " $RED*$NORMAL $@"
+        echo "$RED*$NORMAL $@"
     else
-        echo " * $@"
+        echo "$@"
     fi
 }
 
 log_warning_msg () {
-    TPUT=/usr/bin/tput
-    if [ -x $TPUT ] && $TPUT hpa 60 >/dev/null 2>&1; then
+    if $FANCYTTY; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
-        echo " $YELLOW*$NORMAL $@"
+        echo "$YELLOW*$NORMAL $@"
     else
-        echo " * $@"
+        echo "$@"
     fi
 }
 
@@ -163,11 +169,34 @@ get_lsb_header_val () {
 
 # int log_begin_message (char *message)
 log_begin_msg () {
-        if [ -z "$1" ]; then
-                return 1
-        fi
-        echo " * $@"
+    if [ -z "$1" ]; then
+        return 1
+    fi
+    echo -n "$@"
 }
+
+
+# #319739
+#
+# Per policy docs:
+#
+#     log_begin_msg "Starting remote file system services:"
+#     log_progress_msg "nfsd"; start-stop-daemon --start --quiet nfsd
+#     log_progress_msg "mountd"; start-stop-daemon --start --quiet mountd
+#     log_progress_msg "ugidd"; start-stop-daemon --start --quiet ugidd
+#     log_end_msg 0
+#
+# You could also do something fancy with log_end_msg here based on the
+# return values of start-stop-daemon; this is left as an exercise for
+# the reader...
+
+log_progress_msg () {
+    if [ -z "$1" ]; then
+        return 1
+    fi
+    /bin/echo -n " $@"
+}
+
 
 # int log_end_message (int exitstatus)
 log_end_msg () {
@@ -177,30 +206,19 @@ log_end_msg () {
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted
-    TPUT=/usr/bin/tput
-    EXPR=/usr/bin/expr
-    if [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
-        COLS=`$TPUT cols`
-        if [ -n "$COLS" ]; then
-            COL=`$EXPR $COLS - 7`
-        else
-            COL=73
-        fi
-        UP=`$TPUT cuu1`
-        END=`$TPUT hpa $COL`
-        START=`$TPUT hpa 0`
+    if $FANCYTTY; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
         if [ $1 -eq 0 ]; then
-            echo "$UP$END[ ok ]"
+            echo "."
         else
-            echo -e "$UP$START $RED*$NORMAL$END[${RED}fail${NORMAL}]"
+            /bin/echo -e " ${RED}failed!${NORMAL}"
         fi
     else
 	if [ $1 -eq 0 ]; then
-            echo "   ...done."
+            echo "."
         else
-            echo "   ...fail!"
+            echo " failed!"
         fi
     fi
     return $1

@@ -30,7 +30,7 @@ msgstr "Sollen Schatten-Passworte [/etc/shadow] benutzt werden?"
 #. Description
 #: ../templates:4
 msgid "The Linux Standard Base requires that certain features of adduser(8) be available to conforming applications (such as password aging). Debian only provides these features when shadow passwords are enabled; however, your system currently has shadow passwords disabled."
-msgstr "Die LSB (\"Linux Standard Base\") verlangt, daß bestimmte Funktionen von adduser(8) für LSB-konforme Anwendungen verfügbar sind (z.Bsp. Passwort-Alterung). Debian stellt diese Funktionen nur zur Verfügung, falls Schatten-Passworte benutzt werden; jedoch werden in Ihrem System Schatten-Passworte z.Zt. nicht benutzt."
+msgstr "Die LSB (\"Linux Standard Base\") verlangt, daß bestimmte Funktionen von adduser(8) für LSB-konforme Anwendungen verfügbar sind (z.B. Passwort-Alterung). Debian stellt diese Funktionen nur zur Verfügung, falls Schatten-Passworte benutzt werden; jedoch werden in Ihrem System Schatten-Passworte z.Zt. nicht benutzt."
 
 #. Description
 #: ../templates:4

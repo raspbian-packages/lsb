@@ -1,3 +1,26 @@
+lsb (3.0-2) experimental; urgency=low
+
+  * Uploaded to experimental since glibc 2.3.5 is not in sid yet.
+  * Add /usr/lib/lsb/lsbinstall.  
+    Note: the inetd stuff isn't implemented yet.
+  * Require glibc >> 2.3.5, since some interfaces in LSB 3.0 were
+    introduced by glibc 2.3.5.
+  * Require Python 2.3 or later, so we can use optparse.
+  * Fix test in pidofproc in /lib/lsb/init-functions.  (Closes: #315067)
+  * Document /etc/profile.d lossage in README.Debian.
+  * Remove stale link in README.Debian.  (Closes: #316064)
+  * Update German translation.  (Closes: #313979)
+  * Add Vietnamese translation.  (Closes: #312606)
+  * Updated description.  (Closes: #318224)
+  * Use DEB_BUILD_ARCH_CPU instead of DEB_BUILD_ARCH.
+  * Call /bin/echo when using -e.  (Closes: #320709)
+  * Kludge log_*_msg into being more policy-compliant and (in the case of
+    the LSB functions) more Debian-like.
+  * Add log_progress_msg.  See spiffy example adapted from the Policy
+    Manual in init-functions.  (Closes: #319739)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon,  1 Aug 2005 22:45:41 -0500
+
 lsb (3.0-1) unstable; urgency=low
 
   * lsb-cxx now depends on libstdc++6 as well as libstdc++5, necessitated

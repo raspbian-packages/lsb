@@ -1,3 +1,18 @@
+lsb (3.0-3) unstable; urgency=low
+
+  * Upload to unstable, since glibc 2.3.5 is now in.
+  * lsb-base is now Priority: important.
+  * Fix $FANCYTTY tests in a more POSIXly-correct way.  (Closes: #322022)
+  * Get rid of the html/* stuff and references to it in README.Debian.
+    (Closes: #321260)
+  * Maintainers who are using the lsb-base logging facilities should
+    *strongly* consider using log_daemon_msg() instead of log_start_msg();
+    the new log_daemon_msg() is designed to meet both Debian and Ubuntu
+    logging requirements.  Customization should come in a subsequent 3.0-x
+    release.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon,  8 Aug 2005 15:58:45 -0500
+
 lsb (3.0-2) experimental; urgency=low
 
   * Uploaded to experimental since glibc 2.3.5 is not in sid yet.

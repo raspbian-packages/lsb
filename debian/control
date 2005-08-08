@@ -96,6 +96,7 @@ Architecture: all
 Depends: sed, ncurses-bin
 Replaces: lsb (<< 2.0-6)
 Conflicts: lsb (<< 2.0-6)
+Priority: important
 Description: Linux Standard Base 3.0 init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

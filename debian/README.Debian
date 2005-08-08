@@ -53,9 +53,8 @@ IMPLEMENTATION ISSUES
 This package attempts to implement the core LSB specification.  Much
 of the implementation is drawn on a talk by Wichert Akkerman
 (http://www.liacs.nl/~wichert/talks/LSBDistro/html/) and Matt
-Taggart's discussion of LSB 1.0 and Debian.  Matt's discussion is
-provided in the /usr/share/doc/lsb/html directory.  Matt has also
-produced a slideshow on LSB in Debian, which can be found at:
+Taggart's discussion of LSB 1.0 and Debian.  Matt has also produced a
+slideshow on LSB in Debian, which can be found at:
 http://people.debian.org/~taggart/debconf2/
 
 This package implements the LSB specification by:
@@ -188,6 +187,6 @@ any reports of its success or failure.
 An example init script that tests some of these features is provided
 as /usr/share/doc/lsb/examples/init-skeleton.
 
- -- Chris Lawrence <lawrencc@debian.org>, Mon Jul 11 18:55:39 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Mon Aug  8 15:47:37 2005
 
  LocalWords:  LSB

@@ -135,7 +135,7 @@ log_success_msg () {
 }
 
 log_failure_msg () {
-    if $FANCYTTY; then
+    if [ $FANCYTTY -eq 1 ]; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
         echo "$RED*$NORMAL $@"
@@ -145,7 +145,7 @@ log_failure_msg () {
 }
 
 log_warning_msg () {
-    if $FANCYTTY; then
+    if [ $FANCYTTY -eq 1 ]; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
         echo "$YELLOW*$NORMAL $@"
@@ -175,12 +175,38 @@ log_begin_msg () {
     echo -n "$@"
 }
 
+# Sample usage:
+# log_daemon_msg "Starting GNOME Login Manager" "gdm"
+#
+# On Debian, would output "Starting GNOME Login Manager: gdm"
+# On Ubuntu, would output " * Starting GNOME Login Manager..."
+#
+# If the second argument is omitted, logging suitable for use with
+# log_progress_msg() is used:
+#
+# log_daemon_msg "Starting remote filesystem services"
+#
+# On Debian, would output "Starting remote filesystem services:"
+# On Ubuntu, would output " * Starting remote filesystem services..."
+
+log_daemon_msg () {
+    if [ -z "$1" ]; then
+        return 1
+    fi
+
+    if [ -z "$2" ]; then
+        echo -n "$1:"
+        return
+    fi
+    
+    echo -n "$1: $2"
+}
 
 # #319739
 #
 # Per policy docs:
 #
-#     log_begin_msg "Starting remote file system services:"
+#     log_daemon_msg "Starting remote file system services"
 #     log_progress_msg "nfsd"; start-stop-daemon --start --quiet nfsd
 #     log_progress_msg "mountd"; start-stop-daemon --start --quiet mountd
 #     log_progress_msg "ugidd"; start-stop-daemon --start --quiet ugidd
@@ -189,12 +215,13 @@ log_begin_msg () {
 # You could also do something fancy with log_end_msg here based on the
 # return values of start-stop-daemon; this is left as an exercise for
 # the reader...
-
+#
+# On Ubuntu, one would expect log_progress_msg to be a no-op.
 log_progress_msg () {
     if [ -z "$1" ]; then
         return 1
     fi
-    /bin/echo -n " $@"
+    echo -n " $@"
 }
 
 
@@ -206,7 +233,7 @@ log_end_msg () {
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted
-    if $FANCYTTY; then
+    if [ $FANCYTTY -eq 1 ]; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
         if [ $1 -eq 0 ]; then
@@ -223,4 +250,3 @@ log_end_msg () {
     fi
     return $1
 }
-

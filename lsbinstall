@@ -12,7 +12,7 @@ objecttypes = (
     #'init',
     'profile',
     'service',
-    'inet',
+    #'inet', # XXX - reenable when implemented
     #'crontab',
     #'man'
     )

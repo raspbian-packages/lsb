@@ -3,7 +3,7 @@
 remove_ldso_symlink () {
     ARCH=`dpkg --print-installation-architecture`
     case "$ARCH" in
-        s390|ia64)
+        s390|ia64|ppc64)
             rm -f /lib/ld-lsb-$ARCH.so.[12]
             ;;
         powerpc)

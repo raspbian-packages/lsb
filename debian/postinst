@@ -3,9 +3,9 @@
 setup_ldso_symlink () {
     ARCH=`dpkg --print-installation-architecture`
     case "$ARCH" in
-        s390)
-            ln -sf ld.so.1 /lib/ld-lsb-s390.so.1
-            ln -sf ld.so.1 /lib/ld-lsb-s390.so.2
+        s390|ppc64)
+            ln -sf ld.so.1 /lib/ld-lsb-$ARCH.so.1
+            ln -sf ld.so.1 /lib/ld-lsb-$ARCH.so.2
             ;;
         powerpc)
             ln -sf ld.so.1 /lib/ld-lsb-ppc32.so.1

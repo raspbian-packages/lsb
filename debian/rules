@@ -27,11 +27,14 @@ ifeq (${lsbarch}, powerpc)
 lsbarch=ppc32
 endif
 
-LIBC=glibc (>> 2.3.5)
+LIBC=libc6 (>> 2.3.5)
 ifeq (${lsbarch}, hurd-i386)
 LIBC=libc0.3 (>> 2.3.5)
 endif
 ifeq (${lsbarch}, ia64)
+LIBC=libc6.1 (>> 2.3.5)
+endif
+ifeq (${lsbarch}, alpha)
 LIBC=libc6.1 (>> 2.3.5)
 endif
 

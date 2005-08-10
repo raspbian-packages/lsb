@@ -1,3 +1,11 @@
+lsb (3.0-4) unstable; urgency=medium
+
+  * Fix LIBC setting; add Alpha support.  (Closes: #322316)
+  * Add support for PPC64.  (Closes: #322293)
+  * Document usage of log_*_msg in README.Debian.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 10 Aug 2005 12:00:57 -0500
+
 lsb (3.0-3) unstable; urgency=low
 
   * Upload to unstable, since glibc 2.3.5 is now in.

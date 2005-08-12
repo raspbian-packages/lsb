@@ -1,3 +1,9 @@
+lsb (3.0-5) unstable; urgency=low
+
+  * Use --exec in calls to start-stop-daemon in killproc().  (Closes: #322770)
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 12 Aug 2005 15:18:39 -0500
+
 lsb (3.0-4) unstable; urgency=medium
 
   * Fix LIBC setting; add Alpha support.  (Closes: #322316)

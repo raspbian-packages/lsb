@@ -43,30 +43,8 @@ packages:
   lsb 2.0-6 package so other packages could make use of the init
   functionality without requiring a full LSB installation.
 
-  Debian also provides a series of logging functions to permit
-  simplified logging of init script actions:
-  
-  - log_daemon_msg "Starting/stopping long daemon name" "daemond"
-
-    Log starting/stopping of daemons.  On Debian, outputs:
-
-    "Starting/stopping long daemon name: daemond"
-
-    and leaves the cursor at the end of the line.
-
-  - log_progress_msg "daemon2d"
-
-    Log startup of a second daemon (e.g. sysklogd, nfs init scripts).
-    On Debian, outputs " daemon2d" and leaves the cursor at the EOL.
-
-  - log_end_msg 0
-
-    Log successful startup.  On Debian, outputs "." followed by newline.
-    1 may also be specified, which indicates failure; currently implemented
-    as outputting "failed!" (in red on a color TTY) followed by newline.
-
-  A deprecated function, log_start_msg, is also provided for compatibility
-  with a few older packages and a derived distribution.
+  For documentation of those functions (and those added for Debian's use),
+  please see the README.Debian file in that package.
 
 The first three packages are architecture-specific because of
 differences in the requirements of the LSB on various binary
@@ -212,6 +190,6 @@ any reports of its success or failure.
 An example init script that tests some of these features is provided
 as /usr/share/doc/lsb/examples/init-skeleton.
 
- -- Chris Lawrence <lawrencc@debian.org>, Wed Aug 10 12:00:05 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Fri Sep 16 19:01:50 2005
 
  LocalWords:  LSB

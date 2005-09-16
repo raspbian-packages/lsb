@@ -1,3 +1,17 @@
+lsb (3.0-6) unstable; urgency=low
+
+  * Add ld-lsb.so.3 symlinks.  (Closes: #326609)
+  * Use cat $pidfile instead of read.  (Closes: #327405)
+    If someone knows why the convoluted read was used instead... let me know.
+  * Test for TPUT and friends as needed.  (Closes: #327388, #327825)
+  * Add log_action_*().  (Closes: #324983)
+  * Edit README.Debian; fork off a README.Debian for lsb-base.
+    (Closes: #327525)
+  * The log_* functions can be overridden in /etc/lsb-base-logging.sh.
+    (Closes: #321963)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 16 Sep 2005 19:32:29 -0400
+
 lsb (3.0-5) unstable; urgency=low
 
   * Use --exec in calls to start-stop-daemon in killproc().  (Closes: #322770)

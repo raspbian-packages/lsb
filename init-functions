@@ -71,8 +71,7 @@ pidofproc () {
     fi
 
     if [ -f "$pidfile" ]; then
-        read -d "" line < "$pidfile"
-        for i in $line; do
+        for i in `cat $pidfile`; do
             if [ -z "$(echo $i | sed 's/[0-9]//g')" -a -d "/proc/$i" ]; then 
                 pids="$i $pids"
             fi
@@ -122,20 +121,24 @@ killproc () {
     fi
 }
 
-TPUT=/usr/bin/tput
-EXPR=/usr/bin/expr
-if [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
-    FANCYTTY=1
-else
-    FANCYTTY=0
-fi
+log_use_fancy_output () {
+    TPUT=/usr/bin/tput
+    EXPR=/usr/bin/expr
+    if [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
+        FANCYTTY=1
+        true
+    else
+        FANCYTTY=0
+        false
+    fi
+}
 
 log_success_msg () {
     echo "$@"
 }
 
 log_failure_msg () {
-    if [ $FANCYTTY -eq 1 ]; then
+    if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
         echo "$RED*$NORMAL $@"
@@ -145,7 +148,7 @@ log_failure_msg () {
 }
 
 log_warning_msg () {
-    if [ $FANCYTTY -eq 1 ]; then
+    if log_use_fancy_output; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
         echo "$YELLOW*$NORMAL $@"
@@ -227,13 +230,12 @@ log_progress_msg () {
 
 # int log_end_message (int exitstatus)
 log_end_msg () {
-
     # If no arguments were passed, return
     [ -z "$1" ] && return 1
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted
-    if [ $FANCYTTY -eq 1 ]; then
+    if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
         if [ $1 -eq 0 ]; then
@@ -250,3 +252,37 @@ log_end_msg () {
     fi
     return $1
 }
+
+log_action_msg () {
+    echo "$@."
+}
+
+log_action_begin_msg () {
+    echo -n "$@..."
+}
+
+log_action_cont_msg () {
+    echo -n "$@..."
+}
+
+log_action_end_msg () {
+    if [ -z "$2" ]; then
+        end="."
+    else
+        end=" ($2)."
+    fi
+
+    if [ $1 -eq 0 ]; then
+        echo "done${end}"
+    else
+        if log_use_fancy_output; then
+            RED=`$TPUT setaf 1`
+            NORMAL=`$TPUT op`
+            /bin/echo -e "${RED}failed${end}${NORMAL}"
+        else:
+            echo "failed${end}"
+        fi
+    fi
+}
+
+[ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true

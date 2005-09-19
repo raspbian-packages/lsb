@@ -1,3 +1,14 @@
+lsb (3.0-7) unstable; urgency=low
+
+  * Update lsb-core dependencies to include:
+      ed (for /bin/ed)
+      bsdutils (for /usr/bin/logger)
+      cupsys-client | lprng (for /usr/bin/lp)
+      mailutils | mailx (for /usr/bin/mailx)
+    These are required in the final LSB 3.0 spec.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 19 Sep 2005 18:08:33 -0400
+
 lsb (3.0-6) unstable; urgency=low
 
   * Add ld-lsb.so.3 symlinks.  (Closes: #326609)

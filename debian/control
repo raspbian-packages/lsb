@@ -96,7 +96,7 @@ Architecture: all
 Depends: sed, ncurses-bin
 Replaces: lsb (<< 2.0-6)
 Conflicts: lsb (<< 2.0-6)
-Priority: important
+Priority: required
 Description: Linux Standard Base 3.0 init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
@@ -105,3 +105,21 @@ Description: Linux Standard Base 3.0 init script functionality
  This package only includes the init-functions shell library, which
  may be used by other packages' initialization scripts for console
  logging and other purposes.
+
+Package: lsb-release
+Architecture: all
+Depends: python (>> 2.3), python (<< 2.5)
+Recommends: lsb
+Description: Linux Standard Base version reporting utility
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ The lsb-release command is a simple tool to help identify the Linux
+ distribution being used and its compliance with the Linux Standard Base.
+ LSB conformance will not be reported unless the required metapackages are
+ installed.
+ .
+ While it is intended for use by LSB packages, this command may also
+ be useful for programmatically distinguishing between a pure Debian
+ installation and derived distributions.

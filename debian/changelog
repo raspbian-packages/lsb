@@ -1,3 +1,13 @@
+lsb (3.0-8) unstable; urgency=low
+
+  * Bring in lsb-release (binary) package; rewritten to handle -v properly
+    for LSB 2.x and beyond.
+  * /etc/lsb-release is no longer provided by the lsb-release package;
+    it is probably best managed in base-files (which derived distros are
+    probably branding anyway).
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 21 Sep 2005 20:53:37 -0400
+
 lsb (3.0-7) unstable; urgency=low
 
   * Update lsb-core dependencies to include:

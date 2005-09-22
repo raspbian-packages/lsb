@@ -1,3 +1,6 @@
+lsb-base for Debian
+-------------------
+
 The Debian lsb-base package provides a series of logging functions to
 permit simplified logging of init script actions.
 
@@ -87,4 +90,4 @@ If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
 Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
- -- Chris Lawrence <lawrencc@debian.org>, Fri Sep 16 19:20:32 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Wed Sep 21 20:21:36 2005

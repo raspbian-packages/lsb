@@ -74,8 +74,9 @@ install: build
 
 	# Add here commands to install the package into debian/lsb.
 	#$(MAKE) install DESTDIR=$(CURDIR)/debian/lsb
-	cp initdutils.py install_initd remove_initd lsbinstall debian/lsb-core/usr/lib/lsb
-	cp init-functions debian/lsb-base/lib/lsb
+	cp -p initdutils.py install_initd remove_initd lsbinstall debian/lsb-core/usr/lib/lsb
+	cp -p init-functions debian/lsb-base/lib/lsb
+	cp -p lsb_release debian/lsb-release/bin
 
 # Build architecture-independent files here.
 binary-indep: build install

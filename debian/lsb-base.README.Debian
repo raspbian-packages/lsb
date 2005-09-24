@@ -32,7 +32,7 @@ permit simplified logging of init script actions.
     On Debian, a trailing period will be added to the message,
     followed by a newline.
 
-  - log_action_start_msg "Configuring network interfaces"
+  - log_action_begin_msg "Configuring network interfaces"
 
     Log the start of an action that is expected to take some time.  On
     Debian, an elipsis (...) will follow the message, and the cursor will
@@ -90,4 +90,4 @@ If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
 Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
- -- Chris Lawrence <lawrencc@debian.org>, Wed Sep 21 20:21:36 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Sat Sep 24 19:15:02 2005

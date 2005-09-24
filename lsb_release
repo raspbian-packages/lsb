@@ -85,6 +85,8 @@ def guess_debian_release():
         distinfo['OS'] = 'GNU/'+kern
     elif kern == 'FreeBSD':
         distinfo['OS'] = 'GNU/k'+kern
+    else:
+        distinfo['OS'] = 'GNU'
 
     if os.path.exists('/etc/debian_version'):
         release = open('/etc/debian_version').read().strip()
@@ -94,13 +96,15 @@ def guess_debian_release():
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
         else:
             # Guess with apt policy before being this stupid?
-            distinfo.update({ 'RELEASE' : release, 'CODENAME' : 'sid'} )
+            distinfo.update({ 'RELEASE' : release, 'CODENAME' : 'sid'})
 
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
     return distinfo
 
 def get_distro_information():
-    distinfo = {}
+    distinfo = guess_debian_release()
+
+    # Replace any info in /etc/lsb-release
     if os.path.exists('/etc/lsb-release'):
         for line in open('/etc/lsb-release'):
             line = line.strip()
@@ -112,8 +116,6 @@ def get_distro_information():
                 if arg.startswith('"') and arg.endswith('"'):
                     arg = arg[1:-1]
                 distinfo[var] = arg
-    else:
-        distinfo = guess_debian_release()
 
     return distinfo
     

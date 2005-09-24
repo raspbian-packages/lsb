@@ -1,3 +1,13 @@
+lsb (3.0-9) unstable; urgency=low
+
+  * Fix silly Pythonic else in init-functions.  (Closes: #329936)
+  * s/log_action_start_msg/log_action_begin_msg/ in README.Debian.
+    (Thanks to Marco d'Itri for pointing these two out.)
+  * If bits of /etc/lsb-release are missing (but not the whole file), use
+    detected information in its place.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 24 Sep 2005 19:16:00 -0400
+
 lsb (3.0-8) unstable; urgency=low
 
   * Bring in lsb-release (binary) package; rewritten to handle -v properly

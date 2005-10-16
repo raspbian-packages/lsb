@@ -1,3 +1,9 @@
+lsb (3.0-10) unstable; urgency=low
+
+  * Use --name instead of --exec in killproc().  (Closes: #332744)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 16 Oct 2005 15:35:38 -0400
+
 lsb (3.0-9) unstable; urgency=low
 
   * Fix silly Pythonic else in init-functions.  (Closes: #329936)

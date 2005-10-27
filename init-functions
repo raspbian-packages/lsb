@@ -94,7 +94,7 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status
+    local pidfile sig status base
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
 
@@ -105,19 +105,20 @@ killproc () {
         esac
     done
 
+    base=$(basename "$1")
     if [ ! $pidfile ]; then
-        pidfile=/var/run/$(basename "$1").pid
+        pidfile=/var/run/$base.pid
     fi
 
     if [ $2 ]; then
         sig=$(echo $2 | sed -e 's/^-\(.*\)/\1/')
         sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$1"
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
         status="$?"
         [ "$status" = 1 ] && return 3 # program is not running
         return 0
     else
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$1"
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
     fi
 }
 

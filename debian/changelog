@@ -1,3 +1,11 @@
+lsb (3.0-11) unstable; urgency=low
+
+  * Use the basename in killproc when calling start-stop-daemon.
+    (Closes: #332744)
+  * lsb-base conflicts/replaces lsb-core (<< 2.0-6).  (Closes: #335798)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 27 Oct 2005 05:29:07 -0400
+
 lsb (3.0-10) unstable; urgency=low
 
   * Use --name instead of --exec in killproc().  (Closes: #332744)

@@ -28,7 +28,7 @@
 #SUCH DAMAGE.
 
 start_daemon () {
-    local force nice pidfile exec
+    local force nice pidfile exec i
     set -- `POSIXLY_CORRECT=1 getopt "fn:p:" $*`
     force=0
     nice=0
@@ -94,7 +94,7 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base
+    local pidfile sig status base i
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
 
@@ -120,6 +120,8 @@ killproc () {
     else
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
     fi
+
+    rm -f "$pidfile"
 }
 
 log_use_fancy_output () {

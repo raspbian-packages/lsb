@@ -127,7 +127,7 @@ case "$1" in
         # LSB exit status
 	start_daemon "$FOO_BIN" -c "$FOO_CONFIG"
 	STATUS=$?
-	if [ "$STATUS" = 0]
+	if [ "$STATUS" = 0 ]
 	then
             log_success_msg "Starting FOO"
         else
@@ -141,7 +141,7 @@ case "$1" in
         # LSB exit status
 	killproc "$FOO_BIN"
 	STATUS=$?
-	if [ "$STATUS" = 0]
+	if [ "$STATUS" = 0 ]
 	    log_success_msg "Shutting down FOO"
 	    exit 0
         else

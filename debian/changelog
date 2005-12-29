@@ -1,3 +1,22 @@
+lsb (3.0-13) unstable; urgency=medium
+
+  * The "answer all the questions in the changelog" release.
+  * Skip empty headers when parsing RFC822 headers for init scripts.
+    (Closes: #343310)
+  * The versioned dependency on dpkg-dev is due to the use of
+    DEB_*_ARCH_CPU in debian/rules, which only became available in dpkg
+    1.13.2.  Feel free to submit a patch to facilitate a sarge backport.
+    (Closes: #344392)
+  * Since the lsb family of packages track an upstream specification with 
+    "non-native" version numbering, the use of a hyphenated version number
+    for these native packages is justified.  (Closes: #344384)
+    (Note that although it does violate policy for a non-native package to
+    lack a hyphen in its version number, the contrapositive case does not
+    violate policy.)
+  * Deal with missing /etc/debian_version.  (Closes: #341719)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 29 Dec 2005 03:50:44 -0500
+
 lsb (3.0-12) unstable; urgency=low
 
   * Remove the pidfile in killproc().  (Closes: #321271)

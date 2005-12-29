@@ -82,7 +82,7 @@ def scan_initfile(initfile):
     for header, body in inheaders.iteritems():
         # Ignore empty headers
         if not body.strip():
-            break
+            continue
         
         if header in ('Default-Start', 'Default-Stop'):
             headers[header] = map(int, body.split())

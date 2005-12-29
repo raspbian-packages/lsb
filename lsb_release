@@ -88,6 +88,8 @@ def guess_debian_release():
     else:
         distinfo['OS'] = 'GNU'
 
+    distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
+
     if os.path.exists('/etc/debian_version'):
         release = open('/etc/debian_version').read().strip()
         if not release[0:1].isalpha():
@@ -97,8 +99,8 @@ def guess_debian_release():
         else:
             # Guess with apt policy before being this stupid?
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : 'sid'})
+        distinfo['DESCRIPTION'] += ' %(RELEASE)s (%(CODENAME)s)' % distinfo
 
-    distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
     return distinfo
 
 def get_distro_information():

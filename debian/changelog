@@ -1,3 +1,9 @@
+lsb (3.0-14) unstable; urgency=low
+
+  * Allow lsb-base to be built on sarge.  (Closes: #345984)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun,  8 Jan 2006 20:09:52 -0500
+
 lsb (3.0-13) unstable; urgency=medium
 
   * The "answer all the questions in the changelog" release.

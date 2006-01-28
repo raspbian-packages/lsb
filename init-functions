@@ -127,7 +127,7 @@ killproc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
-    if [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
+    if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
         FANCYTTY=1
         true
     else

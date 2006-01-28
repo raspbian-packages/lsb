@@ -1,3 +1,16 @@
+lsb (3.0-15) unstable; urgency=low
+
+  * Test $TERM in log_use_fancy_output; if it is "dumb" we don't have a
+    fancy TTY.  (Closes: #350291)
+  * Better heuristics in lsb_release to guess whether we're running on
+    testing or unstable.  (Closes: #95824, #341231)
+    Note that /etc/lsb-release, if present, will override these results,
+    and /etc/debian_version has priority.
+  * Fix lsb_release to allow multiple fields to be displayed (i.e.
+    lsb_release --id --codename).
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 28 Jan 2006 18:24:49 -0500
+
 lsb (3.0-14) unstable; urgency=low
 
   * Allow lsb-base to be built on sarge.  (Closes: #345984)

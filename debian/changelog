@@ -1,3 +1,12 @@
+lsb (3.0-16) unstable; urgency=low
+
+  * Add ld-linux-x64-64.so.3 symlink on AMD64.  (Closes: #355959)
+  * Depends: ia32-libs -> libc6-i386, lib32z1 on AMD64.  (Closes: #355388)
+  * On purge or upgrade from < lsb-release 3.0-8, remove /etc/lsb-release
+    if its md5sum is the same as that shipped in sarge.  (Closes: #355377)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu,  9 Mar 2006 01:14:05 -0500
+
 lsb (3.0-15) unstable; urgency=low
 
   * Test $TERM in log_use_fancy_output; if it is "dumb" we don't have a

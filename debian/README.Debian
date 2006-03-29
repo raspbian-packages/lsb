@@ -23,19 +23,25 @@ The LSB implementation in Debian is currently divided into five
 packages:
 
 * The "lsb-core" package depends on the Debian packages that are
-  required to comply with the LSB-Core 2.0 specification; this is
+  required to comply with the LSB-Core 3.1 specification; this is
   roughly equivalent to the LSB 1.3 specification, except X11 libraries
   are not required.  It also includes some subroutines that are used
   by LSB-compliant applications when they are being installed or
   removed.
 
 * The "lsb-graphics" package depends on the X11 libraries required for
-  the LSB-Graphics 2.0 specification.
+  the LSB-Graphics 3.1 specification.
 
 * The "lsb-cxx" package depends on libstdc++5, required for the
-  LSB-CXX (LSB-C++) 2.0 specification.
+  LSB-CXX (LSB-C++) 3.1 specification.
 
-* The "lsb" package depends on the above three packages, and exists
+* The "lsb-desktop" package depends on the Gtk+ and Qt libraries required
+  for the LSB-Desktop 3.1 specification.
+
+* The "lsb-qt4" depends on the Qt version 4 libraries required for the
+  LSB-Qt4 3.1 module.
+
+* The "lsb" package depends on all of the above packages, and exists
   for backwards compatibility purposes with LSB 1.3.
 
 * The "lsb-base" package includes a number of functions used by init.d
@@ -46,7 +52,10 @@ packages:
   For documentation of those functions (and those added for Debian's use),
   please see the README.Debian file in that package.
 
-The first three packages are architecture-specific because of
+* The "lsb-release" package includes the lsb_release command, which provides
+  information about the installed LSB modules and the underlying distribution.
+
+The LSB module packages are architecture-specific because of
 differences in the requirements of the LSB on various binary
 architectures.  In particular, each package provides
 lsb-{module}-noarch and lsb-{module}-{arch} virtual packages.
@@ -86,8 +95,8 @@ DEVIATIONS FROM LSB
 The package and its dependencies implement all of LSB on Debian, with
 these exceptions:
 
-- LSB 2.0 assumes a 2.4 kernel.  Debian ships a 2.4 kernel by default
-  on most architectures as of sarge, although 2.2 and 2.6 are
+- LSB 3.1 assumes a 2.4 or later kernel.  Debian ships a 2.4 kernel by
+  default on most architectures as of sarge, although 2.2 and 2.6 are
   optional.  There is no way in the Debian system to ensure a package
   is only installed on a specific kernel release.  Running LSB
   applications on 2.2 kernels may result in subtle bugs or failures,
@@ -96,7 +105,7 @@ these exceptions:
 
   (We do not consider this a bug in the package.)
 
-- LSB 2.0 doesn't fully specify what the init_functions should do.  I
+- LSB 3.1 doesn't fully specify what the init_functions should do.  I
   have chosen to implement them in a way that is consistent with
   Debian current practice, using the start-stop-daemon utility and the
   echo command.  For sarge+1, I expect a nicer init logging facility
@@ -135,7 +144,7 @@ these exceptions:
 
 - /etc/profile.d scripts aren't executed on shell startup by default
   on Debian systems (see Debian Policy section 9.9 for an explanation).
-  LSB 3.0 is ambiguous on this requirement; /bin/sh is *not* required
+  LSB 3.1 is ambiguous on this requirement; /bin/sh is *not* required
   to execute these scripts, according to its description, but the
   lsbinstall documentation says that it is.
 
@@ -190,6 +199,6 @@ any reports of its success or failure.
 An example init script that tests some of these features is provided
 as /usr/share/doc/lsb/examples/init-skeleton.
 
- -- Chris Lawrence <lawrencc@debian.org>, Fri Sep 16 19:01:50 2005
+ -- Chris Lawrence <lawrencc@debian.org>, Wed, 29 Mar 2006 17:02:17 -0500
 
  LocalWords:  LSB

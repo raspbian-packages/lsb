@@ -1,3 +1,14 @@
+lsb (3.1-1) experimental; urgency=low
+
+  * First crack at a package for LSB 3.1.
+  * Add -desktop and -qt4 metapackages.
+  * Update README.Debian and control file for 3.1.
+  * Update lsb_release to recognize lsb-desktop and lsb-qt4 modules.
+  * Update FSF address in debian/copyright.
+  * Fix debian/control to allow sarge build.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 29 Mar 2006 16:11:45 -0500
+
 lsb (3.0-16) unstable; urgency=low
 
   * Add ld-linux-x64-64.so.3 symlink on AMD64.  (Closes: #355959)
@@ -35,7 +46,7 @@ lsb (3.0-13) unstable; urgency=medium
     DEB_*_ARCH_CPU in debian/rules, which only became available in dpkg
     1.13.2.  Feel free to submit a patch to facilitate a sarge backport.
     (Closes: #344392)
-  * Since the lsb family of packages track an upstream specification with 
+  * Since the lsb family of packages track an upstream specification with
     "non-native" version numbering, the use of a hyphenated version number
     for these native packages is justified.  (Closes: #344384)
     (Note that although it does violate policy for a non-native package to
@@ -116,7 +127,7 @@ lsb (3.0-6) unstable; urgency=low
 lsb (3.0-5) unstable; urgency=low
 
   * Use --exec in calls to start-stop-daemon in killproc().  (Closes: #322770)
-  
+
  -- Chris Lawrence <lawrencc@debian.org>  Fri, 12 Aug 2005 15:18:39 -0500
 
 lsb (3.0-4) unstable; urgency=medium
@@ -145,7 +156,7 @@ lsb (3.0-3) unstable; urgency=low
 lsb (3.0-2) experimental; urgency=low
 
   * Uploaded to experimental since glibc 2.3.5 is not in sid yet.
-  * Add /usr/lib/lsb/lsbinstall.  
+  * Add /usr/lib/lsb/lsbinstall.
     Note: the inetd stuff isn't implemented yet.
   * Require glibc >> 2.3.5, since some interfaces in LSB 3.0 were
     introduced by glibc 2.3.5.
@@ -170,7 +181,7 @@ lsb (3.0-1) unstable; urgency=low
   * lsb-cxx now depends on libstdc++6 as well as libstdc++5, necessitated
     by LSB 3.0.
   * Don't create /lib64 on AMD64.  (Closes: #308220)
-  
+
  -- Chris Lawrence <lawrencc@debian.org>  Sun,  8 May 2005 19:11:45 -0500
 
 lsb (2.0-7) unstable; urgency=high
@@ -483,7 +494,7 @@ lsb (1.1.0-2) unstable; urgency=low
     - uid/gid for bin is documented.
     - treat RL 2-5 as the same, because nothing else sensible seems
       available.
-  
+
  -- Chris Lawrence <lawrencc@debian.org>  Mon, 18 Feb 2002 20:08:23 -0600
 
 lsb (1.1.0-1) unstable; urgency=low

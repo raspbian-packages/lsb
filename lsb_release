@@ -39,7 +39,7 @@ RELEASE_CODENAME_LOOKUP = {
 TESTING_CODENAME = 'etch'
 
 # LSB compliance packages... may grow eventually
-PACKAGES = 'lsb-core lsb-cxx lsb-graphics'
+PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4'
 
 modnamere = re.compile(r'lsb-(?P<module>[a-z]+)-(?P<arch>[^ ]+)(?: \(= (?P<version>[0-9.]+)\))?')
 
@@ -48,6 +48,11 @@ def valid_lsb_versions(version, module):
     # with that here
     if version == '3.0':
         return ['2.0', '3.0']
+    elif version == '3.1':
+        if module in ('desktop', 'qt4'):
+            return ['3.1']
+        else:
+            return ['2.0', '3.0', '3.1']
 
     return [version]
 

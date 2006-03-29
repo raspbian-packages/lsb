@@ -136,6 +136,8 @@ binary-arch: build install
 	@echo >> debian/lsb-core.substvars "provides=lsb-core-${lsbarch}"
 	@echo >> debian/lsb-cxx.substvars "provides=lsb-cxx-${lsbarch}"
 	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"
+	@echo >> debian/lsb-desktop.substvars "provides=lsb-desktop-${lsbarch}"
+	@echo >> debian/lsb-qt4.substvars "provides=lsb-qt4-${lsbarch}"
 	@[ ${DEB_BUILD_ARCH_CPU} = 'amd64' ] && echo >> debian/lsb-core.substvars "depends=libc6-i386, lib32z1" || true
 	dh_link -a
 	dh_strip -a

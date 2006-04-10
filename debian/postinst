@@ -23,7 +23,7 @@ setup_ldso_symlink () {
             ln -sf ld-linux.so.2 /lib/ld-lsb.so.2
             ln -sf ld-linux.so.2 /lib/ld-lsb.so.3
             ln -sf /lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.2
-            ln -sf /lib/ld-linux-x86-64.so.3 /lib64/ld-lsb-x86-64.so.2
+            ln -sf /lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
             ;;
         ia64)
             ln -sf ld-linux-ia64.so.2 /lib/ld-lsb-ia64.so.1

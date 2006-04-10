@@ -1,3 +1,10 @@
+lsb (3.1-2) unstable; urgency=low
+
+  * Upload lsb 3.1 support for unstable.
+  * Really create ld-lsb-x86-64.so.3 symlink.  (Closes: #355959)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 10 Apr 2006 14:22:14 -0400
+
 lsb (3.1-1) experimental; urgency=low
 
   * First crack at a package for LSB 3.1.

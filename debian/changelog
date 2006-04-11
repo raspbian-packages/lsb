@@ -1,3 +1,9 @@
+lsb (3.1-3) unstable; urgency=low
+
+  * Fix dependency on libgtk2.  (Closes: #361879)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 10 Apr 2006 22:27:46 -0400
+
 lsb (3.1-2) unstable; urgency=low
 
   * Upload lsb 3.1 support for unstable.

@@ -73,7 +73,7 @@ Description: Linux Standard Base 3.1 C++ support package
 
 Package: lsb-desktop
 Architecture: any
-Depends: lsb-graphics, libfontconfig1 (>> 2.3.0), libpng12-0, libjpeg62, libglib2.0-0 (>> 2.6.2), libatk1.0-0 (>> 1.9.0), libpango1.0-0 (>> 1.8.0), libgtk2.0 (>> 2.6.2), libqt3-mt (>> 3.3.6), libxml2, ${misc:Depends}
+Depends: lsb-graphics, libfontconfig1 (>> 2.3.0), libpng12-0, libjpeg62, libglib2.0-0 (>> 2.6.2), libatk1.0-0 (>> 1.9.0), libpango1.0-0 (>> 1.8.0), libgtk2.0-0 (>> 2.6.2), libqt3-mt (>> 3.3.6), libxml2, ${misc:Depends}
 Provides: lsb-desktop-noarch, ${provides}
 Description: Linux Standard Base 3.1 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

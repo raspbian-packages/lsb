@@ -1,3 +1,12 @@
+lsb (3.1-4) unstable; urgency=high
+
+  * Bump priority since (a) these changes are trivial and (b) 3.1-3 was
+    two days from testing.
+  * lsb-desktop: also depend on fontconfig (for fc-* binaries).
+  * Add Galician debconf translation.  (Closes: #361938)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 20 Apr 2006 02:17:12 -0400
+
 lsb (3.1-3) unstable; urgency=low
 
   * Fix dependency on libgtk2.  (Closes: #361879)

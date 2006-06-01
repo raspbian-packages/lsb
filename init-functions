@@ -55,34 +55,31 @@ start_daemon () {
 }
 
 pidofproc () {
-    local pidfile line i pids= status
+    local pidfile line i pids= status specified pid
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
+    specified=0
 
     for i in $*; do
         case $i in
-            -p)  pidfile=$2; shift 2;;
+            -p)  pidfile=$2; specified=1; shift 2;;
             --)  shift; break;;
         esac
     done
 
-    if [ -z "$pidfile" ]; then
+    if [ -z "${pidfile:-}" ]; then
         pidfile=/var/run/$(basename "$1").pid
     fi
 
     if [ -f "$pidfile" ]; then
-        for i in `cat $pidfile`; do
-            if [ -z "$(echo $i | sed 's/[0-9]//g')" -a -d "/proc/$i" ]; then 
-                pids="$i $pids"
-            fi
-        done
-        if [ -n "$pids" ]; then
-            echo "$pids"
+        read pid
+        if [ -n "${pid:-}" ]; then
+            echo "$pid"
             return 0
         else
             return 2 # program is dead and /var/run pid file exists
         fi
-    elif [ -x /bin/pidof ]; then
+    elif [ -x /bin/pidof -a ! $specified ]; then
         /bin/pidof -o %PPID $1
         status="$?"
         [ "$status" = 1 ] && return 3 # program is not running
@@ -94,13 +91,14 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base i
+    local pidfile sig status base i specified
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
+    specified=0
 
     for i in $*; do
         case $i in
-            -p)  pidfile=$2; shift 2;;
+            -p)  pidfile=$2; specified=1; shift 2;;
             --)  shift; break;;
         esac
     done
@@ -110,7 +108,7 @@ killproc () {
         pidfile=/var/run/$base.pid
     fi
 
-    if [ $2 ]; then
+    if [ $specified ]; then
         sig=$(echo $2 | sed -e 's/^-\(.*\)/\1/')
         sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
@@ -165,7 +163,7 @@ log_warning_msg () {
 #
 # int get_lsb_header_val (char *scriptpathname, char *key)
 get_lsb_header_val () {
-        if [ ! -f "$1" ] || [ -z "$2" ]; then
+        if [ ! -f "$1" ] || [ -z "${2:-}" ]; then
                 return 1
         fi
         LSB_S="### BEGIN INIT INFO"
@@ -175,7 +173,7 @@ get_lsb_header_val () {
 
 # int log_begin_message (char *message)
 log_begin_msg () {
-    if [ -z "$1" ]; then
+    if [ -z "${1:-}" ]; then
         return 1
     fi
     echo -n "$@"
@@ -196,11 +194,11 @@ log_begin_msg () {
 # On Ubuntu, would output " * Starting remote filesystem services..."
 
 log_daemon_msg () {
-    if [ -z "$1" ]; then
+    if [ -z "${1:-}" ]; then
         return 1
     fi
 
-    if [ -z "$2" ]; then
+    if [ -z "${2:-}" ]; then
         echo -n "$1:"
         return
     fi
@@ -224,7 +222,7 @@ log_daemon_msg () {
 #
 # On Ubuntu, one would expect log_progress_msg to be a no-op.
 log_progress_msg () {
-    if [ -z "$1" ]; then
+    if [ -z "${1:-}" ]; then
         return 1
     fi
     echo -n " $@"
@@ -234,7 +232,7 @@ log_progress_msg () {
 # int log_end_message (int exitstatus)
 log_end_msg () {
     # If no arguments were passed, return
-    [ -z "$1" ] && return 1
+    [ -z "${1:-}" ] && return 1
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted
@@ -269,7 +267,7 @@ log_action_cont_msg () {
 }
 
 log_action_end_msg () {
-    if [ -z "$2" ]; then
+    if [ -z "${2:-}" ]; then
         end="."
     else
         end=" ($2)."

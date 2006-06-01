@@ -1,3 +1,11 @@
+lsb (3.1-6) unstable; urgency=low
+
+  * Replace uses of $n with ${n:-} where $n could be unbound.
+    (Closes: #369193)
+  * Use pidof only if pid file is not specified.  (Closes: #365736)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu,  1 Jun 2006 14:20:24 -0400
+
 lsb (3.1-5) unstable; urgency=high
 
   * Remove /usr/X11R6/bin from lsb-core, since I'm pretty sure it's not

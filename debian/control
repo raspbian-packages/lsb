@@ -30,7 +30,7 @@ Description: Linux Standard Base 3.1 core support package
 
 Package: lsb-graphics
 Architecture: any
-Depends: lsb-core, xlibmesa3-gl | libgl1, xlibs, ${misc:Depends}
+Depends: lsb-core, xlibmesa3-gl | libgl1, libx11-6 | xlibs, ${misc:Depends}
 Conflicts: libutahglx1
 Provides: lsb-graphics-noarch, ${provides}
 Description: Linux Standard Base 3.1 graphics support package

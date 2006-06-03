@@ -1,3 +1,16 @@
+lsb (3.1-8) unstable; urgency=low
+
+  * Fix killproc() to work if signal isn't specified; also fix the
+    pidfile check in both killproc() and pidofproc().  (Closes: #370075)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat,  3 Jun 2006 02:45:55 -0400
+
+lsb (3.1-7) unstable; urgency=low
+
+  * lsb-graphics: Depend on libx11-6 | xlibs.  (Closes: #369955)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri,  2 Jun 2006 15:47:52 -0400
+
 lsb (3.1-6) unstable; urgency=low
 
   * Replace uses of $n with ${n:-} where $n could be unbound.

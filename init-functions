@@ -58,7 +58,7 @@ pidofproc () {
     local pidfile line i pids= status specified pid
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
-    specified=0
+    specified=
 
     for i in $*; do
         case $i in
@@ -94,7 +94,7 @@ killproc () {
     local pidfile sig status base i specified
     set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
-    specified=0
+    specified=
 
     for i in $*; do
         case $i in
@@ -109,8 +109,9 @@ killproc () {
     fi
 
     if [ $specified ]; then
-        sig=$(echo $2 | sed -e 's/^-\(.*\)/\1/')
+        sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
         sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
+        sig=${sig:-TERM}
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
         status="$?"
         [ "$status" = 1 ] && return 3 # program is not running

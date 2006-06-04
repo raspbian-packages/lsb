@@ -1,3 +1,9 @@
+lsb (3.1-9) unstable; urgency=high
+
+  * Add missing < "$pidfile" to read in pidofproc().  (Closes: #370155)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun,  4 Jun 2006 04:08:31 -0400
+
 lsb (3.1-8) unstable; urgency=low
 
   * Fix killproc() to work if signal isn't specified; also fix the

@@ -72,7 +72,7 @@ pidofproc () {
     fi
 
     if [ -f "$pidfile" ]; then
-        read pid
+        read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
             echo "$pid"
             return 0

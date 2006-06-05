@@ -1,3 +1,9 @@
+lsb (3.1-10) unstable; urgency=low
+
+  * Quote tests of $specified.  (Closes: #370256)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon,  5 Jun 2006 16:00:17 -0400
+
 lsb (3.1-9) unstable; urgency=high
 
   * Add missing < "$pidfile" to read in pidofproc().  (Closes: #370155)

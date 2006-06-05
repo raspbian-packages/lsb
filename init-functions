@@ -79,7 +79,7 @@ pidofproc () {
         else
             return 2 # program is dead and /var/run pid file exists
         fi
-    elif [ -x /bin/pidof -a ! $specified ]; then
+    elif [ -x /bin/pidof -a ! "$specified" ]; then
         /bin/pidof -o %PPID $1
         status="$?"
         [ "$status" = 1 ] && return 3 # program is not running
@@ -108,7 +108,7 @@ killproc () {
         pidfile=/var/run/$base.pid
     fi
 
-    if [ $specified ]; then
+    if [ "$specified" ]; then
         sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
         sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
         sig=${sig:-TERM}

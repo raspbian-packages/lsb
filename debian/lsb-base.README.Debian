@@ -90,4 +90,6 @@ If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
 Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
+"Fancy output" can be overriden by setting FANCYTTY=0 in this file.
+
  -- Chris Lawrence <lawrencc@debian.org>, Sat Sep 24 19:15:02 2005

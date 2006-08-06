@@ -29,81 +29,78 @@
 
 start_daemon () {
     local force nice pidfile exec i
-    set -- `POSIXLY_CORRECT=1 getopt "fn:p:" $*`
     force=0
     nice=0
     pidfile=/dev/null
 
-    for i in $*; do
-        case $i in
-            -f)  force=1; shift;;
-            -n)  nice=$2; shift 2;;
-            -p)  pidfile=$2; shift 2;;
-            --)  shift; break;;
+    while getopts fn:p: opt ; do
+        case "$opt" in
+            f)  force=1; shift 1;;
+            n)  nice="$OPTARG"; shift 2;;
+            p)  pidfile="$OPTARG"; shift 2;;
         esac
     done
 
-    exec=$1; shift
+    exec=$1; shift 1
+    if [ "$1" = '--' ] ; then shift 1; fi
 
     if [ $force = 1 ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- $*
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
     elif [ $pidfile ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- $*
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
     else
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- $*
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- "$@"
     fi
 }
 
 pidofproc () {
     local pidfile line i pids= status specified pid
-    set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
     specified=
 
-    for i in $*; do
-        case $i in
-            -p)  pidfile=$2; specified=1; shift 2;;
-            --)  shift; break;;
+    while getopts p:- opt ; do
+        case $opt in
+            p)  pidfile="$OPTARG"; specified=1; shift 2;;
         esac
     done
 
     if [ -z "${pidfile:-}" ]; then
-        pidfile=/var/run/$(basename "$1").pid
+        pidfile=/var/run/${1##*/}.pid
     fi
 
     if [ -f "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
-            echo "$pid"
-            return 0
-        else
-            return 2 # program is dead and /var/run pid file exists
+            if $(kill -0 "${pid:-}"); then
+                echo "$pid"
+                return 0
+            else
+                return 1 # program is dead and /var/run pid file exists
+            fi
         fi
-    elif [ -x /bin/pidof -a ! "$specified" ]; then
+    fi
+    if [ -x /bin/pidof -a ! "$specified" ]; then
         /bin/pidof -o %PPID $1
         status="$?"
         [ "$status" = 1 ] && return 3 # program is not running
         return 0
-    else
-        return 4 # program or service is unknown
     fi
+    return 4 # program or service is unknown
 }
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
     local pidfile sig status base i specified
-    set -- `POSIXLY_CORRECT=1 getopt "p:" $*`
     pidfile=
     specified=
 
-    for i in $*; do
+    while getopts p:- opt ; do
         case $i in
-            -p)  pidfile=$2; specified=1; shift 2;;
-            --)  shift; break;;
+            p)  pidfile="$OPTARG"; specified=1; shift 2;;
         esac
     done
 
-    base=$(basename "$1")
+    base=${1##*/}
     if [ ! $pidfile ]; then
         pidfile=/var/run/$base.pid
     fi
@@ -113,12 +110,12 @@ killproc () {
         sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
         sig=${sig:-TERM}
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
-        status="$?"
-        [ "$status" = 1 ] && return 3 # program is not running
-        return 0
     else
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
     fi
+    status="$?"
+    [ "$status" = 1 ] && return 3 # program is not running
+    return 0
 
     rm -f "$pidfile"
 }
@@ -126,6 +123,9 @@ killproc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
+    if FANCYTTY=0; then
+        false
+    fi
     if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
         FANCYTTY=1
         true
@@ -252,7 +252,7 @@ log_end_msg () {
             echo " failed!"
         fi
     fi
-    return $1
+    return 0
 }
 
 log_action_msg () {

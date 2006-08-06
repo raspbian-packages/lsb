@@ -1,3 +1,27 @@
+lsb (3.1-11) unstable; urgency=low
+
+  * Patch for other architectures from Martin Habets
+    <mhabets@mph.eclipse.co.uk> (closes: #375457)
+  * Stop using basename: patch from Tore Anderson <tore@debian.org>
+    (closes: #354028)
+  * Move return code evaluation out of if $specified block in killproc, so
+    that evaluation is dependant on whether or not process is running, not on
+    whether a pidfile was specified (closes: #379387)
+  * log_end_msg no longer returns non-zero.  It's a log function, after all
+    (closes: #381687)
+  * log_use_fancy_output is now overridable by admin (closes: #374780)
+  * pidofproc actually checks if process is running (closes: #381684)
+    (probably closes: #167757)
+  * Use shell built-in getopts instead of /usr/bin/getopt (closes: #335216)
+  * Remove reference to /usr/share/doc/lsb-core/html/ (closes: #380045)
+  * Ru translation (thanks: Yuri Kozlov <kozlov.y@gmail.com>) 
+    (closes: #380430)
+  * Above changes prepared by Stephen Gran <sgran@debian.org>.
+  * Update debian/TODO, which was a wee bit out of date.
+  * Accomplish Python policy transition. (Closes: #380858)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun,  6 Aug 2006 18:18:08 -0500
+
 lsb (3.1-10) unstable; urgency=low
 
   * Quote tests of $specified.  (Closes: #370256)

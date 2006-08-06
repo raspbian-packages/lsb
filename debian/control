@@ -2,15 +2,17 @@ Source: lsb
 Section: misc
 Priority: extra
 Maintainer: Chris Lawrence <lawrencc@debian.org>
-Build-Depends: debhelper (>= 4.1.13), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10)
+Build-Depends: debhelper (>= 4.1.13), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-central (>= 0.5), python-all-dev
 Standards-Version: 3.7.2
+XS-Python-Version: current
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, ${glibc}, libz1, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), python (>> 2.3), ${misc:Depends}, ${depends}, lsb-base
+Depends: lsb-release, ${glibc}, libz1, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
 Conflicts: python (>> 2.5), lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
+XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.1 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
@@ -150,8 +152,9 @@ Description: Linux Standard Base 3.1 init script functionality
 
 Package: lsb-release
 Architecture: all
-Depends: python (>> 2.3), python (<< 2.5)
+Depends: ${python:Depends}
 Recommends: lsb
+XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base version reporting utility
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

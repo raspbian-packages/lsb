@@ -1,6 +1,6 @@
 # /lib/lsb/init-functions for Debian -*- shell-script -*-
 #
-#Copyright (c) 2002-05 Chris Lawrence
+#Copyright (c) 2002-06 Chris Lawrence
 #All rights reserved.
 #
 #Redistribution and use in source and binary forms, with or without
@@ -35,14 +35,16 @@ start_daemon () {
 
     while getopts fn:p: opt ; do
         case "$opt" in
-            f)  force=1; shift 1;;
-            n)  nice="$OPTARG"; shift 2;;
-            p)  pidfile="$OPTARG"; shift 2;;
+            f)  force=1;;
+            n)  nice="$OPTARG";;
+            p)  pidfile="$OPTARG";;
         esac
     done
+    
+    shift $(($OPTIND - 1))
+    [ "$1" = '--' ] && shift
 
-    exec=$1; shift 1
-    if [ "$1" = '--' ] ; then shift 1; fi
+    exec="$1"; shift
 
     if [ $force = 1 ]; then
         /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
@@ -60,9 +62,10 @@ pidofproc () {
 
     while getopts p:- opt ; do
         case $opt in
-            p)  pidfile="$OPTARG"; specified=1; shift 2;;
+            p)  pidfile="$OPTARG"; specified=1;;
         esac
     done
+    shift $(($OPTIND - 1))
 
     if [ -z "${pidfile:-}" ]; then
         pidfile=/var/run/${1##*/}.pid
@@ -71,7 +74,7 @@ pidofproc () {
     if [ -f "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
-            if $(kill -0 "${pid:-}"); then
+            if $(kill -0 "${pid:-}" 2> /dev/null); then
                 echo "$pid"
                 return 0
             else
@@ -96,25 +99,29 @@ killproc () {
 
     while getopts p:- opt ; do
         case $i in
-            p)  pidfile="$OPTARG"; specified=1; shift 2;;
+            p)  pidfile="$OPTARG"; specified=1;;
         esac
     done
+    shift $(($OPTIND - 1))
 
     base=${1##*/}
     if [ ! $pidfile ]; then
         pidfile=/var/run/$base.pid
     fi
 
+    sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
+    sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
+    sig=${sig:-TERM}
     if [ "$specified" ]; then
-        sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
-        sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-        sig=${sig:-TERM}
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
     else
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
     fi
     status="$?"
-    [ "$status" = 1 ] && return 3 # program is not running
+    if [ "$status" = 1 ]; then
+        [ -n "$sig" ] && return 0
+        return 3 # program is not running
+    fi
     return 0
 
     rm -f "$pidfile"
@@ -123,10 +130,10 @@ killproc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
-    if FANCYTTY=0; then
+    if [ FANCYTTY = 0 ]; then
         false
     fi
-    if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1; then
+    if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
         FANCYTTY=1
         true
     else
@@ -252,7 +259,7 @@ log_end_msg () {
             echo " failed!"
         fi
     fi
-    return 0
+    return $1
 }
 
 log_action_msg () {

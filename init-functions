@@ -33,6 +33,7 @@ start_daemon () {
     nice=0
     pidfile=/dev/null
 
+    OPTIND=1
     while getopts fn:p: opt ; do
         case "$opt" in
             f)  force=1;;
@@ -59,8 +60,9 @@ pidofproc () {
     local pidfile line i pids= status specified pid
     pidfile=
     specified=
-
-    while getopts p:- opt ; do
+    
+    OPTIND=1
+    while getopts p: opt ; do
         case $opt in
             p)  pidfile="$OPTARG"; specified=1;;
         esac
@@ -97,7 +99,8 @@ killproc () {
     pidfile=
     specified=
 
-    while getopts p:- opt ; do
+    OPTIND=1
+    while getopts p: opt ; do
         case $i in
             p)  pidfile="$OPTARG"; specified=1;;
         esac

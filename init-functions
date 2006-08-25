@@ -63,7 +63,7 @@ pidofproc () {
     
     OPTIND=1
     while getopts p: opt ; do
-        case $opt in
+        case "$opt" in
             p)  pidfile="$OPTARG"; specified=1;;
         esac
     done
@@ -101,7 +101,7 @@ killproc () {
 
     OPTIND=1
     while getopts p: opt ; do
-        case $i in
+        case "$opt" in
             p)  pidfile="$OPTARG"; specified=1;;
         esac
     done

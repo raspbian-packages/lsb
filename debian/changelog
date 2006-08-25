@@ -1,3 +1,9 @@
+lsb (3.1-15) unstable; urgency=low
+
+  * Fix assignment to $opt in pidofproc().  (Closes: #384540)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 24 Aug 2006 19:08:02 -0500
+
 lsb (3.1-14) unstable; urgency=low
 
   * Document LSB init functions more thoroughly in lsb-base's README.Debian.

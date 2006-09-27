@@ -95,14 +95,13 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base i specified
+    local pidfile sig status base i
     pidfile=
-    specified=
 
     OPTIND=1
     while getopts p: opt ; do
         case "$opt" in
-            p)  pidfile="$OPTARG"; specified=1;;
+            p)  pidfile="$OPTARG";;
         esac
     done
     shift $(($OPTIND - 1))
@@ -114,9 +113,8 @@ killproc () {
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-    sig=${sig:-TERM}
-    if [ "$specified" ]; then
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal $sig --quiet --name "$base"
+    if [ -n "$sig" ]; then
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet --name "$base"
     else
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
     fi
@@ -133,16 +131,17 @@ killproc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
-    if [ FANCYTTY = 0 ]; then
-        false
+    if [ -z $FANCYTTY ]; then
+        if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
+            FANCYTTY=1
+        else
+            FANCYTTY=0
+        fi
     fi
-    if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
-        FANCYTTY=1
-        true
-    else
-        FANCYTTY=0
-        false
-    fi
+    case "$FANCYTTY" in
+        1|Y|yes|true)   true;;
+        *)              false;;
+    esac
 }
 
 log_success_msg () {

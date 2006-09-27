@@ -2,7 +2,8 @@ lsb-base for Debian
 -------------------
 
 The Debian lsb-base package provides a series of logging functions to
-permit simplified logging of init script actions.
+permit simplified logging of init script actions.  These functions are
+specific to Debian and (in some cases) other derived distributions.
 
   - log_daemon_msg "Starting/stopping long daemon name" "daemond"
 
@@ -25,7 +26,8 @@ permit simplified logging of init script actions.
     TTY) followed by newline.
 
     Unsucessful startup will cause the specified failure code to be
-    returned by this function.
+    returned by this function; unless trapped, this may end your init
+    script depending on whether or not set -e is used.
 
   - log_action_msg "Setting VARIABLE to VALUE"
 
@@ -63,6 +65,9 @@ permit simplified logging of init script actions.
 
     On color TTYs, the failure messages will be red.
 
+    Note that unlike log_end_msg(), this function does not return the
+    first argument as its exit code.
+
 A deprecated function, log_start_msg, is also provided for
 compatibility with a few older packages and a derived distribution.
 This may eventually disappear.
@@ -91,10 +96,13 @@ start_daemon [-f] [-n nicelevel] [-p pidfile] pathname [args...]
   implement this functionality.
 
 killproc [-p pidfile] pathname [signal]
-  Stops "pathname" (using "pidfile", if specified, to find the process ID).
+  Stops "pathname" (using "pidfile", if specified, to find the process
+  ID).  This is implemented using start-stop-daemon as well.
 
 pidofproc [-p pidfile] pathname
-  Find the process ID of pathname.
+  Find the process ID of pathname.  If the pidfile is specified, we use the
+  first space-delimited word; otherwise, /bin/pidof is used from the
+  sysvinit package, if available.
 
 For full documentation, please refer to:
 
@@ -102,7 +110,10 @@ http://refspecs.freestandards.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/in
 
 Note: Debian packages probably should use start-stop-daemon directly;
 however, these functions may be useful in porting init scripts from
-other distributions.
+other distributions.  Also, if you are developing software for wider
+use, you should not expect these functions to be implemented
+identically on other LSB-conforming distributions; the only guaranteed
+behaviors are those in the specification above.
 
 CUSTOMIZING LOGGING OUTPUT
 
@@ -119,4 +130,4 @@ Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
 "Fancy output" can be overriden by setting FANCYTTY=0 in this file.
 
- -- Chris Lawrence <lawrencc@debian.org>, Fri, 11 Aug 2006 23:38:28 -0500
+ -- Chris Lawrence <lawrencc@debian.org>, Sat, 26 Aug 2006 21:40:06 -0500

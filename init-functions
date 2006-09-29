@@ -296,4 +296,5 @@ log_action_end_msg () {
     fi
 }
 
+FANCYTTY=
 [ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true

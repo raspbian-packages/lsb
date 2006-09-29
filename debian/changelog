@@ -1,3 +1,10 @@
+lsb (3.1-17) unstable; urgency=low
+
+  * Set FANCYTTY to a null string to cope with init scripts that for some
+    reason seem to use set -u.  (Closes: #390085)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 29 Sep 2006 01:50:51 -0500
+
 lsb (3.1-16) unstable; urgency=low
 
   * Improve documentation of killproc().  (Closes: #384814)

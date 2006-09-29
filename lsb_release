@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # lsb_release command for Debian
-# (C) 2005 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-06 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ def valid_lsb_versions(version, module):
 
     return [version]
 
+# This is Debian-specific at present
 def check_modules_installed():
     # Find which LSB modules are installed on this system
     output = commands.getoutput("dpkg-query -f '${Version} ${Provides}\n' -W %s 2>/dev/null" % PACKAGES)
@@ -153,10 +154,8 @@ def guess_debian_release():
 
     return distinfo
 
-def get_distro_information():
-    distinfo = guess_debian_release()
-
-    # Replace any info in /etc/lsb-release
+def get_lsb_information():
+    distinfo = {}
     if os.path.exists('/etc/lsb-release'):
         for line in open('/etc/lsb-release'):
             line = line.strip()
@@ -168,7 +167,11 @@ def get_distro_information():
                 if arg.startswith('"') and arg.endswith('"'):
                     arg = arg[1:-1]
                 distinfo[var] = arg
+    return distinfo
 
+def get_distro_information():
+    distinfo = guess_debian_release()
+    distinfo.update(get_lsb_information())
     return distinfo
     
 def main():

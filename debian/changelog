@@ -1,3 +1,14 @@
+lsb (3.1-18) unstable; urgency=low
+
+  * etch will be Debian 4.0, not Debian 3.2.  (Closes: #395004)
+  * Don't quote $@ in start-stop-daemon calls, which should resolve issues
+    with multiple/quoted arguments to the daemon in start_daemon().
+    (Closes: #388836)
+  * Revert to testing for a fancy TTY before trying to call tput and friends,
+    to avoid crap spewage on shutdown.  (Closes: #390363, #391981)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 27 Oct 2006 01:18:56 -0500
+
 lsb (3.1-17) unstable; urgency=low
 
   * Set FANCYTTY to a null string to cope with init scripts that for some

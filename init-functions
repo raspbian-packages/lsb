@@ -48,11 +48,11 @@ start_daemon () {
     exec="$1"; shift
 
     if [ $force = 1 ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- $@
+        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
     elif [ $pidfile ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- $@
+        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
     else
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- $@
+        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- "$@"
     fi
 }
 

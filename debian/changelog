@@ -1,3 +1,10 @@
+lsb (3.1-19) unstable; urgency=low
+
+  * Now try the eval hack in start-stop-daemon, since nothing else seems
+    to work.  (Closes: #388836)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 30 Oct 2006 19:08:26 -0600
+
 lsb (3.1-18) unstable; urgency=low
 
   * etch will be Debian 4.0, not Debian 3.2.  (Closes: #395004)

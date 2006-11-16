@@ -33,7 +33,7 @@ RELEASE_CODENAME_LOOKUP = {
     '2.2' : 'potato',
     '3.0' : 'woody',
     '3.1' : 'sarge',
-    '4.0' : 'etch', # XXX - may not end up as 3.2
+    '4.0' : 'etch',
     }
 
 TESTING_CODENAME = 'etch'
@@ -132,28 +132,27 @@ def guess_debian_release():
 
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
 
-    if os.path.exists('/etc/debian_version'):
+    release = guess_release_from_apt()
+    if release:
+        codename = RELEASE_CODENAME_LOOKUP.get(release)
+        if not codename:
+            if release == 'testing':
+                codename = TESTING_CODENAME
+            else:
+                codename = 'sid'
+        distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
+    elif os.path.exists('/etc/debian_version'):
         release = open('/etc/debian_version').read().strip()
         if not release[0:1].isalpha():
             # /etc/debian_version should be numeric
             codename = RELEASE_CODENAME_LOOKUP.get(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
-        else:
-            release = guess_release_from_apt()
-            if release:
-                codename = RELEASE_CODENAME_LOOKUP.get(release)
-                if not codename:
-                    if release == 'testing':
-                        codename = TESTING_CODENAME
-                    else:
-                        codename = 'sid'
-                distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename})
-            else:
-                distinfo.update({ 'RELEASE' : release, 'CODENAME' : 'sid'})
-        distinfo['DESCRIPTION'] += ' %(RELEASE)s (%(CODENAME)s)' % distinfo
+
+    distinfo['DESCRIPTION'] += ' %(RELEASE)s (%(CODENAME)s)' % distinfo
 
     return distinfo
 
+# Whatever is guessed above can be overridden in /etc/lsb-release
 def get_lsb_information():
     distinfo = {}
     if os.path.exists('/etc/lsb-release'):

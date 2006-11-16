@@ -95,8 +95,9 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base i
+    local pidfile sig status base i name_param
     pidfile=
+    name_param=
 
     OPTIND=1
     while getopts p: opt ; do
@@ -109,14 +110,15 @@ killproc () {
     base=${1##*/}
     if [ ! $pidfile ]; then
         pidfile=/var/run/$base.pid
+        name_param="--name $base"
     fi
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
     if [ -n "$sig" ]; then
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet --name "$base"
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet $name_param
     else
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo --name "$base"
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param
     fi
     status="$?"
     if [ "$status" = 1 ]; then

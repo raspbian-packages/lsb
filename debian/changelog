@@ -1,3 +1,15 @@
+lsb (3.1-20) unstable; urgency=low
+
+  * The "hopefully we can push this into testing now that the bugs are all
+    shaken out, maybe" release.
+  * Don't use --name in killproc() when a pidfile is provided; thanks to
+    Timo Reimann for the patch.  (Closes: #397977)
+  * Give lsb_release's heuristics priority over whatever is in
+    /etc/debian_version; note that /etc/lsb-release will override both and
+    should be supplied by derived distributions.  (Closes: #396853)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 15 Nov 2006 18:09:02 -0600
+
 lsb (3.1-19) unstable; urgency=low
 
   * Now try the eval hack in start-stop-daemon, since nothing else seems

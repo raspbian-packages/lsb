@@ -1,3 +1,10 @@
+lsb (3.1-21) unstable; urgency=low
+
+  * lsb_release changes: Improve parsing of apt-cache policy output to be
+    more flexible; deal with stable revisions in the codename lookup.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 19 Nov 2006 02:12:34 -0600
+
 lsb (3.1-20) unstable; urgency=low
 
   * The "hopefully we can push this into testing now that the bugs are all

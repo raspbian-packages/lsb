@@ -24,6 +24,8 @@ import os
 import re
 
 # XXX: Update as needed
+# This should really be included in apt-cache policy output... it is already
+# in the Release file...
 RELEASE_CODENAME_LOOKUP = {
     '1.1' : 'buzz',
     '1.2' : 'rex',
@@ -37,6 +39,14 @@ RELEASE_CODENAME_LOOKUP = {
     }
 
 TESTING_CODENAME = 'etch'
+
+def lookup_codename(release):
+    m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
+    if not m:
+        return None
+
+    shortrelease = '%s.%s' % m.group(1,2)
+    return RELEASE_CODENAME_LOOKUP.get(shortrelease, None)
 
 # LSB compliance packages... may grow eventually
 PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4'
@@ -90,32 +100,54 @@ priorityre = re.compile(r'\s+(\d+)\s+')
 versionre = re.compile(r'release v=([\d.+]+),o=Debian,a=([^,]+).*c=main')
 releasere = re.compile(r'release o=Debian,a=([^,]+).*c=main')
 
-def guess_release_from_apt():
-    releases = []
+longnames = {'v' : 'version', 'o': 'origin', 'a': 'suite',
+             'c' : 'component', 'l': 'label'}
 
-    priority = None
+def parse_policy_line(data):
+    retval = {}
+    bits = data.split(',')
+    for bit in bits:
+        kv = bit.split('=', 1)
+        if len(kv) > 1:
+            k, v = kv[:2]
+            if k in longnames:
+                retval[longnames[k]] = v
+    return retval
+
+def parse_apt_policy():
+    data = []
+    
     policy = commands.getoutput('apt-cache policy 2>/dev/null')
     for line in policy.split('\n'):
-        m = priorityre.match(line)
+        line = line.strip()
+        m = re.match(r'(\d+)', line)
         if m:
             priority = int(m.group(1))
-        
-        m = versionre.search(line)
-        if m and priority is not None:
-            releases.append((priority, m.group(1)))
+        if line.startswith('release'):
+            bits = line.split(' ', 1)
+            if len(bits) > 1:
+                data.append( (priority, parse_policy_line(bits[1])) )
 
-        m = releasere.search(line)
-        if m and priority is not None:
-            releases.append((priority, m.group(1)))
+    return data
+
+def guess_release_from_apt(origin='Debian', component='main',
+                           ignoresuites=('experimental')):
+    releases = parse_apt_policy()
 
     if not releases:
         return None
 
+    # We only care about the specified origin and component
+    releases = [x for x in releases if (
+        x[1].get('origin', '') == origin and
+        x[1].get('component', '') == component)]
+    
     releases.sort()
     releases.reverse()
-    for (pri, release) in releases:
-        if release != 'experimental':
-            return release
+
+    for (pri, rinfo) in releases:
+        if rinfo.get('suite', '') not in ignoresuites:
+            return rinfo
 
     return None
 
@@ -132,10 +164,13 @@ def guess_debian_release():
 
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
 
-    release = guess_release_from_apt()
-    if release:
-        codename = RELEASE_CODENAME_LOOKUP.get(release)
-        if not codename:
+    rinfo = guess_release_from_apt()
+    if rinfo:
+        release = rinfo.get('version')
+        if release:
+            codename = lookup_codename(release) or 'unknown'
+        else:
+            release = rinfo.get('suite', 'unstable')
             if release == 'testing':
                 codename = TESTING_CODENAME
             else:

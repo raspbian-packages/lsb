@@ -1,3 +1,13 @@
+lsb (3.1-22) unstable; urgency=low
+
+  * Fix crash when the Debian release is identified from
+    /etc/debian_version and there is no corresponding codename (reported
+    by Riku Voipio as a result of buildd failures).
+  * log_use_fancy_output() had unintended behavior under set -e.
+    (Thanks to Steve Langesek for the heads-up.)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 19 Nov 2006 20:27:59 -0600
+
 lsb (3.1-21) unstable; urgency=low
 
   * lsb_release changes: Improve parsing of apt-cache policy output to be

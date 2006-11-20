@@ -40,13 +40,13 @@ RELEASE_CODENAME_LOOKUP = {
 
 TESTING_CODENAME = 'etch'
 
-def lookup_codename(release):
+def lookup_codename(release, unknown=None):
     m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
     if not m:
-        return None
+        return unknown
 
     shortrelease = '%s.%s' % m.group(1,2)
-    return RELEASE_CODENAME_LOOKUP.get(shortrelease, None)
+    return RELEASE_CODENAME_LOOKUP.get(shortrelease, unknown)
 
 # LSB compliance packages... may grow eventually
 PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4'
@@ -95,10 +95,6 @@ def check_modules_installed():
                     modules += [module]
                     
     return modules
-
-priorityre = re.compile(r'\s+(\d+)\s+')
-versionre = re.compile(r'release v=([\d.+]+),o=Debian,a=([^,]+).*c=main')
-releasere = re.compile(r'release o=Debian,a=([^,]+).*c=main')
 
 longnames = {'v' : 'version', 'o': 'origin', 'a': 'suite',
              'c' : 'component', 'l': 'label'}
@@ -168,10 +164,11 @@ def guess_debian_release():
     if rinfo:
         release = rinfo.get('version')
         if release:
-            codename = lookup_codename(release) or 'unknown'
+            codename = lookup_codename(release, 'n/a')
         else:
             release = rinfo.get('suite', 'unstable')
             if release == 'testing':
+                # Would be nice if I didn't have to hardcode this.
                 codename = TESTING_CODENAME
             else:
                 codename = 'sid'
@@ -180,10 +177,15 @@ def guess_debian_release():
         release = open('/etc/debian_version').read().strip()
         if not release[0:1].isalpha():
             # /etc/debian_version should be numeric
-            codename = RELEASE_CODENAME_LOOKUP.get(release, 'n/a')
+            codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
+        else:
+            distinfo['RELEASE'] = release
 
-    distinfo['DESCRIPTION'] += ' %(RELEASE)s (%(CODENAME)s)' % distinfo
+    if 'RELEASE' in distinfo:
+        distinfo['DESCRIPTION'] += ' %(RELEASE)s' % distinfo
+    if 'CODENAME' in distinfo:
+        distinfo['DESCRIPTION'] += ' (%(CODENAME)s)' % distinfo
 
     return distinfo
 

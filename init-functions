@@ -125,9 +125,9 @@ killproc () {
         [ -n "$sig" ] && return 0
         return 3 # program is not running
     fi
-    return 0
 
     rm -f "$pidfile"
+    return 0
 }
 
 log_use_fancy_output () {

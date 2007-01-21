@@ -153,7 +153,7 @@ Description: Linux Standard Base 3.1 init script functionality
 Package: lsb-release
 Architecture: all
 Depends: ${python:Depends}
-Recommends: lsb
+Recommends: lsb, apt
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base version reporting utility
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

@@ -1,3 +1,15 @@
+lsb (3.1-23) unstable; urgency=low
+
+  * Remove the pidfile in killproc() if successful.  (Closes: #400261)
+  * Recommend apt in lsb-release; lsb-release can work without it, so
+    no need to make it a hard dependency.  (Closes: #399991)
+  * Fix missing paragraph break in lsb_release(1).  (Closes: #399989)
+    Above two fixes courtesy of Julian Gibney.
+  * Add Romanian and Spanish translations of debconf templates.
+    (Closes: #403421, #403527)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 20 Jan 2007 21:58:36 -0600
+
 lsb (3.1-22) unstable; urgency=low
 
   * Fix crash when the Debian release is identified from

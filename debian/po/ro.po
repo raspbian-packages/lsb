@@ -31,7 +31,11 @@ msgid ""
 "available to conforming applications (such as password aging). Debian only "
 "provides these features when shadow passwords are enabled; however, your "
 "system currently has shadow passwords disabled."
-msgstr "Linux Standard Base cere ca anumite facilităţi ale lui adduser(8) să fie conforme standardului (faciltăţi ca expirarea parolelor). Debian oferă aceste facilităţi doar atunci când sunt activate parolele criptate; totuşi, în prezent, parolele criptate sunt dezactivate pe sistemul dumneavoastră."
+msgstr ""
+"Linux Standard Base cere ca anumite facilităţi ale lui adduser(8) să fie "
+"conforme standardului (faciltăţi ca expirarea parolelor). Debian oferă "
+"aceste facilităţi doar atunci când sunt activate parolele criptate; totuşi, "
+"în prezent, parolele criptate sunt dezactivate pe sistemul dumneavoastră."
 
 #. Type: boolean
 #. Description
@@ -40,7 +44,9 @@ msgstr "Linux Standard Base cere ca anumite facilităţi ale lui adduser(8) să 
 msgid ""
 "Most LSB applications will work fine with either setting, but 100% "
 "conformance requires shadow passwords to be enabled."
-msgstr "Majoritatea aplicaţiilor LSB vor funcţiona cu ambele setări, dar pentru conformitate deplină este necesară activarea parolelor criptate."
+msgstr ""
+"Majoritatea aplicaţiilor LSB vor funcţiona cu ambele setări, dar pentru "
+"conformitate deplină este necesară activarea parolelor criptate."
 
 #. Type: boolean
 #. Description
@@ -50,7 +56,11 @@ msgid ""
 "passwords.  However, there are some situations in which shadow passwords may "
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
-msgstr "În general, este bine să activaţi parolele criptate.  Totuşi, există unele situaţii în care parolele criptate nu vor funcţiona corespunzător (cazul cel mai evident, atunci când utilizatorii obişnuiţi trebuie să autentifice parolele faţă de cele din /etc/passwd)."
+msgstr ""
+"În general, este bine să activaţi parolele criptate.  Totuşi, există unele "
+"situaţii în care parolele criptate nu vor funcţiona corespunzător (cazul cel "
+"mai evident, atunci când utilizatorii obişnuiţi trebuie să autentifice "
+"parolele faţă de cele din /etc/passwd)."
 
 #. Type: boolean
 #. Description
@@ -58,5 +68,6 @@ msgstr "În general, este bine să activaţi parolele criptate.  Totuşi, exist�
 msgid ""
 "If you answer in the affirmative, the command 'shadowconfig on' will be run "
 "to enable shadow passwords."
-msgstr "Dacă răspundeţi afirmativ, se va rula comanda 'shadowconfig on' pentru a activa parolele criptate."
-
+msgstr ""
+"Dacă răspundeţi afirmativ, se va rula comanda 'shadowconfig on' pentru a "
+"activa parolele criptate."

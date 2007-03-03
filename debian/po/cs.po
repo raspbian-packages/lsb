@@ -19,13 +19,13 @@ msgstr ""
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: CZech <provoz@debian.cz>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Description
 #: ../templates:4
 msgid "Should shadow passwords be enabled?"
-msgstr "Mají se povolit stínová hesla?"
+msgstr "MajÃ­ se povolit stÃ­novÃ¡ hesla?"
 
 #. Description
 #: ../templates:4
@@ -35,10 +35,10 @@ msgid ""
 "provides these features when shadow passwords are enabled; however, your "
 "system currently has shadow passwords disabled."
 msgstr ""
-"Linux Standard Base vy¾aduje, aby byly urèité vlastnosti programu adduser(8) "
-"(napø. stárnutí hesel) dostupné odpovídajícím aplikacím. Debian poskytuje "
-"tyto vlastnosti pouze pøi zapnutıch stínovıch heslech. Zdá se, ¾e vá¹ "
-"systém má podporu stínovıch hesel vypnutu."
+"Linux Standard Base vyÅ¾aduje, aby byly urÄitÃ© vlastnosti programu adduser(8) "
+"(napÅ™. stÃ¡rnutÃ­ hesel) dostupnÃ© odpovÃ­dajÃ­cÃ­m aplikacÃ­m. Debian poskytuje "
+"tyto vlastnosti pouze pÅ™i zapnutÃ½ch stÃ­novÃ½ch heslech. ZdÃ¡ se, Å¾e vÃ¡Å¡ systÃ©m "
+"mÃ¡ podporu stÃ­novÃ½ch hesel vypnutu."
 
 #. Description
 #: ../templates:4
@@ -47,8 +47,8 @@ msgid ""
 "Most LSB applications will work fine with either setting, but 100% "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
-"Vìt¹ina LSB aplikací bude pracovat s obìma nastaveními, ale 100% "
-"kompatibility dosáhnete pouze se zapnutou podporou stínovıch hesel."
+"VÄ›tÅ¡ina LSB aplikacÃ­ bude pracovat s obÄ›ma nastavenÃ­mi, ale 100% "
+"kompatibility dosÃ¡hnete pouze se zapnutou podporou stÃ­novÃ½ch hesel."
 
 #. Description
 #: ../templates:4
@@ -58,8 +58,8 @@ msgid ""
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
 msgstr ""
-"Obecnì jsou stínová hesla doporuèena, av¹ak existují situace, kdy nemusí "
-"fungovat (napøíklad pokud se neprivilegovaní u¾ivatelé potøebují "
+"ObecnÄ› jsou stÃ­novÃ¡ hesla doporuÄena, avÅ¡ak existujÃ­ situace, kdy nemusÃ­ "
+"fungovat (napÅ™Ã­klad pokud se neprivilegovanÃ­ uÅ¾ivatelÃ© potÅ™ebujÃ­ "
 "autentizovat oproti /etc/passwd)."
 
 #. Description
@@ -68,5 +68,5 @@ msgid ""
 "If you answer in the affirmative, the command 'shadowconfig on' will be run "
 "to enable shadow passwords."
 msgstr ""
-"Odpovíte-li kladnì, spustí se program 'shadowconfig on', kterı zapne "
-"podporu stínovıch hesel."
+"OdpovÃ­te-li kladnÄ›, spustÃ­ se program 'shadowconfig on', kterÃ½ zapne podporu "
+"stÃ­novÃ½ch hesel."

@@ -19,15 +19,15 @@ msgstr ""
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Description
 #: ../templates:4
 msgid "Should shadow passwords be enabled?"
 msgstr ""
-"Souhaitez-vous mettre en service les mots de passe cachés (« shadow "
-"passwords ») ?"
+"Souhaitez-vous mettre en service les mots de passe cachÃ©s (Â«Â shadow "
+"passwordsÂ Â»)Â ?"
 
 #. Description
 #: ../templates:4
@@ -37,11 +37,11 @@ msgid ""
 "provides these features when shadow passwords are enabled; however, your "
 "system currently has shadow passwords disabled."
 msgstr ""
-"La base normalisée de Linux (LSB : «  Linux Standard Base ») impose que "
-"certaines fonctionnalités de adduser(8) (p. ex. l'expiration des mots de "
-"passe) soient disponibles pour les applications qui se conforment à la LSB. "
-"Debian n'offre ces possibilités que lorsque les mots de passe cachés sont "
-"activés ; or, ils sont actuellement désactivés sur votre système."
+"La base normalisÃ©e de Linux (LSBÂ : Â«Â  Linux Standard BaseÂ Â») impose que "
+"certaines fonctionnalitÃ©s de adduser(8) (p. ex. l'expiration des mots de "
+"passe) soient disponibles pour les applications qui se conforment Ã  la LSB. "
+"Debian n'offre ces possibilitÃ©s que lorsque les mots de passe cachÃ©s sont "
+"activÃ©sÂ ; or, ils sont actuellement dÃ©sactivÃ©s sur votre systÃ¨me."
 
 #. Description
 #: ../templates:4
@@ -50,9 +50,9 @@ msgid ""
 "Most LSB applications will work fine with either setting, but 100% "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
-"La plupart des applications conformes à la LSB fonctionnent correctement "
-"dans tous les cas, mais la conformité complète n'est possible qu'avec "
-"l'activation des mots de passe cachés."
+"La plupart des applications conformes Ã  la LSB fonctionnent correctement "
+"dans tous les cas, mais la conformitÃ© complÃ¨te n'est possible qu'avec "
+"l'activation des mots de passe cachÃ©s."
 
 #. Description
 #: ../templates:4
@@ -62,10 +62,10 @@ msgid ""
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
 msgstr ""
-"En général, l'activation des mots de passe cachés est plutôt un choix "
-"judicieux. Cependant, leur utilisation peut générer des difficultés dans "
-"certains cas (typiquement, lorsqu'un utilisateur non privilégié cherche à "
-"utiliser /etc/passwd pour contrôler les mots de passe)."
+"En gÃ©nÃ©ral, l'activation des mots de passe cachÃ©s est plutÃ´t un choix "
+"judicieux. Cependant, leur utilisation peut gÃ©nÃ©rer des difficultÃ©s dans "
+"certains cas (typiquement, lorsqu'un utilisateur non privilÃ©giÃ© cherche Ã  "
+"utiliser /etc/passwd pour contrÃ´ler les mots de passe)."
 
 #. Description
 #: ../templates:4
@@ -73,5 +73,5 @@ msgid ""
 "If you answer in the affirmative, the command 'shadowconfig on' will be run "
 "to enable shadow passwords."
 msgstr ""
-"Si vous répondez affirmativement ici, la commande « shadowconfig on » sera "
-"utilisée pour activer les mots de passe cachés."
+"Si vous rÃ©pondez affirmativement ici, la commande Â«Â shadowconfig onÂ Â» sera "
+"utilisÃ©e pour activer les mots de passe cachÃ©s."

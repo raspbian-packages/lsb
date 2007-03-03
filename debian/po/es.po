@@ -52,7 +52,13 @@ msgid ""
 "available to conforming applications (such as password aging). Debian only "
 "provides these features when shadow passwords are enabled; however, your "
 "system currently has shadow passwords disabled."
-msgstr "El estándar base de Linux (LSB, «Linux Standard Base») exige que ciertas características de adduser(8) (como pueda ser el envejecimiento de contraseñas) estén disponibles para las aplicaciones que siguen dicho estándar. Debian sólo proporciona esas características cuando están activas las contraseñas ocultas («shadow») pero esta función está desactivada en su sistema."
+msgstr ""
+"El estándar base de Linux (LSB, «Linux Standard Base») exige que ciertas "
+"características de adduser(8) (como pueda ser el envejecimiento de "
+"contraseñas) estén disponibles para las aplicaciones que siguen dicho "
+"estándar. Debian sólo proporciona esas características cuando están activas "
+"las contraseñas ocultas («shadow») pero esta función está desactivada en su "
+"sistema."
 
 #. Type: boolean
 #. Description
@@ -74,7 +80,12 @@ msgid ""
 "passwords.  However, there are some situations in which shadow passwords may "
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
-msgstr "La activación de las contraseñas ocultas se considera una buena práctica. Pero hay algunas situaciones en las que éstas pueden no funcionar correctamente. El caso más notable es cuando es necesario que los usuarios que no son administradores tengan que autenticar contraseñas contra el fichero «/etc/passwd»."
+msgstr ""
+"La activación de las contraseñas ocultas se considera una buena práctica. "
+"Pero hay algunas situaciones en las que éstas pueden no funcionar "
+"correctamente. El caso más notable es cuando es necesario que los usuarios "
+"que no son administradores tengan que autenticar contraseñas contra el "
+"fichero «/etc/passwd»."
 
 #. Type: boolean
 #. Description
@@ -82,4 +93,6 @@ msgstr "La activación de las contraseñas ocultas se considera una buena práct
 msgid ""
 "If you answer in the affirmative, the command 'shadowconfig on' will be run "
 "to enable shadow passwords."
-msgstr "Se ejecutará la orden «shadowconfig on» para activar las contraseñas ocultas si contesta afirmativamente."
+msgstr ""
+"Se ejecutará la orden «shadowconfig on» para activar las contraseñas ocultas "
+"si contesta afirmativamente."

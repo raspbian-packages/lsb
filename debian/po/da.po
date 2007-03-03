@@ -38,9 +38,9 @@ msgid ""
 "system currently has shadow passwords disabled."
 msgstr ""
 "Linux Standardbasis kræver at visse af adduser(8)'s funktioner (såsom "
-"tidsudløb for adgangskoder) gøres tilgængelige til programmer. Debian "
-"har kun disse funktioner, hvis skyggeadgangskoder aktiveres. Det er "
-"de dog ikke på dit system."
+"tidsudløb for adgangskoder) gøres tilgængelige til programmer. Debian har "
+"kun disse funktioner, hvis skyggeadgangskoder aktiveres. Det er de dog ikke "
+"på dit system."
 
 #. Description
 #: ../templates:4
@@ -49,8 +49,8 @@ msgid ""
 "Most LSB applications will work fine with either setting, but 100% "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
-"De fleste LSB-programmer vil fungere udmærket med begge indstillinger, "
-"men 100% LSB-tilpasning kræver at skyggeadgangskoder bliver aktiveret."
+"De fleste LSB-programmer vil fungere udmærket med begge indstillinger, men "
+"100% LSB-tilpasning kræver at skyggeadgangskoder bliver aktiveret."
 
 #. Description
 #: ../templates:4
@@ -60,9 +60,9 @@ msgid ""
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
 msgstr ""
-"Generelt er det en god idé at aktivere skyggeadgangskoder. Der kan dog "
-"være situationer, hvor de ikke fungerer ordentligt (f.eks. hvis ikke-root "
-"brugere skal autentificere adgangskoder ved hjælp af /etc/passwd)."
+"Generelt er det en god idé at aktivere skyggeadgangskoder. Der kan dog være "
+"situationer, hvor de ikke fungerer ordentligt (f.eks. hvis ikke-root brugere "
+"skal autentificere adgangskoder ved hjælp af /etc/passwd)."
 
 #. Description
 #: ../templates:4
@@ -72,4 +72,3 @@ msgid ""
 msgstr ""
 "Hvis du accepterer, vil kommandoen 'shadowconfig on' blive kørt for at "
 "aktivere skyggeadgangskoder."
-

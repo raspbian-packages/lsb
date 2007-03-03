@@ -19,13 +19,13 @@ msgstr ""
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
 #. Description
 #: ../templates:4
 msgid "Should shadow passwords be enabled?"
-msgstr "Ska shadow-lösenord aktiveras?"
+msgstr "Ska shadow-lÃ¶senord aktiveras?"
 
 #. Description
 #: ../templates:4
@@ -35,9 +35,10 @@ msgid ""
 "provides these features when shadow passwords are enabled; however, your "
 "system currently has shadow passwords disabled."
 msgstr ""
-"Linux Standard Base kräver att vissa funktioner av adduser(8) ska vara tillgängliga "
-"till anpassade applikationer (såsom ålder för lösenord). Debian erbjuder dessa funktioner "
-"om shadow-lösenord är aktiverade, men ditt system har för närvarande inte shadow-lösenord aktiverade."
+"Linux Standard Base krÃ¤ver att vissa funktioner av adduser(8) ska vara "
+"tillgÃ¤ngliga till anpassade applikationer (sÃ¥som Ã¥lder fÃ¶r lÃ¶senord). Debian "
+"erbjuder dessa funktioner om shadow-lÃ¶senord Ã¤r aktiverade, men ditt system "
+"har fÃ¶r nÃ¤rvarande inte shadow-lÃ¶senord aktiverade."
 
 #. Description
 #: ../templates:4
@@ -46,8 +47,8 @@ msgid ""
 "Most LSB applications will work fine with either setting, but 100% "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
-"De flesta LSB-applikationer fungerar fint med båda inställningarna men 100% "
-"anpassning kräver att shadow-lösenord ska aktiveras."
+"De flesta LSB-applikationer fungerar fint med bÃ¥da instÃ¤llningarna men 100% "
+"anpassning krÃ¤ver att shadow-lÃ¶senord ska aktiveras."
 
 #. Description
 #: ../templates:4
@@ -57,9 +58,10 @@ msgid ""
 "not work properly (most notably, if non-root users need to authenticate "
 "passwords against /etc/passwd)."
 msgstr ""
-"Generellt sett är det ansett som bra tänkt att aktivera shadow-lösenord.  Men det finns "
-"de situationer som shadow-lösenord kanske inte fungerar som det ska (till exempel om icke-root "
-"användare behöver autentisera lösenord mot /etc/passwd)."
+"Generellt sett Ã¤r det ansett som bra tÃ¤nkt att aktivera shadow-lÃ¶senord.  "
+"Men det finns de situationer som shadow-lÃ¶senord kanske inte fungerar som "
+"det ska (till exempel om icke-root anvÃ¤ndare behÃ¶ver autentisera lÃ¶senord "
+"mot /etc/passwd)."
 
 #. Description
 #: ../templates:4
@@ -67,6 +69,5 @@ msgid ""
 "If you answer in the affirmative, the command 'shadowconfig on' will be run "
 "to enable shadow passwords."
 msgstr ""
-"Om du svarar ja kommer kommandot 'shadowconfig on' att köras för att "
-"aktivera shadow-lösenord."
-
+"Om du svarar ja kommer kommandot 'shadowconfig on' att kÃ¶ras fÃ¶r att "
+"aktivera shadow-lÃ¶senord."

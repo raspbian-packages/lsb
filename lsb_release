@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # lsb_release command for Debian
-# (C) 2005-06 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-07 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ RELEASE_CODENAME_LOOKUP = {
     '4.0' : 'etch',
     }
 
-TESTING_CODENAME = 'etch'
+TESTING_CODENAME = 'lenny'
 
 def lookup_codename(release, unknown=None):
     m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
@@ -141,9 +141,32 @@ def guess_release_from_apt(origin='Debian', component='main',
     releases.sort()
     releases.reverse()
 
+    # If the user has multiple releases we should
+    # only return the 'newest'.
+
+    # Unstable is always the 'newest'
+    for (pri, rinfo) in releases:
+        if rinfo.get('suite', '') == 'unstable':
+            return rinfo
+    # After it goes testing
+    for (pri, rinfo) in releases:
+        if rinfo.get('suite', '') == 'testing':
+            return rinfo
+
+    # Finally, find the highest numeric value
+    highestrelease = 0
     for (pri, rinfo) in releases:
         if rinfo.get('suite', '') not in ignoresuites:
-            return rinfo
+            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
+            if version > highestrelease:
+                highestrelease = version
+
+    # And return it
+    for (pri, rinfo) in releases:
+        if rinfo.get('suite', '') not in ignoresuites:
+            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
+            if version == highestrelease:
+                return rinfo
 
     return None
 

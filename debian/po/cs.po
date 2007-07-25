@@ -14,59 +14,54 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lsb\n"
-"POT-Creation-Date: 2003-03-30 12:40-0300\n"
-"PO-Revision-Date: 2004-12-31 15:51+0100\n"
+"Report-Msgid-Bugs-To: lawrencc@debian.org\n"
+"POT-Creation-Date: 2007-05-13 09:16+0200\n"
+"PO-Revision-Date: 2007-05-19 17:18+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
-"Language-Team: CZech <provoz@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: boolean
 #. Description
-#: ../templates:4
-msgid "Should shadow passwords be enabled?"
-msgstr "Mají se povolit stínová hesla?"
+#: ../templates:2001
+msgid "Enable shadow passwords?"
+msgstr "Povolit stínová hesla?"
 
+#. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
 msgid ""
 "The Linux Standard Base requires that certain features of adduser(8) be "
-"available to conforming applications (such as password aging). Debian only "
-"provides these features when shadow passwords are enabled; however, your "
-"system currently has shadow passwords disabled."
+"available to conforming applications (such as password aging). These "
+"features are only provided when shadow passwords are enabled, while this "
+"system has them disabled."
 msgstr ""
 "Linux Standard Base vyžaduje, aby byly určité vlastnosti programu adduser(8) "
-"(např. stárnutí hesel) dostupné odpovídajícím aplikacím. Debian poskytuje "
-"tyto vlastnosti pouze při zapnutých stínových heslech. Zdá se, že váš systém "
-"má podporu stínových hesel vypnutu."
+"(např. stárnutí hesel) dostupné odpovídajícím aplikacím. Tyto vlastnosti "
+"jsou k dispozici pouze při zapnutých stínových heslech, ovšem zdá se, že váš "
+"systém má podporu stínových hesel vypnutu."
 
+#. Type: boolean
 #. Description
-#: ../templates:4
-#, no-c-format
+#: ../templates:2001
 msgid ""
-"Most LSB applications will work fine with either setting, but 100% "
+"Most LSB applications will work fine with either setting, but complete "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
-"Většina LSB aplikací bude pracovat s oběma nastaveními, ale 100% "
+"Většina LSB aplikací bude pracovat s oběma nastaveními, ale úplné "
 "kompatibility dosáhnete pouze se zapnutou podporou stínových hesel."
 
+#. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
 msgid ""
 "Generally speaking, it is considered good practice to enable shadow "
-"passwords.  However, there are some situations in which shadow passwords may "
-"not work properly (most notably, if non-root users need to authenticate "
-"passwords against /etc/passwd)."
+"passwords. However, there are some situations in which shadow passwords may "
+"not work properly (most notably, if non-root users need to check passwords "
+"against /etc/passwd)."
 msgstr ""
 "Obecně jsou stínová hesla doporučena, avšak existují situace, kdy nemusí "
-"fungovat (například pokud se neprivilegovaní uživatelé potřebují "
-"autentizovat oproti /etc/passwd)."
-
-#. Description
-#: ../templates:4
-msgid ""
-"If you answer in the affirmative, the command 'shadowconfig on' will be run "
-"to enable shadow passwords."
-msgstr ""
-"Odpovíte-li kladně, spustí se program 'shadowconfig on', který zapne podporu "
-"stínových hesel."
+"fungovat (například pokud si neprivilegovaní uživatelé potřebují kontrolovat "
+"hesla oproti /etc/passwd)."

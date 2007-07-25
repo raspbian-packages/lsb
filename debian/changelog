@@ -1,3 +1,32 @@
+lsb (3.1-24) unstable; urgency=low
+
+  * Acknowledge NMU by Christian Perrier.
+  * Apply patch from Javier Fernández-Sanguino Peña to improve release
+    detection.  (Closes: #425627, #405993)
+  * lsb-release no longer recommends lsb.  (Closes: #426807)
+  * Update debconf templates per Smith project.  (Closes: #422973)
+  * Add/update translations:
+    Vietnamese (Closes: #426834)
+    Galician (Closes: #423685)
+    Swedish (Closes: #423904)
+    Czech (Closes: #425154)
+    Italian (Closes: #425258)
+    Dutch (Closes: #425710)
+    French (Closes: #426105)
+    Malay (Closes: #426237)
+    German (Closes: #426599)
+    Russian (Closes: #426741)
+    Arabic (Closes: #423616)
+    Spanish (Closes: #423815)
+  * Don't remove the pidfile in killproc if a signal is specified; the
+    specification does not specify this behavior, and it can cause
+    problems with signals like HUP.  (Closes: #416559)
+  * And then, only remove the pidfile if the process is actually dead.
+    (Closes: #410622)
+  * Update codename for testing.  (Closes: #425646)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 25 Jul 2007 08:56:44 -0500
+
 lsb (3.1-23.1) unstable; urgency=low
 
   * Non-maintainer upload to fix pending l10n issues.

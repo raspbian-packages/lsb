@@ -21,12 +21,12 @@ Description: Linux Standard Base 3.1 core support package
  This package provides an implementation of the core of version 3.1 of
  the Linux Standard Base for Debian on the Intel x86, Intel ia64
  (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
- kernel.  Future revisions of the specification and this package may
+ kernel. Future revisions of the specification and this package may
  support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -43,12 +43,12 @@ Description: Linux Standard Base 3.1 graphics support package
  This package provides an implementation of version 3.1 of the Linux
  Standard Base graphics specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
- the Linux kernel.  Future revisions of the specification and this
+ the Linux kernel. Future revisions of the specification and this
  package may support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -64,12 +64,12 @@ Description: Linux Standard Base 3.1 C++ support package
  This package provides an implementation of version 3.1 of the Linux
  Standard Base C++ (CXX) specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
- the Linux kernel.  Future revisions of the specification and this
+ the Linux kernel. Future revisions of the specification and this
  package may support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -85,12 +85,12 @@ Description: Linux Standard Base 3.1 Desktop support package
  This package provides an implementation of version 3.1 of the Linux
  Standard Base Desktop specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
- the Linux kernel.  Future revisions of the specification and this
+ the Linux kernel. Future revisions of the specification and this
  package may support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -106,12 +106,12 @@ Description: Linux Standard Base 3.1 Qt4 support package
  This package provides an implementation of version 3.1 of the Linux
  Standard Base Qt4 specification for Debian on the Intel x86, Intel
  ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with the
- Linux kernel.  Future revisions of the specification and this package
+ Linux kernel. Future revisions of the specification and this package
  may support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -126,12 +126,12 @@ Description: Linux Standard Base 3.1 support package
  This package provides an implementation of all modules of version 3.1
  of the Linux Standard Base for Debian on the Intel x86, Intel ia64
  (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
- kernel.  Future revisions of the specification and this package may
+ kernel. Future revisions of the specification and this package may
  support the LSB on additional architectures and kernels.
  .
  The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux.  Its
- presence does not imply that we believe that Debian fully complies
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
 
@@ -153,7 +153,8 @@ Description: Linux Standard Base 3.1 init script functionality
 Package: lsb-release
 Architecture: all
 Depends: ${python:Depends}
-Recommends: lsb, apt
+Recommends: apt
+Suggests: lsb
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base version reporting utility
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

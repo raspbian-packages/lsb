@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lsb 1.3-9\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-02 19:42+0900\n"
+"Report-Msgid-Bugs-To: lawrencc@debian.org\n"
+"POT-Creation-Date: 2007-05-13 09:16+0200\n"
 "PO-Revision-Date: 2004-09-02 10:02+0900\n"
 "Last-Translator: Hideki Yamane <henrich@samba.gr.jp>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -26,18 +26,26 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:4
-msgid "Should shadow passwords be enabled?"
+#: ../templates:2001
+#, fuzzy
+#| msgid "Should shadow passwords be enabled?"
+msgid "Enable shadow passwords?"
 msgstr "shadow パスワードを有効にしますか?"
 
 #. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
+#, fuzzy
+#| msgid ""
+#| "The Linux Standard Base requires that certain features of adduser(8) be "
+#| "available to conforming applications (such as password aging). Debian "
+#| "only provides these features when shadow passwords are enabled; however, "
+#| "your system currently has shadow passwords disabled."
 msgid ""
 "The Linux Standard Base requires that certain features of adduser(8) be "
-"available to conforming applications (such as password aging). Debian only "
-"provides these features when shadow passwords are enabled; however, your "
-"system currently has shadow passwords disabled."
+"available to conforming applications (such as password aging). These "
+"features are only provided when shadow passwords are enabled, while this "
+"system has them disabled."
 msgstr ""
 "Linux Standard Base では、adduser(8) の特定の機能 (パスワード有効期限など) が"
 "適合アプリケーションになることを必要とします。Debian では shadow パスワードが"
@@ -46,10 +54,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:4
-#, no-c-format
+#: ../templates:2001
+#, fuzzy
+#| msgid ""
+#| "Most LSB applications will work fine with either setting, but 100% "
+#| "conformance requires shadow passwords to be enabled."
 msgid ""
-"Most LSB applications will work fine with either setting, but 100% "
+"Most LSB applications will work fine with either setting, but complete "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
 "ほとんどの LSB アプリケーションは問題なく動作しますが、100% 適合するには "
@@ -57,24 +68,27 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
+#, fuzzy
+#| msgid ""
+#| "Generally speaking, it is considered good practice to enable shadow "
+#| "passwords.  However, there are some situations in which shadow passwords "
+#| "may not work properly (most notably, if non-root users need to "
+#| "authenticate passwords against /etc/passwd)."
 msgid ""
 "Generally speaking, it is considered good practice to enable shadow "
-"passwords.  However, there are some situations in which shadow passwords may "
-"not work properly (most notably, if non-root users need to authenticate "
-"passwords against /etc/passwd)."
+"passwords. However, there are some situations in which shadow passwords may "
+"not work properly (most notably, if non-root users need to check passwords "
+"against /etc/passwd)."
 msgstr ""
 "一般的に言って、shadow パスワードを有効にするのは良い選択だと考えられていま"
 "す。しかしながら、shadow パスワードが正しく動作しないような場合もあります (特"
 "に root ではないユーザが /etc/passwd を使ってパスワード認証をする必要がある場"
 "合など)。"
 
-#. Type: boolean
-#. Description
-#: ../templates:4
-msgid ""
-"If you answer in the affirmative, the command 'shadowconfig on' will be run "
-"to enable shadow passwords."
-msgstr ""
-"「はい」と答える場合は、'shadowconfig on' コマンドを実行して shadow パスワー"
-"ドを有効にしてください。"
+#~ msgid ""
+#~ "If you answer in the affirmative, the command 'shadowconfig on' will be "
+#~ "run to enable shadow passwords."
+#~ msgstr ""
+#~ "「はい」と答える場合は、'shadowconfig on' コマンドを実行して shadow パス"
+#~ "ワードを有効にしてください。"

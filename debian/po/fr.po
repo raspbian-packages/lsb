@@ -1,3 +1,4 @@
+# translation of fr.po to French
 #
 #    Translators, if you are not familiar with the PO format, gettext
 #    documentation is worth reading, especially sections dedicated to
@@ -11,67 +12,63 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
+# Christian Perrier <bubulle@debian.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: lsb 1.3-1\n"
-"POT-Creation-Date: 2003-03-30 12:40-0300\n"
-"PO-Revision-Date: 2003-07-07 19:09+0100\n"
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: lawrencc@debian.org\n"
+"POT-Creation-Date: 2007-05-13 09:16+0200\n"
+"PO-Revision-Date: 2007-05-13 09:46+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
+#. Type: boolean
 #. Description
-#: ../templates:4
-msgid "Should shadow passwords be enabled?"
-msgstr ""
-"Souhaitez-vous mettre en service les mots de passe cachés (« shadow "
-"passwords ») ?"
+#: ../templates:2001
+#| msgid "Should shadow passwords be enabled?"
+msgid "Enable shadow passwords?"
+msgstr "Faut-il activer les mots de passe cachés (« shadow passwords ») ?"
 
+#. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
 msgid ""
 "The Linux Standard Base requires that certain features of adduser(8) be "
-"available to conforming applications (such as password aging). Debian only "
-"provides these features when shadow passwords are enabled; however, your "
-"system currently has shadow passwords disabled."
+"available to conforming applications (such as password aging). These "
+"features are only provided when shadow passwords are enabled, while this "
+"system has them disabled."
 msgstr ""
 "La base normalisée de Linux (LSB : «  Linux Standard Base ») impose que "
 "certaines fonctionnalités de adduser(8) (p. ex. l'expiration des mots de "
-"passe) soient disponibles pour les applications qui se conforment à la LSB. "
-"Debian n'offre ces possibilités que lorsque les mots de passe cachés sont "
-"activés ; or, ils sont actuellement désactivés sur votre système."
+"passe) soient disponibles pour les applications. Ces possibilités ne sont "
+"disponibles que lorsque les mots de passe cachés sont activés ; or, ils sont "
+"actuellement désactivés sur ce système."
 
+#. Type: boolean
 #. Description
-#: ../templates:4
-#, no-c-format
+#: ../templates:2001
 msgid ""
-"Most LSB applications will work fine with either setting, but 100% "
+"Most LSB applications will work fine with either setting, but complete "
 "conformance requires shadow passwords to be enabled."
 msgstr ""
 "La plupart des applications conformes à la LSB fonctionnent correctement "
 "dans tous les cas, mais la conformité complète n'est possible qu'avec "
 "l'activation des mots de passe cachés."
 
+#. Type: boolean
 #. Description
-#: ../templates:4
+#: ../templates:2001
 msgid ""
 "Generally speaking, it is considered good practice to enable shadow "
-"passwords.  However, there are some situations in which shadow passwords may "
-"not work properly (most notably, if non-root users need to authenticate "
-"passwords against /etc/passwd)."
+"passwords. However, there are some situations in which shadow passwords may "
+"not work properly (most notably, if non-root users need to check passwords "
+"against /etc/passwd)."
 msgstr ""
 "En général, l'activation des mots de passe cachés est plutôt un choix "
-"judicieux. Cependant, leur utilisation peut générer des difficultés dans "
+"judicieux. Cependant, leur utilisation peut créer des difficultés dans "
 "certains cas (typiquement, lorsqu'un utilisateur non privilégié cherche à "
 "utiliser /etc/passwd pour contrôler les mots de passe)."
-
-#. Description
-#: ../templates:4
-msgid ""
-"If you answer in the affirmative, the command 'shadowconfig on' will be run "
-"to enable shadow passwords."
-msgstr ""
-"Si vous répondez affirmativement ici, la commande « shadowconfig on » sera "
-"utilisée pour activer les mots de passe cachés."

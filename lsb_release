@@ -49,7 +49,7 @@ def lookup_codename(release, unknown=None):
     return RELEASE_CODENAME_LOOKUP.get(shortrelease, unknown)
 
 # LSB compliance packages... may grow eventually
-PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4'
+PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4 lsb-languages lsb-multimedia lsb-printing'
 
 modnamere = re.compile(r'lsb-(?P<module>[a-z]+)-(?P<arch>[^ ]+)(?: \(= (?P<version>[0-9.]+)\))?')
 
@@ -63,6 +63,15 @@ def valid_lsb_versions(version, module):
             return ['3.1']
         else:
             return ['2.0', '3.0', '3.1']
+    elif version == '3.2':
+        if module == 'desktop':
+            return ['3.1', '3.2']
+        elif module == 'qt4':
+            return ['3.1']
+        elif module in ('printing', 'languages', 'multimedia'):
+            return ['3.2']
+        else:
+            return ['2.0', '3.0', '3.1', '3.2']
 
     return [version]
 
@@ -183,8 +192,26 @@ def guess_debian_release():
 
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
 
+    if os.path.exists('/etc/debian_version'):
+        release = open('/etc/debian_version').read().strip()
+        if not release[0:1].isalpha():
+            # /etc/debian_version should be numeric
+            codename = lookup_codename(release, 'n/a')
+            distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
+        else:
+            distinfo['RELEASE'] = release
+            distinfo['CODENAME'] = None
+
+    # Only use apt information if we did not get the proper information
+    # from /etc/debian_version or if we don't have a codename
+    # (which will happen if /etc/debian_version does not contain a
+    # number but some text like 'testing/unstable' or 'lenny/sid')
+    #
+    # This is slightly faster and less error prone in case the user
+    # has an entry in his /etc/apt/sources.list but has not actually
+    # upgraded the system.
     rinfo = guess_release_from_apt()
-    if rinfo:
+    if rinfo and not distinfo['CODENAME']:
         release = rinfo.get('version')
         if release:
             codename = lookup_codename(release, 'n/a')
@@ -196,14 +223,6 @@ def guess_debian_release():
             else:
                 codename = 'sid'
         distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
-    elif os.path.exists('/etc/debian_version'):
-        release = open('/etc/debian_version').read().strip()
-        if not release[0:1].isalpha():
-            # /etc/debian_version should be numeric
-            codename = lookup_codename(release, 'n/a')
-            distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
-        else:
-            distinfo['RELEASE'] = release
 
     if 'RELEASE' in distinfo:
         distinfo['DESCRIPTION'] += ' %(RELEASE)s' % distinfo
@@ -219,6 +238,9 @@ def get_lsb_information():
         for line in open('/etc/lsb-release'):
             line = line.strip()
             if not line:
+                continue
+            # Skip invalid lines
+            if not '=' in line:
                 continue
             var, arg = line.split('=', 1)
             if var.startswith('DISTRIB_'):

@@ -4,6 +4,7 @@ import sys
 import os
 import shutil
 import socket
+import commands
 from tempfile import NamedTemporaryFile
 from initdutils import load_lsbinstall_info, save_lsbinstall_info
 
@@ -12,7 +13,7 @@ objecttypes = (
     #'init',
     'profile',
     'service',
-    #'inet', # XXX - reenable when implemented
+    'inet', # XXX - reenable when implemented
     #'crontab',
     #'man'
     )
@@ -170,8 +171,30 @@ def handle_service(options, args):
         sname, pproto, ' '.join(saliases), pkg)
     fp.close()
 
-def handle_inet(options, args):
-    # call update-inetd
+def handle_inet(options, args, parser):
+    cmd = 'update-inetd --group LSB '
+
+    alist = list(args[0].split(':'))
+    if len(alist) < 2:
+        parser.error("The operand must include a service and protocol.")
+        return
+    
+    if not alist[1]:
+        alist[1] = 'tcp'
+    
+    if options.remove:
+        parts = r'%s\s+.*\s+%s\s+.*' % (re.escape(alist[0], alist[1]))
+        cmd += '--remove '+commands.mkarg(parts)
+    elif options.check:
+        return
+    else:
+        if len(alist) != 6:
+            parser.error('The operand must have six colon-separated arguments.')
+            return
+        newalist = [alist[0], alist[2], alist[1]] + alist[3:]
+        cmd += '--add '+commands.mkarg('\t'.join(newalist))
+
+    os.system(cmd)
     pass
 
 def handle_man(options, args):
@@ -231,7 +254,7 @@ def main():
             parser.error('You must specify one argument when removing or checking a service entry.')
         handle_service(options, args)
     elif options.type == 'inet':
-        handle_inet(options, args)
+        handle_inet(options, args, parser)
     elif options.type == 'crontab':
         if len(args) > 1:
             parser.error('Only one argument supported for %s' % options.type)

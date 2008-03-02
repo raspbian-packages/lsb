@@ -70,7 +70,6 @@ clean:
 	rm -f build-stamp configure-stamp *.py[co] debian/lsb*substvars
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) clean
 
 	dh_clean
 
@@ -140,6 +139,9 @@ binary-arch: build install
 	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"
 	@echo >> debian/lsb-desktop.substvars "provides=lsb-desktop-${lsbarch}"
 	@echo >> debian/lsb-qt4.substvars "provides=lsb-qt4-${lsbarch}"
+	@echo >> debian/lsb-multimedia.substvars "provides=lsb-multimedia-${lsbarch}"
+	@echo >> debian/lsb-languages.substvars "provides=lsb-languages-${lsbarch}"
+	@echo >> debian/lsb-printing.substvars "provides=lsb-printing-${lsbarch}"
 	@[ ${DEB_BUILD_ARCH_CPU} = 'amd64' ] && echo >> debian/lsb-core.substvars "depends=libc6-i386, lib32z1" || true
 	dh_link -a
 	dh_strip -a

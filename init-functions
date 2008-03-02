@@ -95,9 +95,10 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base i name_param
+    local pidfile sig status base i name_param is_term_sig
     pidfile=
     name_param=
+    is_term_sig=no
 
     OPTIND=1
     while getopts p: opt ; do
@@ -115,18 +116,21 @@ killproc () {
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-    if [ -n "$sig" ]; then
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet $name_param
+    [ -n "$sig" -o "$sig" = 15 -o "$sig" = TERM ] && is_term_sig=yes
+    status=0
+    if [ ! "$is_term_sig" = yes ]; then
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet $name_param || status="$?"
     else
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param
+        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param || status="$?"
     fi
-    status="$?"
     if [ "$status" = 1 ]; then
         [ -n "$sig" ] && return 0
         return 3 # program is not running
     fi
 
-    rm -f "$pidfile"
+    if [ "$status" = 0 -a "$is_term_sig" = yes ]; then
+        pidofproc -p $pidfile "$1" >/dev/null || rm -f "$pidfile"
+    fi
     return 0
 }
 
@@ -152,7 +156,7 @@ log_failure_msg () {
     if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
-        echo "$RED*$NORMAL $@"
+        /bin/echo -e "${RED}*${NORMAL} $@"
     else
         echo "$@"
     fi
@@ -162,7 +166,7 @@ log_warning_msg () {
     if log_use_fancy_output; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
-        echo "$YELLOW*$NORMAL $@"
+        /bin/echo -e "${YELLOW}*${NORMAL} $@"
     else
         echo "$@"
     fi

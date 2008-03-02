@@ -1,3 +1,24 @@
+lsb (3.2-1) unstable; urgency=low
+
+  * New LSB version.
+    + Add libpam0g, libncurses5 to lsb-base.
+    + Add libqt4-gui, libfreetype6, libxrender1, libxft2 to lsb-desktop.
+    + lsb-qt4 appears to be deprecated by the new lsb-desktop requirements.
+    + Add new printing, multimedia, and languages modules.
+  * More killproc() fixes.  (Closes: #453636)
+  * Use /etc/debian_version in preference to apt autodetection.
+    (Closes: #427221)
+  * Handle non-zero status from start-stop-daemon better.  (Closes: #451532)
+  * All fancy output uses /bin/echo -e now.  (Closes: #463082)
+  * Add/update translations:
+      fi (Closes: #447184)
+      ro (Closes: #468670)
+      ja (Closes: #462757)
+      pt (Closes: #439402)
+  * Ignore invalid lines in /etc/lsb-release.  (Closes: #454352)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 02 Mar 2008 02:13:58 -0600
+
 lsb (3.1-24) unstable; urgency=low
 
   * Acknowledge NMU by Christian Perrier.
@@ -162,7 +183,7 @@ lsb (3.1-11) unstable; urgency=low
     (probably closes: #167757)
   * Use shell built-in getopts instead of /usr/bin/getopt (closes: #335216)
   * Remove reference to /usr/share/doc/lsb-core/html/ (closes: #380045)
-  * Ru translation (thanks: Yuri Kozlov <kozlov.y@gmail.com>) 
+  * Ru translation (thanks: Yuri Kozlov <kozlov.y@gmail.com>)
     (closes: #380430)
   * Above changes prepared by Stephen Gran <sgran@debian.org>.
   * Update debian/TODO, which was a wee bit out of date.

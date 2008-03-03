@@ -1,3 +1,9 @@
+lsb (3.2-2) unstable; urgency=low
+
+  * lsb_release -v now detects the lsb-qt4 version(s) installed correctly.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 02 Mar 2008 18:22:22 -0600
+
 lsb (3.2-1) unstable; urgency=low
 
   * New LSB version.

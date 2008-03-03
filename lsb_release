@@ -51,7 +51,7 @@ def lookup_codename(release, unknown=None):
 # LSB compliance packages... may grow eventually
 PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4 lsb-languages lsb-multimedia lsb-printing'
 
-modnamere = re.compile(r'lsb-(?P<module>[a-z]+)-(?P<arch>[^ ]+)(?: \(= (?P<version>[0-9.]+)\))?')
+modnamere = re.compile(r'lsb-(?P<module>[a-z0-9]+)-(?P<arch>[^ ]+)(?: \(= (?P<version>[0-9.]+)\))?')
 
 def valid_lsb_versions(version, module):
     # If a module is ever released that only appears in >= version, deal

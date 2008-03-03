@@ -1,3 +1,9 @@
+lsb (3.2-3) unstable; urgency=medium
+
+  * Handle missing $sig in killproc() properly.  (Closes: #469167)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 03 Mar 2008 09:01:07 -0600
+
 lsb (3.2-2) unstable; urgency=low
 
   * lsb_release -v now detects the lsb-qt4 version(s) installed correctly.

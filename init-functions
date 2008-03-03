@@ -119,7 +119,11 @@ killproc () {
     [ -n "$sig" -o "$sig" = 15 -o "$sig" = TERM ] && is_term_sig=yes
     status=0
     if [ ! "$is_term_sig" = yes ]; then
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --signal "$sig" --quiet $name_param || status="$?"
+        if [ -n "$sig" ]; then
+            /sbin/start-stop-daemon --stop --pidfile "$pidfile" --quiet $name_param || status="$?"
+        else
+            /sbin/start-stop-daemon --stop --signal "$sig" --pidfile "$pidfile" --quiet $name_param || status="$?"
+        fi
     else
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param || status="$?"
     fi

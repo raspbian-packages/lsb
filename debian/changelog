@@ -1,3 +1,9 @@
+lsb (3.2-4) unstable; urgency=high
+
+  * Reverse test in killproc().  (Closes: #469404)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 05 Mar 2008 13:01:08 -0600
+
 lsb (3.2-3) unstable; urgency=medium
 
   * Handle missing $sig in killproc() properly.  (Closes: #469167)

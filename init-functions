@@ -43,7 +43,9 @@ start_daemon () {
     done
     
     shift $(($OPTIND - 1))
-    [ "$1" = '--' ] && shift
+    if [ "$1" = '--' ]; then
+        shift
+    fi
 
     exec="$1"; shift
 
@@ -87,7 +89,9 @@ pidofproc () {
     if [ -x /bin/pidof -a ! "$specified" ]; then
         /bin/pidof -o %PPID $1
         status="$?"
-        [ "$status" = 1 ] && return 3 # program is not running
+        if [ "$status" = 1 ]; then
+            return 3 # program is not running
+        fi
         return 0
     fi
     return 4 # program or service is unknown
@@ -116,7 +120,9 @@ killproc () {
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-    [ -n "$sig" -o "$sig" = 15 -o "$sig" = TERM ] && is_term_sig=yes
+    if [ -n "$sig" -o "$sig" = 15 -o "$sig" = TERM ]; then
+        is_term_sig=yes
+    fi
     status=0
     if [ ! "$is_term_sig" = yes ]; then
         if [ -n "$sig" ]; then
@@ -128,7 +134,9 @@ killproc () {
         /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param || status="$?"
     fi
     if [ "$status" = 1 ]; then
-        [ -n "$sig" ] && return 0
+        if [ -n "$sig" ]; then
+            return 0
+        fi
         return 3 # program is not running
     fi
 
@@ -250,7 +258,9 @@ log_progress_msg () {
 # int log_end_message (int exitstatus)
 log_end_msg () {
     # If no arguments were passed, return
-    [ -z "${1:-}" ] && return 1
+    if [ -z "${1:-}" ]; then
+        return 1
+    fi
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted

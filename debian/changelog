@@ -1,3 +1,16 @@
+lsb (3.2-5) unstable; urgency=low
+
+  * Fix init-functions with set -e.  (Closes: #472794)
+    Patch from Matthias Klose.
+  * Downgrade optional LSB modules to suggestions from main "lsb" package
+    (core LSB dependency for LSB 1.x); remove obsolete lsb-qt4 from its
+    dependencies.
+  * lsb-desktop now provides lsb-qt4*, essentially making lsb-qt4 a dummy
+    package.
+  * lsb-cxx: Don't depend on libstdc++5 on armel.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 26 Mar 2008 10:26:53 -0500
+
 lsb (3.2-4) unstable; urgency=high
 
   * Reverse test in killproc().  (Closes: #469404)

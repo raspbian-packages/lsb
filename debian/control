@@ -55,7 +55,7 @@ Description: Linux Standard Base 3.2 graphics support package
 
 Package: lsb-cxx
 Architecture: any
-Depends: lsb-core, libstdc++5, libstdc++6, ${misc:Depends}
+Depends: lsb-core, libstdc++6, ${misc:Depends}, ${depends}
 Provides: lsb-cxx-noarch, ${provides}
 Description: Linux Standard Base 3.2 C++ support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -77,7 +77,7 @@ Description: Linux Standard Base 3.2 C++ support package
 Package: lsb-desktop
 Architecture: any
 Depends: lsb-graphics, fontconfig (>> 2.3.0), libfontconfig1 (>> 2.3.0), libpng12-0, libjpeg62, libglib2.0-0 (>> 2.6.2), libatk1.0-0 (>> 1.9.0), libpango1.0-0 (>> 1.8.0), libgtk2.0-0 (>> 2.6.2), libqt3-mt (>> 3.3.6), libqt4-gui (>= 4.2), libxml2, libfreetype6, libxrender1, libxft2, xdg-utils, ${misc:Depends}
-Provides: lsb-desktop-noarch, ${provides}
+Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 3.2 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
@@ -185,7 +185,8 @@ Description: Linux Standard Base 3.2 Printing package
 
 Package: lsb
 Architecture: all
-Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop, lsb-qt4, lsb-printing, lsb-multimedia, lsb-languages
+Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop
+Suggests: lsb-printing, lsb-multimedia, lsb-languages
 Description: Linux Standard Base 3.2 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

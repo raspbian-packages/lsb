@@ -134,10 +134,11 @@ binary-arch: build install
 #	dh_undocumented
 	dh_installchangelogs -a
 	@echo >> debian/lsb-core.substvars "glibc=${LIBC}"
+	@[ ${DEB_BUILD_ARCH_CPU} != 'armel' ] && echo >> debian/lsb-cxx.substvars "depends=libstdc++5" || true
 	@echo >> debian/lsb-core.substvars "provides=lsb-core-${lsbarch}"
 	@echo >> debian/lsb-cxx.substvars "provides=lsb-cxx-${lsbarch}"
 	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"
-	@echo >> debian/lsb-desktop.substvars "provides=lsb-desktop-${lsbarch}"
+	@echo >> debian/lsb-desktop.substvars "provides=lsb-qt4-${lsbarch}, lsb-desktop-${lsbarch}"
 	@echo >> debian/lsb-qt4.substvars "provides=lsb-qt4-${lsbarch}"
 	@echo >> debian/lsb-multimedia.substvars "provides=lsb-multimedia-${lsbarch}"
 	@echo >> debian/lsb-languages.substvars "provides=lsb-languages-${lsbarch}"

@@ -1,3 +1,14 @@
+lsb (3.2-6) unstable; urgency=low
+
+  * Kill old versions of /etc/lsb-release deader.  (Closes: #467219)
+  * Fix debian/rules:
+    + Change DEB_BUILD_ARCH_CPU -> DEB_HOST_ARCH_CPU
+      ("host" is what we're building for)
+    + Detect armel using DEB_HOST_GNU_CPU_TYPE=arm-linux-gnueabi
+  * Remove duplicate LSB modules from lsb_release -v output.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 30 Mar 2008 17:36:18 -0500
+
 lsb (3.2-5) unstable; urgency=low
 
   * Fix init-functions with set -e.  (Closes: #472794)

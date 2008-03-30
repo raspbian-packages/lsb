@@ -75,6 +75,8 @@ def valid_lsb_versions(version, module):
 
     return [version]
 
+import sets
+
 # This is Debian-specific at present
 def check_modules_installed():
     # Find which LSB modules are installed on this system
@@ -82,7 +84,7 @@ def check_modules_installed():
     if not output:
         return []
 
-    modules = []
+    modules = sets.Set()
     for line in output.split(os.linesep):
         version, provides = line.split(' ', 1)
         version = version.split('-', 1)[0]
@@ -95,14 +97,16 @@ def check_modules_installed():
             # If no versioned provides...
             if mgroups.get('version'):
                 module = '%(module)s-%(version)s-%(arch)s' % mgroups
-                modules += [module]
+                modules.add(module)
             else:
                 module = mgroups['module']
                 for v in valid_lsb_versions(version, module):
                     mgroups['version'] = v
                     module = '%(module)s-%(version)s-%(arch)s' % mgroups
-                    modules += [module]
-                    
+                    modules.add(module)
+
+    modules = list(modules)
+    modules.sort()
     return modules
 
 longnames = {'v' : 'version', 'o': 'origin', 'a': 'suite',

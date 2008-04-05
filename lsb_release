@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # lsb_release command for Debian
-# (C) 2005-07 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-08 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -70,6 +70,8 @@ def valid_lsb_versions(version, module):
             return ['3.1']
         elif module in ('printing', 'languages', 'multimedia'):
             return ['3.2']
+        elif module == 'cxx':
+            return ['3.0', '3.1', '3.2']
         else:
             return ['2.0', '3.0', '3.1', '3.2']
 

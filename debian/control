@@ -55,7 +55,7 @@ Description: Linux Standard Base 3.2 graphics support package
 
 Package: lsb-cxx
 Architecture: any
-Depends: lsb-core, libstdc++6, ${misc:Depends}, ${depends}
+Depends: lsb-core, libstdc++6, ${misc:Depends}
 Provides: lsb-cxx-noarch, ${provides}
 Description: Linux Standard Base 3.2 C++ support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

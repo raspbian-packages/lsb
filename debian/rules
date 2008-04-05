@@ -134,7 +134,7 @@ binary-arch: build install
 #	dh_undocumented
 	dh_installchangelogs -a
 	@echo >> debian/lsb-core.substvars "glibc=${LIBC}"
-	@[ ${DEB_HOST_GNU_TYPE} != 'arm-linux-gnueabi' ] && echo >> debian/lsb-cxx.substvars "depends=libstdc++5" || true
+#	@[ ${DEB_HOST_GNU_TYPE} != 'arm-linux-gnueabi' ] && echo >> debian/lsb-cxx.substvars "depends=libstdc++5" || true
 	@echo >> debian/lsb-core.substvars "provides=lsb-core-${lsbarch}"
 	@echo >> debian/lsb-cxx.substvars "provides=lsb-cxx-${lsbarch}"
 	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"

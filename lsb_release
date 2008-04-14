@@ -142,48 +142,26 @@ def parse_apt_policy():
     return data
 
 def guess_release_from_apt(origin='Debian', component='main',
-                           ignoresuites=('experimental')):
+                           ignoresuites=('experimental'),
+                           label='Debian'):
     releases = parse_apt_policy()
 
     if not releases:
         return None
 
-    # We only care about the specified origin and component
+    # We only care about the specified origin, component, and label
     releases = [x for x in releases if (
         x[1].get('origin', '') == origin and
-        x[1].get('component', '') == component)]
+        x[1].get('component', '') == component and
+        x[1].get('label', '') == label)]
     
     releases.sort()
     releases.reverse()
 
-    # If the user has multiple releases we should
-    # only return the 'newest'.
+    # We've sorted the list by descending priority, so the first entry should
+    # be the "main" release in use on the system
 
-    # Unstable is always the 'newest'
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') == 'unstable':
-            return rinfo
-    # After it goes testing
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') == 'testing':
-            return rinfo
-
-    # Finally, find the highest numeric value
-    highestrelease = 0
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') not in ignoresuites:
-            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
-            if version > highestrelease:
-                highestrelease = version
-
-    # And return it
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') not in ignoresuites:
-            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
-            if version == highestrelease:
-                return rinfo
-
-    return None
+    return releases[0][1]
 
 def guess_debian_release():
     distinfo = {'ID' : 'Debian'}

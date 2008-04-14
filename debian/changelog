@@ -1,3 +1,14 @@
+lsb (3.2-8) unstable; urgency=medium
+
+  * Bump conflicts to python < 2.6.  (Closes: #475953)
+  * init-functions: In killproc(), return 0 if program is not running
+    (instead of 3).  (Closes: #475258)
+  * lsb_release: Due to popular demand, report pinned release rather than
+    "unstable" on systems with multiple releases in sources.list.
+    (Closes: #459257)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 14 Apr 2008 01:00:50 -0500
+
 lsb (3.2-7) unstable; urgency=low
 
   * Remove libstdc++5 dependency on all architectures, since it's only

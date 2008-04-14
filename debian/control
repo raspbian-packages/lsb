@@ -11,7 +11,7 @@ Package: lsb-core
 Architecture: any
 Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
-Conflicts: python (>> 2.5), lsb (<< 2.0-2)
+Conflicts: python (>> 2.6), lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.2 core support package

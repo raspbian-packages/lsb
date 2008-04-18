@@ -36,6 +36,7 @@ RELEASE_CODENAME_LOOKUP = {
     '3.0' : 'woody',
     '3.1' : 'sarge',
     '4.0' : 'etch',
+    '4.1' : 'lenny',
     }
 
 TESTING_CODENAME = 'lenny'
@@ -154,6 +155,10 @@ def guess_release_from_apt(origin='Debian', component='main',
         x[1].get('origin', '') == origin and
         x[1].get('component', '') == component and
         x[1].get('label', '') == label)]
+
+    # Check again to make sure we didn't wipe out all of the releases
+    if not releases:
+        return None
     
     releases.sort()
     releases.reverse()
@@ -182,6 +187,12 @@ def guess_debian_release():
             # /etc/debian_version should be numeric
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
+        elif release.endswith('/sid')
+            distinfo['RELEASE'] = 'testing/unstable'
+            distinfo['CODENAME'] = release
+        elif release.endswith('/unstable'):
+            distinfo['RELEASE'] = '%s/sid' % TESTING_CODENAME
+            distinfo['CODENAME'] = 'testing/unstable'
         else:
             distinfo['RELEASE'] = release
             distinfo['CODENAME'] = None
@@ -208,9 +219,9 @@ def guess_debian_release():
                 codename = 'sid'
         distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
 
-    if 'RELEASE' in distinfo:
+    if distinfo.get('RELEASE'):
         distinfo['DESCRIPTION'] += ' %(RELEASE)s' % distinfo
-    if 'CODENAME' in distinfo:
+    if distinfo.get('CODENAME'):
         distinfo['DESCRIPTION'] += ' (%(CODENAME)s)' % distinfo
 
     return distinfo

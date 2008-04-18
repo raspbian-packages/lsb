@@ -1,3 +1,13 @@
+lsb (3.2-9) unstable; urgency=low
+
+  * Fix lsb_release detection when apt-cache policy identifies no Debian
+    sources.  (Closes: #476288)
+  * Only use fancy TTY output if TERM is set and FD 1 is a terminal.
+    (Closes: #470993)
+  * Do not use eval in start_daemon().  (Closes: #406059)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 17 Apr 2008 20:38:23 -0500
+
 lsb (3.2-8) unstable; urgency=medium
 
   * Bump conflicts to python < 2.6.  (Closes: #475953)

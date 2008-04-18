@@ -50,11 +50,11 @@ start_daemon () {
     exec="$1"; shift
 
     if [ $force = 1 ]; then
-        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
     elif [ $pidfile ]; then
-        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
     else
-        eval /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- "$@"
+        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- "$@"
     fi
 }
 
@@ -149,7 +149,7 @@ killproc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
-    if [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
+    if [ -t 1 ] && [ "x$TERM" != "" ] && [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
         [ -z $FANCYTTY ] && FANCYTTY=1 || true
     else
         FANCYTTY=0

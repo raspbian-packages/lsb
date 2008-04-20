@@ -1,3 +1,9 @@
+lsb (3.2-10) unstable; urgency=low
+
+  * Fix typo in lsb_release.  (Closes: #476969)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 20 Apr 2008 09:28:20 -0500
+
 lsb (3.2-9) unstable; urgency=low
 
   * Fix lsb_release detection when apt-cache policy identifies no Debian

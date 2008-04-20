@@ -187,15 +187,10 @@ def guess_debian_release():
             # /etc/debian_version should be numeric
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
-        elif release.endswith('/sid')
+        elif release.endswith('/sid'):
             distinfo['RELEASE'] = 'testing/unstable'
-            distinfo['CODENAME'] = release
-        elif release.endswith('/unstable'):
-            distinfo['RELEASE'] = '%s/sid' % TESTING_CODENAME
-            distinfo['CODENAME'] = 'testing/unstable'
         else:
             distinfo['RELEASE'] = release
-            distinfo['CODENAME'] = None
 
     # Only use apt information if we did not get the proper information
     # from /etc/debian_version or if we don't have a codename
@@ -206,7 +201,7 @@ def guess_debian_release():
     # has an entry in his /etc/apt/sources.list but has not actually
     # upgraded the system.
     rinfo = guess_release_from_apt()
-    if rinfo and not distinfo['CODENAME']:
+    if rinfo and not distinfo.get('CODENAME'):
         release = rinfo.get('version')
         if release:
             codename = lookup_codename(release, 'n/a')

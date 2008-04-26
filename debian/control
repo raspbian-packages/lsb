@@ -164,7 +164,7 @@ Description: Linux Standard Base 3.2 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 3.2), libcupsys2, libcupsimage2, foomatic-filters, ghostscript
+Depends: lsb-core (>= 3.2), libcupsys2, libcupsimage2, foomatic-filters, ghostscript | gs
 Provides: lsb-printing-noarch, ${provides}
 Description: Linux Standard Base 3.2 Printing package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

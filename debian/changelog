@@ -1,3 +1,9 @@
+lsb (3.2-11) unstable; urgency=low
+
+  * Depend on gs | ghostscript to help with Python transition.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 26 Apr 2008 15:47:00 -0500
+
 lsb (3.2-10) unstable; urgency=low
 
   * Fix typo in lsb_release.  (Closes: #476969)

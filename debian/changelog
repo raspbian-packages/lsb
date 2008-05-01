@@ -1,3 +1,9 @@
+lsb (3.2-12) unstable; urgency=medium
+
+  * Fix reversed test in killproc().  (Closes: #478871)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 01 May 2008 10:08:49 -0500
+
 lsb (3.2-11) unstable; urgency=low
 
   * Depend on gs | ghostscript to help with Python transition.

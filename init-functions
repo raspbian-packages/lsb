@@ -120,7 +120,7 @@ killproc () {
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-    if [ -n "$sig" -o "$sig" = 15 -o "$sig" = TERM ]; then
+    if [ -z "$sig" -o "$sig" = 15 -o "$sig" = TERM ]; then
         is_term_sig=yes
     fi
     status=0

@@ -1,3 +1,20 @@
+lsb (3.2-13) unstable; urgency=low
+
+  * Include status_of_proc() function from Ubuntu's lsb-base.
+    Thanks to Dustin Kirkland.  (Closes: #483285)
+  * This patch also allows pidofproc to work on other users' processes.
+    (Closes: #452992)
+  * Fix output of lsb_release -h to properly describe what -s does.
+    (Closes: #479542)
+  * Add Slovak translation.  (Closes: #489265)
+  * Fix dependencies to not use >>.  (Closes: #461340)
+  * Document init-functions license in debian/copyright.
+    (Closes: #481281)
+  * Also fix text of init-functions license to remove the reference to
+    "the Regents," who didn't author any of init-functions.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 08 Jul 2008 22:03:10 -0500
+
 lsb (3.2-12) unstable; urgency=medium
 
   * Fix reversed test in killproc().  (Closes: #478871)

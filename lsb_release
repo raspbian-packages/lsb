@@ -267,7 +267,7 @@ def main():
                       help="show all of the above information")
     parser.add_option('-s', '--short', dest='short',
                       action='store_true', default=False,
-                      help="show all of the above information in short format")
+                      help="show requested information in short format")
     
     (options, args) = parser.parse_args()
     if args:

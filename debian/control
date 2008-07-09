@@ -3,7 +3,7 @@ Section: misc
 Priority: extra
 Maintainer: Chris Lawrence <lawrencc@debian.org>
 Build-Depends: debhelper (>= 5.0.37.2), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-central (>= 0.5), python-all-dev
-Standards-Version: 3.7.3
+Standards-Version: 3.8.0
 XS-Python-Version: current
 Homepage: http://www.linux-foundation.org/en/LSB
 
@@ -11,7 +11,7 @@ Package: lsb-core
 Architecture: any
 Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
-Conflicts: python (>> 2.6), lsb (<< 2.0-2)
+Conflicts: python (>= 2.6), lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.2 core support package
@@ -76,7 +76,7 @@ Description: Linux Standard Base 3.2 C++ support package
 
 Package: lsb-desktop
 Architecture: any
-Depends: lsb-graphics, fontconfig (>> 2.3.0), libfontconfig1 (>> 2.3.0), libpng12-0, libjpeg62, libglib2.0-0 (>> 2.6.2), libatk1.0-0 (>> 1.9.0), libpango1.0-0 (>> 1.8.0), libgtk2.0-0 (>> 2.6.2), libqt3-mt (>> 3.3.6), libqt4-gui (>= 4.2), libxml2, libfreetype6, libxrender1, libxft2, xdg-utils, ${misc:Depends}
+Depends: lsb-graphics, fontconfig (>= 2.3.0), libfontconfig1 (>= 2.3.0), libpng12-0, libjpeg62, libglib2.0-0 (>= 2.6.2), libatk1.0-0 (>= 1.9.0), libpango1.0-0 (>= 1.8.0), libgtk2.0-0 (>= 2.6.2), libqt3-mt (>= 3.3.6), libqt4-gui (>= 4.2), libxml2, libfreetype6, libxrender1, libxft2, xdg-utils, ${misc:Depends}
 Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 3.2 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

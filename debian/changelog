@@ -1,3 +1,13 @@
+lsb (3.2-14) unstable; urgency=low
+
+  * Update pidofproc(), status_of_proc() to sync with Ubuntu.
+    Thanks to Dustin Kirkland.  (Closes: #490095)
+  * Add hooks to init-functions, thanks to Miroslav Jezbera.
+    These are documented in README.Debian in lsb-base.
+    (Closes: #490408)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 14 Jul 2008 11:30:52 -0500
+
 lsb (3.2-13) unstable; urgency=low
 
   * Include status_of_proc() function from Ubuntu's lsb-base.

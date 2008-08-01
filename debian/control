@@ -9,7 +9,7 @@ Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
+Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cups-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
 Conflicts: python (>= 2.6), lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
@@ -164,7 +164,7 @@ Description: Linux Standard Base 3.2 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 3.2), libcupsys2, libcupsimage2, foomatic-filters, ghostscript | gs
+Depends: lsb-core (>= 3.2), libcups2, libcupsimage2, foomatic-filters, ghostscript | gs
 Provides: lsb-printing-noarch, ${provides}
 Description: Linux Standard Base 3.2 Printing package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

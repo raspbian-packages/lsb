@@ -36,7 +36,7 @@ RELEASE_CODENAME_LOOKUP = {
     '3.0' : 'woody',
     '3.1' : 'sarge',
     '4.0' : 'etch',
-    '4.1' : 'lenny',
+    '5.0' : 'lenny',
     }
 
 TESTING_CODENAME = 'lenny'

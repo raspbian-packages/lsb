@@ -71,11 +71,7 @@ pidofproc () {
     done
     shift $(($OPTIND - 1))
 
-    if [ -z "${pidfile:-}" ]; then
-        pidfile=/var/run/${1##*/}.pid
-    fi
-
-    if [ -f "$pidfile" ]; then
+    if [ -n "${pidfile:-}" -a -e "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
             if $(kill -0 "${pid:-}" 2> /dev/null); then
@@ -91,7 +87,7 @@ pidofproc () {
     fi
     if [ -x /bin/pidof -a ! "$specified" ]; then
         status="0"
-        /bin/pidof -o %PPID $1 || status="$?"
+        /bin/pidof -o %PPID -x $1 || status="$?"
         if [ "$status" = 1 ]; then
             return 3 # program is not running
         fi
@@ -117,8 +113,9 @@ killproc () {
 
     base=${1##*/}
     if [ ! $pidfile ]; then
-        pidfile=/var/run/$base.pid
         name_param="--name $base"
+    else
+        name_param="--pidfile $pidfile"
     fi
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
@@ -129,12 +126,12 @@ killproc () {
     status=0
     if [ ! "$is_term_sig" = yes ]; then
         if [ -n "$sig" ]; then
-            /sbin/start-stop-daemon --stop --signal "$sig" --pidfile "$pidfile" --quiet $name_param || status="$?"
+            /sbin/start-stop-daemon --stop --signal "$sig" --quiet $name_param || status="$?"
         else
-            /sbin/start-stop-daemon --stop --pidfile "$pidfile" --quiet $name_param || status="$?"
+            /sbin/start-stop-daemon --stop --quiet $name_param || status="$?"
         fi
     else
-        /sbin/start-stop-daemon --stop --pidfile "$pidfile" --retry 5 --quiet --oknodo $name_param || status="$?"
+        /sbin/start-stop-daemon --stop --quiet --oknodo $name_param || status="$?"
     fi
     if [ "$status" = 1 ]; then
         if [ -n "$sig" ]; then
@@ -143,8 +140,8 @@ killproc () {
         return 3 # program is not running
     fi
 
-    if [ "$status" = 0 -a "$is_term_sig" = yes ]; then
-        pidofproc -p $pidfile "$1" >/dev/null || rm -f "$pidfile"
+    if [ "$status" = 0 -a "$is_term_sig" = yes -a "$pidfile" ]; then
+        pidofproc -p "$pidfile" "$1" >/dev/null || rm -f "$pidfile"
     fi
     return 0
 }
@@ -171,10 +168,10 @@ status_of_proc () {
     status="0"
     pidofproc $pidfile $daemon >/dev/null || status="$?"
     if [ "$status" = 0 ]; then
-        log_success_msg "$name is running."
+        log_success_msg "$name is running"
         return 0
     else
-        log_failure_msg "$name is not running."
+        log_failure_msg "$name is not running"
         return $status
     fi
 }
@@ -194,27 +191,24 @@ log_use_fancy_output () {
 }
 
 log_success_msg () {
-    echo "$@"
+    if [ -n "${1:-}" ]; then
+        log_begin_msg $@
+    fi
+    log_end_msg 0
 }
 
 log_failure_msg () {
-    if log_use_fancy_output; then
-        RED=`$TPUT setaf 1`
-        NORMAL=`$TPUT op`
-        /bin/echo -e "${RED}*${NORMAL} $@"
-    else
-        echo "$@"
+    if [ -n "${1:-}" ]; then
+        log_begin_msg $@
     fi
+    log_end_msg 1
 }
 
 log_warning_msg () {
-    if log_use_fancy_output; then
-        YELLOW=`$TPUT setaf 3`
-        NORMAL=`$TPUT op`
-        /bin/echo -e "${YELLOW}*${NORMAL} $@"
-    else
-        echo "$@"
+    if [ -n "${1:-}" ]; then
+        log_begin_msg $@
     fi
+    log_end_msg -1
 }
 
 #
@@ -302,15 +296,20 @@ log_end_msg () {
     # and if /usr is already mounted
     if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
+        YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
         if [ $1 -eq 0 ]; then
             echo "."
+        elif [ $1 -eq -1 ]; then
+            /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
         else
             /bin/echo -e " ${RED}failed!${NORMAL}"
         fi
     else
 	if [ $1 -eq 0 ]; then
             echo "."
+        elif [ $1 -eq -1 ]; then
+            echo -e " (warning)."
         else
             echo " failed!"
         fi

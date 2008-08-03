@@ -122,7 +122,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdebconf -a
 	dh_installdocs -a
-	dh_installexamples -a init-skeleton
+	dh_installexamples -a test/init-skeleton
 	dh_installmenu -a
 #	dh_installlogrotate
 #	dh_installemacsen

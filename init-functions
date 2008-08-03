@@ -208,7 +208,7 @@ log_warning_msg () {
     if [ -n "${1:-}" ]; then
         log_begin_msg $@
     fi
-    log_end_msg -1
+    log_end_msg 255
 }
 
 #
@@ -290,6 +290,9 @@ log_end_msg () {
     if [ -z "${1:-}" ]; then
         return 1
     fi
+
+    retval=$1
+
     log_end_msg_pre "$@"
 
     # Only do the fancy stuff if we have an appropriate terminal
@@ -300,22 +303,23 @@ log_end_msg () {
         NORMAL=`$TPUT op`
         if [ $1 -eq 0 ]; then
             echo "."
-        elif [ $1 -eq -1 ]; then
+        elif [ $1 -eq 255 ]; then
             /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
+            retval=0
         else
             /bin/echo -e " ${RED}failed!${NORMAL}"
         fi
     else
 	if [ $1 -eq 0 ]; then
             echo "."
-        elif [ $1 -eq -1 ]; then
+        elif [ $1 -eq 255 ]; then
             echo -e " (warning)."
         else
             echo " failed!"
         fi
     fi
     log_end_msg_post "$@"
-    return $1
+    return $retval
 }
 
 log_action_msg () {

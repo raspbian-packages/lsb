@@ -1,3 +1,10 @@
+lsb (3.2-17) unstable; urgency=low
+
+  * log_{success,failure,warning}_msg suck, please don't use them for
+    Debian scripts.  Nonetheless, breakage fixed.  (Closes: #493505)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 03 Aug 2008 10:15:45 -0500
+
 lsb (3.2-16) unstable; urgency=low
 
   * Add a bugscript to lsb-release to help figure out why people keep

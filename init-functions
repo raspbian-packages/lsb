@@ -301,22 +301,19 @@ log_end_msg () {
         RED=`$TPUT setaf 1`
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
-        if [ $1 -eq 0 ]; then
-            echo "."
-        elif [ $1 -eq 255 ]; then
-            /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
-            retval=0
-        else
-            /bin/echo -e " ${RED}failed!${NORMAL}"
-        fi
     else
-	if [ $1 -eq 0 ]; then
-            echo "."
-        elif [ $1 -eq 255 ]; then
-            echo -e " (warning)."
-        else
-            echo " failed!"
-        fi
+        RED=''
+        YELLOW=''
+        NORMAL=''
+    fi
+
+    if [ $1 -eq 0 ]; then
+        echo "."
+    elif [ $1 -eq 255 ]; then
+        /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
+        retval=0
+    else
+        /bin/echo -e " ${RED}failed!${NORMAL}"
     fi
     log_end_msg_post "$@"
     return $retval

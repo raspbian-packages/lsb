@@ -1,3 +1,9 @@
+lsb (3.2-18) unstable; urgency=low
+
+  * Also fix case where stdout isn't color-capable.  (Closes: #493505, again)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 04 Aug 2008 02:31:03 -0500
+
 lsb (3.2-17) unstable; urgency=low
 
   * log_{success,failure,warning}_msg suck, please don't use them for

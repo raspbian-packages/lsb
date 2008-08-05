@@ -201,14 +201,14 @@ log_failure_msg () {
     if [ -n "${1:-}" ]; then
         log_begin_msg $@
     fi
-    log_end_msg 1
+    log_end_msg 1 || true
 }
 
 log_warning_msg () {
     if [ -n "${1:-}" ]; then
         log_begin_msg $@
     fi
-    log_end_msg 255
+    log_end_msg 255 || true
 }
 
 #
@@ -311,7 +311,6 @@ log_end_msg () {
         echo "."
     elif [ $1 -eq 255 ]; then
         /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
-        retval=0
     else
         /bin/echo -e " ${RED}failed!${NORMAL}"
     fi

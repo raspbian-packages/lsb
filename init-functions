@@ -71,6 +71,11 @@ pidofproc () {
     done
     shift $(($OPTIND - 1))
 
+    base=${1##*/}
+    if [ ! "$specified" ]; then
+        pidfile="/var/run/$base.pid"
+    fi
+
     if [ -n "${pidfile:-}" -a -e "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
@@ -113,7 +118,7 @@ killproc () {
 
     base=${1##*/}
     if [ ! $pidfile ]; then
-        name_param="--name $base"
+        name_param="--name $base --pidfile /var/run/$base.pid"
     else
         name_param="--pidfile $pidfile"
     fi

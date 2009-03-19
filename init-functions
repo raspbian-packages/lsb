@@ -28,7 +28,7 @@
 #EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 start_daemon () {
-    local force nice pidfile exec i
+    local force nice pidfile exec i args
     force=0
     nice=0
     pidfile=/dev/null
@@ -49,12 +49,13 @@ start_daemon () {
 
     exec="$1"; shift
 
+    args="--start --chdir '$PWD' --nicelevel $nice --quiet --oknodo"
     if [ $force = 1 ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --startas $exec --pidfile /dev/null --oknodo -- "$@"
+        /sbin/start-stop-daemon $args --startas $exec --pidfile /dev/null -- "$@"
     elif [ $pidfile ]; then
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
+        /sbin/start-stop-daemon $args --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
     else
-        /sbin/start-stop-daemon --start --nicelevel $nice --quiet --exec $exec --oknodo -- "$@"
+        /sbin/start-stop-daemon $args --exec $exec -- "$@"
     fi
 }
 
@@ -97,6 +98,9 @@ pidofproc () {
             return 3 # program is not running
         fi
         return 0
+    fi
+    if [ "$specified" ]; then
+        return 3 # program does not appear to be running after trying PID file
     fi
     return 4 # program or service is unknown
 }

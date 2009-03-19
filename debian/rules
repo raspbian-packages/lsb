@@ -76,7 +76,7 @@ clean:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	# Add here commands to install the package into debian/lsb.
@@ -84,6 +84,7 @@ install: build
 	cp -p initdutils.py install_initd remove_initd lsbinstall debian/lsb-core/usr/lib/lsb
 	cp -p init-functions debian/lsb-base/lib/lsb
 	cp -p lsb_release debian/lsb-release/usr/bin
+	cp -p lsb_release.py debian/lsb-release/usr/share/python-support/lsb-release
 	cp -p debian/lsb-release.bugscript debian/lsb-release/usr/share/bug/lsb-release
 
 # Build architecture-independent files here.
@@ -107,10 +108,10 @@ binary-indep: build install
 	dh_compress -i
 	dh_fixperms -i
 #	dh_makeshlibs
-	dh_installdeb -i
 #	dh_perl
-	dh_pycentral
-	dh_python
+	dh_pysupport -i
+#	dh_python
+	dh_installdeb -i
 	dh_shlibdeps -i
 	dh_gencontrol -i
 	dh_md5sums -i
@@ -149,6 +150,7 @@ binary-arch: build install
 	dh_strip -a
 	dh_compress -a
 	dh_fixperms -a
+	dh_pysupport -a
 #	dh_makeshlibs
 	dh_installdeb -a
 #	dh_perl

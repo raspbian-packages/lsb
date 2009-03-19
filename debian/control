@@ -2,14 +2,14 @@ Source: lsb
 Section: misc
 Priority: extra
 Maintainer: Chris Lawrence <lawrencc@debian.org>
-Build-Depends: debhelper (>= 5.0.37.2), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-central (>= 0.5), python-all-dev
-Standards-Version: 3.8.0
+Build-Depends: debhelper (>> 7), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-support, python-all-dev
+Standards-Version: 3.8.1
 XS-Python-Version: current
 Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cups-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
+Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cups-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base, time
 Provides: lsb-core-noarch, ${provides}
 Conflicts: python (>= 2.6), lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
@@ -97,7 +97,7 @@ Description: Linux Standard Base 3.2 Desktop support package
 
 Package: lsb-qt4
 Architecture: any
-Depends: lsb-desktop (>= 3.2)
+Depends: lsb-desktop (>= 3.2), ${misc:Depends}
 Provides: lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 3.2 Qt4 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -122,7 +122,7 @@ Description: Linux Standard Base 3.2 Qt4 support package
 
 Package: lsb-languages
 Architecture: any
-Depends: lsb-core (>= 3.2), python (>= 2.4), perl (>= 5.8.8), perl (<< 6)
+Depends: lsb-core (>= 3.2), python (>= 2.4), perl (>= 5.8.8), perl (<< 6), ${misc:Depends}
 Provides: lsb-languages-noarch, ${provides}
 Description: Linux Standard Base 3.2 Runtime Languages package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -143,7 +143,7 @@ Description: Linux Standard Base 3.2 Runtime Languages package
 
 Package: lsb-multimedia
 Architecture: any
-Depends: lsb-core (>= 3.2), libasound2
+Depends: lsb-core (>= 3.2), libasound2, ${misc:Depends}
 Provides: lsb-multimedia-noarch, ${provides}
 Description: Linux Standard Base 3.2 Multimedia package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -164,7 +164,7 @@ Description: Linux Standard Base 3.2 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 3.2), libcups2, libcupsimage2, foomatic-filters, ghostscript | gs
+Depends: lsb-core (>= 3.2), libcups2, libcupsimage2, foomatic-filters, ghostscript, ${misc:Depends}
 Provides: lsb-printing-noarch, ${provides}
 Description: Linux Standard Base 3.2 Printing package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -185,7 +185,7 @@ Description: Linux Standard Base 3.2 Printing package
 
 Package: lsb
 Architecture: all
-Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop
+Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop, ${misc:Depends}
 Suggests: lsb-printing, lsb-multimedia, lsb-languages
 Description: Linux Standard Base 3.2 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -206,7 +206,7 @@ Description: Linux Standard Base 3.2 support package
 
 Package: lsb-base
 Architecture: all
-Depends: sed, ncurses-bin
+Depends: sed, ncurses-bin, ${misc:Depends}
 Replaces: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
 Conflicts: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
 Priority: required
@@ -221,7 +221,7 @@ Description: Linux Standard Base 3.2 init script functionality
 
 Package: lsb-release
 Architecture: all
-Depends: ${python:Depends}
+Depends: ${python:Depends}, ${misc:Depends}
 Recommends: apt
 Suggests: lsb
 XB-Python-Version: ${python:Versions}

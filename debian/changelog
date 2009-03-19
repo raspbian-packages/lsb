@@ -1,3 +1,21 @@
+lsb (3.2-21) unstable; urgency=low
+
+  * Provide lsb_release module for Python applications.  (Closes: #486262)
+  * Change working directory to $PWD in start-stop-daemon, for better
+    compatibility with LSB applications.  (Closes: #519817)
+  * return 3 rather than 4 in pidofproc if a PID file is specified and
+    the daemon is not found.  (Closes: #494623)
+  * Improve handling of future testing versions unknown to lsb-release.
+    Patch by Jan Muszynski (Closes: #517594).
+  * Fix DeprecationWarning with Python 2.6; patch from Colin Watson and
+    Anders Kaseorg.  (Closes: #517819)
+  * Bypass guess_debian_release() if /etc/lsb-release is complete.
+    Patch from Scott James Remnant.  (Closes: #511952)
+  * 'time' was missing from lsb-core dependencies.  (Closes: #510488)
+  * Demote lsb to a suggestion by lsb-release.  (Closes: #509611)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 19 Mar 2009 16:29:25 -0500
+
 lsb (3.2-20) unstable; urgency=low
 
   * Revert change in 3.2-16 that broke killproc due to my misunderstanding

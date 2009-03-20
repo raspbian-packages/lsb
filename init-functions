@@ -49,13 +49,13 @@ start_daemon () {
 
     exec="$1"; shift
 
-    args="--start --chdir '$PWD' --nicelevel $nice --quiet --oknodo"
+    args="--start --nicelevel $nice --quiet --oknodo"
     if [ $force = 1 ]; then
-        /sbin/start-stop-daemon $args --startas $exec --pidfile /dev/null -- "$@"
+        /sbin/start-stop-daemon $args --chdir "$PWD" --startas $exec --pidfile /dev/null -- "$@"
     elif [ $pidfile ]; then
-        /sbin/start-stop-daemon $args --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
+        /sbin/start-stop-daemon $args --chdir "$PWD" --exec $exec --oknodo --pidfile "$pidfile" -- "$@"
     else
-        /sbin/start-stop-daemon $args --exec $exec -- "$@"
+        /sbin/start-stop-daemon $args --chdir "$PWD" --exec $exec -- "$@"
     fi
 }
 

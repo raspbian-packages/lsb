@@ -1,3 +1,9 @@
+lsb (3.2-22) unstable; urgency=low
+
+  * Fix quoting of $PWD in start-stop-daemon call.  (Closes: #520499)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 20 Mar 2009 11:40:50 -0500
+
 lsb (3.2-21) unstable; urgency=low
 
   * Provide lsb_release module for Python applications.  (Closes: #486262)

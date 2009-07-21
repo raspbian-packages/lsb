@@ -132,7 +132,7 @@ def parse_policy_line(data):
 def parse_apt_policy():
     data = []
     
-    policy = commands.getoutput('apt-cache policy 2>/dev/null')
+    policy = commands.getoutput('LANG=C apt-cache policy 2>/dev/null')
     for line in policy.split('\n'):
         line = line.strip()
         m = re.match(r'(\d+)', line)
@@ -185,7 +185,12 @@ def guess_debian_release():
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
 
     if os.path.exists('/etc/debian_version'):
-        release = open('/etc/debian_version').read().strip()
+        try:
+            release = open('/etc/debian_version').read().strip()
+        except IOError, msg:
+            print >> sys.stderr, 'Unable to open /etc/debian_version:', str(msg)
+            release = 'unknown'
+            
         if not release[0:1].isalpha():
             # /etc/debian_version should be numeric
             codename = lookup_codename(release, 'n/a')
@@ -231,19 +236,24 @@ def guess_debian_release():
 def get_lsb_information():
     distinfo = {}
     if os.path.exists('/etc/lsb-release'):
-        for line in open('/etc/lsb-release'):
-            line = line.strip()
-            if not line:
-                continue
-            # Skip invalid lines
-            if not '=' in line:
-                continue
-            var, arg = line.split('=', 1)
-            if var.startswith('DISTRIB_'):
-                var = var[8:]
-                if arg.startswith('"') and arg.endswith('"'):
-                    arg = arg[1:-1]
-                distinfo[var] = arg
+        try:
+            for line in open('/etc/lsb-release'):
+                line = line.strip()
+                if not line:
+                    continue
+                # Skip invalid lines
+                if not '=' in line:
+                    continue
+                var, arg = line.split('=', 1)
+                if var.startswith('DISTRIB_'):
+                    var = var[8:]
+                    if arg.startswith('"') and arg.endswith('"'):
+                        arg = arg[1:-1]
+                    if arg: # Ignore empty arguments
+                        distinfo[var] = arg
+        except IOError, msg:
+            print >> sys.stderr, 'Unable to open /etc/lsb-release:', str(msg)
+            
     return distinfo
 
 def get_distro_information():

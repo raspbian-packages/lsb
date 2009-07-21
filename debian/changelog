@@ -1,3 +1,19 @@
+lsb (3.2-23) unstable; urgency=low
+
+  * Fix tests for $TERM in log_use_fancy_output().  (Closes: #537112, #536190)
+  * Add libnss3-1d and libqt4-sql-sqlite to lsb-desktop dependencies.
+    (Closes: #534277, #534452)
+  * Properly trap open() failures in lsb_release.  (Closes: #521462)
+  * Ignore empty arguments in /etc/lsb-release.  (Closes: #485565)
+    May also fix #514041.
+  * Better test for existant but unreadable PID file.  (Closes: #527890)
+  * Add some punctuation to log_{warning,failure}_msg.  (Closes: #525684)
+  * lsb-core depends on cups-bsd | lpr, since it is more likely that
+    someone in 2009 will have CUPS installed already than want to use lpr
+    instead.  (Closes: #512098)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 21 Jul 2009 04:03:41 -0500
+
 lsb (3.2-22) unstable; urgency=low
 
   * Fix quoting of $PWD in start-stop-daemon call.  (Closes: #520499)

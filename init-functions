@@ -77,7 +77,7 @@ pidofproc () {
         pidfile="/var/run/$base.pid"
     fi
 
-    if [ -n "${pidfile:-}" -a -e "$pidfile" ]; then
+    if [ -n "${pidfile:-}" -a -r "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
             if $(kill -0 "${pid:-}" 2> /dev/null); then
@@ -99,10 +99,7 @@ pidofproc () {
         fi
         return 0
     fi
-    if [ "$specified" ]; then
-        return 3 # program does not appear to be running after trying PID file
-    fi
-    return 4 # program or service is unknown
+    return 4 # Unable to determine status
 }
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
@@ -179,6 +176,9 @@ status_of_proc () {
     if [ "$status" = 0 ]; then
         log_success_msg "$name is running"
         return 0
+    elif [ "$status" = 4 ]; then
+        log_failure_msg "could not access PID file for $name"
+        return $status
     else
         log_failure_msg "$name is not running"
         return $status
@@ -188,7 +188,7 @@ status_of_proc () {
 log_use_fancy_output () {
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
-    if [ -t 1 ] && [ "x$TERM" != "" ] && [ "x$TERM" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
+    if [ -t 1 ] && [ "x${TERM:-}" != "x" ] && [ "x${TERM:-}" != "xdumb" ] && [ -x $TPUT ] && [ -x $EXPR ] && $TPUT hpa 60 >/dev/null 2>&1 && $TPUT setaf 1 >/dev/null 2>&1; then
         [ -z $FANCYTTY ] && FANCYTTY=1 || true
     else
         FANCYTTY=0
@@ -208,14 +208,14 @@ log_success_msg () {
 
 log_failure_msg () {
     if [ -n "${1:-}" ]; then
-        log_begin_msg $@
+        log_begin_msg $@ "..."
     fi
     log_end_msg 1 || true
 }
 
 log_warning_msg () {
     if [ -n "${1:-}" ]; then
-        log_begin_msg $@
+        log_begin_msg $@ "..."
     fi
     log_end_msg 255 || true
 }

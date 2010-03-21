@@ -1,3 +1,16 @@
+lsb (3.2-23.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix dependencies of lsb-core on kfreebsd-* and hurd-* to make the
+    package installable. Thanks to Aurelien Jarno for the patch and the
+    bugreport.  (Closes: #539284)
+  * Set XS-Python-Version to all to make lsb-release available for all
+    supported Python versions. Thanks to Sandro Tosi for the bug report.
+    (Closes: #570586)
+  * Don't make lsb-core conflict with python (>= 2.6).
+
+ -- Jakub Wilk <jwilk@debian.org>  Sun, 21 Mar 2010 15:39:47 +0100
+
 lsb (3.2-23) unstable; urgency=low
 
   * Fix tests for $TERM in log_use_fancy_output().  (Closes: #537112, #536190)

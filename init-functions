@@ -91,7 +91,7 @@ pidofproc () {
             fi
         fi
     fi
-    if [ -x /bin/pidof -a ! "$specified" ]; then
+    if [ -x /bin/pidof -a "$specified" ]; then
         status="0"
         /bin/pidof -o %PPID -x $1 || status="$?"
         if [ "$status" = 1 ]; then

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # lsb_release command for Debian
-# (C) 2005-08 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by

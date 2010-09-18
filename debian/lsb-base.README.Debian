@@ -128,7 +128,7 @@ If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
 Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
-"Fancy output" can be overriden by setting FANCYTTY=0 in this file.
+"Fancy output" can be overridden by setting FANCYTTY=0 in this file.
 
 From lsb-base 3.2-14, you can use the following hook functions which
 are called by the appropriate functions, instead of supplying your own
@@ -145,4 +145,4 @@ Each function receives all of the arguments sent to the parent
 function; the "pre" functions operate before any output, while the
 "post" functions operate after the output is produced.
 
- -- Chris Lawrence <lawrencc@debian.org>, Mon, 14 Jul 2008 11:34:48 -0500
+ -- Chris Lawrence <lawrencc@debian.org>, Sat, 18 Sep 2010 17:09:57 -0500

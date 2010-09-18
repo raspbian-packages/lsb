@@ -3,13 +3,13 @@ Section: misc
 Priority: extra
 Maintainer: Chris Lawrence <lawrencc@debian.org>
 Build-Depends: debhelper (>> 7), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-support, python-all-dev
-Standards-Version: 3.8.2
+Standards-Version: 3.9.1
 XS-Python-Version: all
 Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, cups-bsd | lpr, lprng | cups-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base, time
+Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, cups-bsd | lpr, lprng | cups-client, m4, mailutils | mailx, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base, time
 Provides: lsb-core-noarch, ${provides}
 Conflicts: lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)

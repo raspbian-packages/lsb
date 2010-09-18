@@ -1,3 +1,20 @@
+lsb (3.2-24) unstable; urgency=low
+
+  * Improve detection of Debian version when there is a "tie" in
+    APT's sources.list.  Patch by Giovanni Mascellani.  (Closes: #540208)
+  * Fix test for PID file in init-functions.  Patch by Keith O'Brien.
+    (Closes: #545896)
+  * Fix reporting for more recent versions of Debian GNU/kFreeBSD.  Patch
+    by Gonéri Le Bouder.  (Closes: #595159)
+  * Use --print-architecture instead of --print-installation-architecture
+    in lsb-core postinst.  (Closes: #542610)
+  * Fix formatting error in lsb_release(1).  Patch by Adam Guthrie.
+    (Closes: #586575)
+  * Update pt_BR translation for debconf messages, thanks to Flamarion Jorge.
+    (Closes: #596438)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 18 Sep 2010 17:08:17 -0500
+
 lsb (3.2-23.1) unstable; urgency=low
 
   * Non-maintainer upload.

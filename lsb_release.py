@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # LSB release detection module for Debian
-# (C) 2005-09 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -39,6 +39,11 @@ RELEASE_CODENAME_LOOKUP = {
     }
 
 TESTING_CODENAME = 'unknown.new.testing'
+
+RELEASES_ORDER = RELEASE_CODENAME_LOOKUP.items()
+RELEASES_ORDER.sort()
+RELEASES_ORDER = list(zip(*RELEASES_ORDER)[1])
+RELEASES_ORDER.extend(['stable', 'testing', 'unstable', 'sid'])
 
 def lookup_codename(release, unknown=None):
     m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
@@ -169,6 +174,10 @@ def guess_release_from_apt(origin='Debian', component='main',
     # We've sorted the list by descending priority, so the first entry should
     # be the "main" release in use on the system
 
+    max_priority = releases[0][0]
+    releases = [x for x in releases if x[0] == max_priority]
+    releases.sort(cmp = lambda x,y: RELEASES_ORDER.index(y[1]['suite']) - RELEASES_ORDER.index(x[1]['suite']))
+
     return releases[0][1]
 
 def guess_debian_release():
@@ -179,6 +188,8 @@ def guess_debian_release():
         distinfo['OS'] = 'GNU/'+kern
     elif kern == 'FreeBSD':
         distinfo['OS'] = 'GNU/k'+kern
+    elif kern in ('GNU/Linux', 'GNU/kFreeBSD'):
+        distinfo['OS'] = kern
     else:
         distinfo['OS'] = 'GNU'
 
@@ -250,7 +261,7 @@ def get_lsb_information():
                     if arg.startswith('"') and arg.endswith('"'):
                         arg = arg[1:-1]
                     if arg: # Ignore empty arguments
-                        distinfo[var] = arg
+                        distinfo[var] = arg.strip()
         except IOError, msg:
             print >> sys.stderr, 'Unable to open /etc/lsb-release:', str(msg)
             

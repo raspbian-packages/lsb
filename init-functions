@@ -91,13 +91,16 @@ pidofproc () {
             fi
         fi
     fi
-    if [ -x /bin/pidof -a "$specified" ]; then
+    if [ -x /bin/pidof -a ! "$specified" ]; then
         status="0"
         /bin/pidof -o %PPID -x $1 || status="$?"
         if [ "$status" = 1 ]; then
             return 3 # program is not running
         fi
         return 0
+    fi
+    if [ "$specified" ]; then
+        return 3 # almost certain it's not running
     fi
     return 4 # Unable to determine status
 }

@@ -36,6 +36,8 @@ RELEASE_CODENAME_LOOKUP = {
     '3.1' : 'sarge',
     '4.0' : 'etch',
     '5.0' : 'lenny',
+    '6.0' : 'squeeze',
+    '7.0' : 'wheezy',
     }
 
 TESTING_CODENAME = 'unknown.new.testing'
@@ -134,6 +136,18 @@ def parse_policy_line(data):
                 retval[longnames[k]] = v
     return retval
 
+def compare_release(x, y):
+    suite_x = y[1].get('suite')
+    suite_y = x[1].get('suite')
+
+    if suite_x and suite_y:
+        if suite_x in RELEASES_ORDER and suite_y in RELEASES_ORDER:
+            return RELEASES_ORDER.index(suite_y)-RELEASES_ORDER.index(suite_x)
+        else:
+            return cmp(suite_x, suite_y)
+
+    return 0
+
 def parse_apt_policy():
     data = []
     
@@ -176,7 +190,7 @@ def guess_release_from_apt(origin='Debian', component='main',
 
     max_priority = releases[0][0]
     releases = [x for x in releases if x[0] == max_priority]
-    releases.sort(cmp = lambda x,y: RELEASES_ORDER.index(y[1]['suite']) - RELEASES_ORDER.index(x[1]['suite']))
+    releases.sort(compare_release)
 
     return releases[0][1]
 

@@ -1,3 +1,14 @@
+lsb (3.2-25) unstable; urgency=low
+
+  * Improve release comparison function when 'suite' is missing from
+    sources.list.  (Closes: #597667)
+  * return 3 in pidofproc() if we can't track down a running copy of
+    the process and the pidfile is missing.  (Closes: #597628)
+  * Correct location of README.Debian.gz in lsb(8).  (Closes: #589100)
+  * Add link to LSB specification in lsb(8).  (Closes: #589102)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 27 Sep 2010 01:15:49 -0500
+
 lsb (3.2-24) unstable; urgency=low
 
   * Improve detection of Debian version when there is a "tie" in

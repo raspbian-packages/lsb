@@ -129,7 +129,7 @@ binary-arch: build install
 #	dh_installmime
 #	dh_installinit
 	dh_installcron -a
-	dh_installman -a lsb.8
+	dh_installman -a
 	dh_installinfo -a
 #	dh_undocumented
 	dh_installchangelogs -a

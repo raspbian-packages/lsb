@@ -1,3 +1,12 @@
+lsb (3.2-26) unstable; urgency=low
+
+  * Fix reversed assignment in compare_release.  (Closes: #540208)
+  * Move lsb(8) to lsb-core package.  (Closes: #589101)
+  * Update da translation of debconf templates; thanks to Joe Dalton.
+    (Closes: #599461)
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 06 Oct 2010 20:35:30 -0500
+
 lsb (3.2-25) unstable; urgency=low
 
   * Improve release comparison function when 'suite' is missing from

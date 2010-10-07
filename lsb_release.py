@@ -137,8 +137,8 @@ def parse_policy_line(data):
     return retval
 
 def compare_release(x, y):
-    suite_x = y[1].get('suite')
-    suite_y = x[1].get('suite')
+    suite_x = x[1].get('suite')
+    suite_y = y[1].get('suite')
 
     if suite_x and suite_y:
         if suite_x in RELEASES_ORDER and suite_y in RELEASES_ORDER:

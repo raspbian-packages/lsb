@@ -1,3 +1,18 @@
+lsb (3.2-27) unstable; urgency=low
+
+  * Track down another use of dpkg --print-installation-architecture.
+    (Closes: #610049)
+  * Various cleanups to init-functions, courtesy of Jari Aalto:
+    + Use /bin/echo when using options throughout.  (Closes: #602038)
+    + Use $() command substitution.  (Closes: #602035)
+    + Use && and || instead of -a and -o.  (Closes: #602037)
+    + Break long lines.  (Closes: #602039)
+    + Cleanup use of local.  (Closes: #602042)
+    + Use single-line statements.  (Closes: #602044)
+    + Use self-documenting values of variables.  (Closes: #602048)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 17 Jan 2011 14:24:35 -0600
+
 lsb (3.2-26) unstable; urgency=low
 
   * Fix reversed assignment in compare_release.  (Closes: #540208)

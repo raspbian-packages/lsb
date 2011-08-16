@@ -3,7 +3,10 @@
 set -e
 
 remove_ldso_symlink () {
-    ARCH=`dpkg --print-architecture`
+    ARCH=$DPKG_MAINTSCRIPT_ARCH
+    if [ -z "$ARCH" ]; then
+        ARCH=$(dpkg --print-architecture)
+    fi
     case "$ARCH" in
         s390|ia64|ppc64|sparc|sparc64|alpha|hppa|m68k|mipsel)
             rm -f /lib/ld-lsb-$ARCH.so.[123]

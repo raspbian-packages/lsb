@@ -3,7 +3,10 @@
 set -e
 
 setup_ldso_symlink () {
-    ARCH=`dpkg --print-architecture`
+    ARCH=$DPKG_MAINTSCRIPT_ARCH
+    if [ -z "$ARCH" ]; then
+        ARCH=$(dpkg --print-architecture)
+    fi
     case "$ARCH" in
         s390|ppc64|sparc|sparc64|alpha|hppa|m68k|mipsel)
             ln -sf ld.so.1 /lib/ld-lsb-$ARCH.so.1

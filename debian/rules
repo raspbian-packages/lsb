@@ -28,6 +28,9 @@ lsbarch=ppc32
 endif
 
 LIBC=libc6 (>> 2.3.5)
+ifeq (${lsbarch}, amd64)
+LIBC=libc6 (>= 2.13-17)
+endif
 ifeq (${lsbarch}, hurd-i386)
 LIBC=libc0.3 (>> 2.3.5)
 endif

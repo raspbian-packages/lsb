@@ -1,3 +1,12 @@
+lsb (3.2-28.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Korean (강민지).  Closes: #632010,#632018
+    - Catalan; (Innocent De Marchi).  Closes: #641828
+
+ -- Christian Perrier <bubulle@debian.org>  Mon, 16 Jan 2012 07:21:11 +0100
+
 lsb (3.2-28) unstable; urgency=low
 
   * Fix symlinks for AMD64.  (Closes: #638450)

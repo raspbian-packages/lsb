@@ -287,6 +287,7 @@ Description: Linux Standard Base 3.2 support package
 
 Package: lsb-base
 Architecture: all
+Multi-Arch: foreign
 Depends: sed,
  ncurses-bin,
  ${misc:Depends}

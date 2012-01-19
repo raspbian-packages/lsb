@@ -211,7 +211,8 @@ def guess_debian_release():
 
     if os.path.exists('/etc/debian_version'):
         try:
-            release = open('/etc/debian_version').read().strip()
+            with open('/etc/debian_version') as debian_version:
+                release = debian_version.read().strip()
         except IOError, msg:
             print >> sys.stderr, 'Unable to open /etc/debian_version:', str(msg)
             release = 'unknown'
@@ -262,20 +263,21 @@ def get_lsb_information():
     distinfo = {}
     if os.path.exists('/etc/lsb-release'):
         try:
-            for line in open('/etc/lsb-release'):
-                line = line.strip()
-                if not line:
-                    continue
-                # Skip invalid lines
-                if not '=' in line:
-                    continue
-                var, arg = line.split('=', 1)
-                if var.startswith('DISTRIB_'):
-                    var = var[8:]
-                    if arg.startswith('"') and arg.endswith('"'):
-                        arg = arg[1:-1]
-                    if arg: # Ignore empty arguments
-                        distinfo[var] = arg.strip()
+            with open('/etc/lsb-release') as lsb_release_file:
+                for line in lsb_release_file:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    # Skip invalid lines
+                    if not '=' in line:
+                        continue
+                    var, arg = line.split('=', 1)
+                    if var.startswith('DISTRIB_'):
+                        var = var[8:]
+                        if arg.startswith('"') and arg.endswith('"'):
+                            arg = arg[1:-1]
+                        if arg: # Ignore empty arguments
+                            distinfo[var] = arg.strip()
         except IOError, msg:
             print >> sys.stderr, 'Unable to open /etc/lsb-release:', str(msg)
             

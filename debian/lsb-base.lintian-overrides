@@ -1,0 +1,3 @@
+# The purpose of LSB is to ensure that those packages are present. Being explicit cannot hurt.
+depends-on-essential-package-without-using-version depends: sed
+depends-on-essential-package-without-using-version depends: ncurses-bin

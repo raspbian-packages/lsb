@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh --with python2 $@
 
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
@@ -41,6 +41,10 @@ endif
 override_dh_clean:
 	dh_clean
 	rm -f *.py[co]
+
+override_dh_python2:
+	dh_python2
+	dh_python2 /usr/lib/lsb
 
 override_dh_gencontrol:
 	@echo >> debian/lsb-core.substvars "glibc=${LIBC}"

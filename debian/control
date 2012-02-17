@@ -6,9 +6,8 @@ Uploaders: Didier Raboud <odyx@debian.org>
 Build-Depends: debhelper (>> 7.0.50~),
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
- python-support, python-all-dev
+ python-all-dev (>= 2.6.6-6~)
 Standards-Version: 3.9.1
-XS-Python-Version: all
 Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
@@ -51,7 +50,6 @@ Depends: lsb-release,
  lsb-base,
  time
 Provides: lsb-core-noarch, ${provides}
-XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.2 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
@@ -306,7 +304,6 @@ Depends: ${python:Depends},
  ${misc:Depends}
 Recommends: apt
 Suggests: lsb
-XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base version reporting utility
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

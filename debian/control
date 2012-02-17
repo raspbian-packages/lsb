@@ -51,8 +51,6 @@ Depends: lsb-release,
  lsb-base,
  time
 Provides: lsb-core-noarch, ${provides}
-Conflicts: lsb (<< 2.0-2)
-Replaces: lsb (<< 2.0-2)
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.2 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -77,7 +75,6 @@ Depends: lsb-core,
  xlibmesa3-gl | libgl1,
  libx11-6 | xlibs,
  ${misc:Depends}
-Conflicts: libutahglx1
 Provides: lsb-graphics-noarch, ${provides}
 Description: Linux Standard Base 3.2 graphics support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
@@ -293,10 +290,6 @@ Architecture: all
 Depends: sed,
  ncurses-bin,
  ${misc:Depends}
-Replaces: lsb-core (<< 2.0-6),
- lsb (<< 2.0-6)
-Conflicts: lsb-core (<< 2.0-6),
- lsb (<< 2.0-6)
 Priority: required
 Description: Linux Standard Base 3.2 init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

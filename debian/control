@@ -19,7 +19,7 @@ Depends: lsb-release,
  libz1,
  libncurses5,
  libpam0g,
- exim4 | mail-transport-agent,
+ lsb-invalid-mta | mail-transport-agent,
  at,
  bc,
  binutils,
@@ -326,3 +326,30 @@ Description: Linux Standard Base version reporting utility
  While it is intended for use by LSB packages, this command may also
  be useful for programmatically distinguishing between a pure Debian
  installation and derived distributions.
+
+Package: lsb-invalid-mta
+Architecture: all
+Suggests: lsb
+Provides: mail-transport-agent
+Conflicts: mail-transport-agent
+Description: Linux Standard Base sendmail dummy
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package contains nothing else than a fake /usr/sbin/sendmail
+ command to fulfill the LSB's requirement of providing this command without
+ requiring an MTA to get installed, which once introduces a daemon which
+ can cause security problems and second, users get asked questions about
+ how they want their MTA configured when in reality they simply wanted to
+ install a deskltop application or a printer driver, but the dependency on
+ LSB compliance pulls in an MTA with the installation.
+ .
+ The LSB requirement on /usr/sbin/sendmail comes from old times where Linux
+ and Unix machines had all fixed IPs and did server tasks in data centers.
+ Today's typical desktop Linux machines do not do local e-mail any more as
+ users use external e-mail services.
+ .
+ The /usr/sbin/sendmail always exits with exit status -1 (255) and sends a
+ warning message to stderr, so that if a program actually tries to send e-mail
+ via the sendmail command the user gets note.

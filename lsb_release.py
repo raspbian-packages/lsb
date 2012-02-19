@@ -56,7 +56,7 @@ def lookup_codename(release, unknown=None):
     return RELEASE_CODENAME_LOOKUP.get(shortrelease, unknown)
 
 # LSB compliance packages... may grow eventually
-PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-qt4 lsb-languages lsb-multimedia lsb-printing'
+PACKAGES = 'lsb-core lsb-cxx lsb-graphics lsb-desktop lsb-languages lsb-multimedia lsb-printing lsb-security'
 
 modnamere = re.compile(r'lsb-(?P<module>[a-z0-9]+)-(?P<arch>[^ ]+)(?: \(= (?P<version>[0-9.]+)\))?')
 
@@ -81,6 +81,33 @@ def valid_lsb_versions(version, module):
             return ['3.0', '3.1', '3.2']
         else:
             return ['2.0', '3.0', '3.1', '3.2']
+    elif version == '4.0':
+        if module == 'desktop':
+            return ['3.1', '3.2', '4.0']
+        elif module == 'qt4':
+            return ['3.1']
+        elif module in ('printing', 'languages', 'multimedia'):
+            return ['3.2', '4.0']
+        elif module == 'security':
+            return ['4.0']
+        elif module == 'cxx':
+            return ['3.0', '3.1', '3.2', '4.0']
+        else:
+            return ['2.0', '3.0', '3.1', '3.2', '4.0']
+    elif version == '4.1':
+        if module == 'desktop':
+            return ['3.1', '3.2', '4.0', '4.1']
+        elif module == 'qt4':
+            return ['3.1']
+        elif module in ('printing', 'languages', 'multimedia'):
+            return ['3.2', '4.0', '4.1']
+        elif module == 'security':
+            return ['4.0', '4.1']
+        elif module == 'cxx':
+            return ['3.0', '3.1', '3.2', '4.0', '4.1']
+        else:
+            return ['2.0', '3.0', '3.1', '3.2', '4.0', '4.1']
+
 
     return [version]
 

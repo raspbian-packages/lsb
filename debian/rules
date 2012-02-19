@@ -65,6 +65,7 @@ override_dh_gencontrol:
 	@echo >> debian/lsb-multimedia.substvars "provides=lsb-multimedia-${lsbarch}"
 	@echo >> debian/lsb-languages.substvars "provides=lsb-languages-${lsbarch}"
 	@echo >> debian/lsb-printing.substvars "provides=lsb-printing-${lsbarch}"
+	@echo >> debian/lsb-security.substvars "provides=lsb-security-${lsbarch}"
 	@[ ${DEB_HOST_ARCH} = 'amd64' ] && echo >> debian/lsb-core.substvars "depends=libc6-i386, lib32z1" || true
 	@[ ${DEB_HOST_ARCH} = 'kfreebsd-amd64' ] && echo >> debian/lsb-core.substvars "depends=libc0.1-i386, lib32z1" || true
 	dh_gencontrol

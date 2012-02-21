@@ -8,7 +8,7 @@ Build-Depends: debhelper (>> 7.0.50~),
  dpkg-dev (>= 1.10),
  python-all-dev (>= 2.6.6-6~)
 Standards-Version: 3.9.1
-Homepage: http://www.linux-foundation.org/en/LSB
+Homepage: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 
 Package: lsb-core
 Architecture: any

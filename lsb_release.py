@@ -154,7 +154,7 @@ def parse_apt_policy():
     policy = commands.getoutput('LANG=C apt-cache policy 2>/dev/null')
     for line in policy.split('\n'):
         line = line.strip()
-        m = re.match(r'(\d+)', line)
+        m = re.match(r'(-?\d+)', line)
         if m:
             priority = int(m.group(1))
         if line.startswith('release'):

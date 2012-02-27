@@ -166,7 +166,8 @@ def parse_apt_policy():
 
 def guess_release_from_apt(origin='Debian', component='main',
                            ignoresuites=('experimental'),
-                           label='Debian'):
+                           label='Debian',
+                           alternate_olabels={'Debian Ports':'ftp.debian-ports.org'}):
     releases = parse_apt_policy()
 
     if not releases:
@@ -176,7 +177,9 @@ def guess_release_from_apt(origin='Debian', component='main',
     releases = [x for x in releases if (
         x[1].get('origin', '') == origin and
         x[1].get('component', '') == component and
-        x[1].get('label', '') == label)]
+        x[1].get('label', '') == label) or (
+        x[1].get('origin', '') in alternate_olabels and
+        x[1].get('label', '') == alternate_olabels.get(x[1].get('origin', '')))]
 
     # Check again to make sure we didn't wipe out all of the releases
     if not releases:
@@ -240,6 +243,12 @@ def guess_debian_release():
     rinfo = guess_release_from_apt()
     if rinfo and not distinfo.get('CODENAME'):
         release = rinfo.get('version')
+
+        # Special case Debian-Ports as their Release file has 'version': '1.0'
+        if release == '1.0' and rinfo.get('origin') == 'Debian Ports' and rinfo.get('label') == 'ftp.debian-ports.org':
+            release = None
+            rinfo.update({'suite': 'unstable'})
+
         if release:
             codename = lookup_codename(release, 'n/a')
         else:

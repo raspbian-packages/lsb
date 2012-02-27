@@ -106,7 +106,7 @@ pidofproc [-p pidfile] pathname
 
 For full documentation, please refer to:
 
-http://refspecs.freestandards.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptfunc.html
+http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptfunc.html
 
 Note: Debian packages probably should use start-stop-daemon directly;
 however, these functions may be useful in porting init scripts from

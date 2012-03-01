@@ -1,3 +1,51 @@
+lsb (3.2+Debian29) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Wrap debian/control package relationship lines.
+  * Put under explicit debian-lsb@l.d.o team maintenance.
+    (Closes: #616131)
+  * Add myself as uploader.
+  * Drop Chris Lawrence from Uploaders with great thanks for his past
+    work. (Closes: #616131)
+  * Define source format as '3.0 (native)'.
+  * Reduce debian/rules using tiny dh7 style.
+  * Add initial lintian overrides files.
+  * Add explicit `set -e` to maintainer scripts.
+  * Drop Conflicts/Replaces for old package versions.
+  * Install lsb-base-logging.sh on Ubuntu.
+  * Update the Homepage field to point to the public URL.
+    (Closes: #653917)
+  * Depend on cron-daemon, with cron as first alternative.
+    (Closes: #638004)
+  * Add Vcs-* fields as this will now be maintained on collab-maint's
+    Git.
+  * Correct URLs to refspecs.{freestandards,linuxbase}.org.
+  * Recognise Debian Ports as `sid` too. (Closes: #624769)
+
+  [ Michael Vogt ]
+  * Switch from python-central to dh_python2. (Closes: #606354)
+
+  [ Colin Watson ]
+  * Ensure that files are closed promptly in lsb_release.py
+  * Mark lsb-base Multi-Arch: foreign. (LP: #904013)
+
+  [ Steve Langasek ]
+  * Don't run apt-cache if /etc/lsb-release exists.
+  * Mark lsb-release Multi-Arch: foreign.
+  * Use $DPKG_MAINTSCRIPT_ARCH in maintainer scripts
+
+  [ Simone Rossetto ]
+  * Fix for unsupported negative value in pin priorities.
+    (Closes: #540208)
+
+  [ Michał Kułach ]
+  * Add the Debconf Polish translation. (Closes: #661251)
+
+  [ Jeff Licquia ]
+  * Add me to Uploaders.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 01 Mar 2012 22:04:11 +0100
+
 lsb (3.2-28.1) unstable; urgency=low
 
   * Non-maintainer upload.

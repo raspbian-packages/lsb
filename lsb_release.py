@@ -100,7 +100,8 @@ def check_modules_installed():
     modules = set()
     for line in output.split(os.linesep):
         version, provides = line.split(' ', 1)
-        version = version.split('-', 1)[0]
+        # Debian package versions can be 3.2-$REV, 3.2+$REV or 3.2~$REV.
+        version = re.split('[-+~]', version, 1)[0]
         for pkg in provides.split(','):
             mob = modnamere.search(pkg)
             if not mob:

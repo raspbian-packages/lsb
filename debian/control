@@ -129,14 +129,20 @@ Depends: lsb-graphics,
  libpango1.0-0 (>= 1.8.0),
  libgtk2.0-0 (>= 2.6.2),
  libqt3-mt (>= 3.3.6),
- libqt4-gui (>= 4.2),
+ libqtcore4,
+ libqtgui4,
+ libqt4-xml,
+ libqt4-opengl,
+ libqt4-sql,
+ libqt4-svg,
+ libqt4-network,
+ libqt4-sql-sqlite, # Not strictly needed by LSB, but the tests want a valid database handler
  libxml2,
  libfreetype6,
  libxrender1,
  libxft2,
  xdg-utils,
  libnss3-1d,
- libqt4-sql-sqlite,
  ${misc:Depends}
 Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 3.2 Desktop support package

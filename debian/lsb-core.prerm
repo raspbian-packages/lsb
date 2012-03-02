@@ -18,7 +18,7 @@ remove_ldso_symlink () {
             rm -f /lib/ld-lsb.so.[123]
             ;;
         amd64)
-            rm -f /lib/ld-lsb.so.[123] /lib64/ld-lsb-x86-64.so.[23] /lib/ld-lsb-x86-64.so.[23]
+            rm -f /lib/ld-lsb.so.[123] /lib64/ld-lsb-x86-64.so.[23]
             ;;
         *)
             echo "ld-lsb-*.so.1 symlink for $ARCH is unknown; not removed."

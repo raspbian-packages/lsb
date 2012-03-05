@@ -136,7 +136,7 @@ Depends: lsb-graphics,
  libqt4-sql,
  libqt4-svg,
  libqt4-network,
- libqt4-sql-sqlite, # Not strictly needed by LSB, but the tests want a valid database handler
+ libqt4-sql-sqlite,
  libxml2,
  libfreetype6,
  libxrender1,
@@ -144,6 +144,7 @@ Depends: lsb-graphics,
  xdg-utils,
  libnss3-1d,
  ${misc:Depends}
+# libqt4-sql-sqlite is Not strictly needed by LSB, but the tests want a valid database handler
 Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 3.2 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

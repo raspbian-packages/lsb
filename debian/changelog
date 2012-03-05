@@ -1,3 +1,36 @@
+lsb (4.1+Debian0~exp0) experimental; urgency=low
+
+  [ Till Kamppeter ]
+  * Add the "lsb-invalid-mta" package, with a fake sendmail. This allows
+    the installation of LSB packages to not pull in an MTA any more,
+    which once adds awkward configuration questions to the installation
+    process and second adds an often unnneeded daemon to the system.
+    (LP: #141641)
+
+  [ Didier Raboud ]
+  * Upgrade to support LSB 4.1. (Closes: #586191, LP: #385606, #386128)
+    LSB changes:
+     - Bump Depends:
+       - on libglib2.0-0  to >= 2.12.13;
+       - on fontconfig    to >= 2.6.0;
+       - on libglib2.0-0  to >= 2.12.13;
+       - on libatk1.0-0   to >= 1.10.3;
+       - on libpango1.0-0 to >= 1.10.4;
+       - on libgtk2.0-0   to >= 2.10.14;
+     - Add Depends:
+       - on libglu1;
+       - on libcairo2     to >= 1.2.0;
+       - on libxtst6;
+       - on ghostscript-cups;
+     - In lsb, bump lsb-printing from Suggests to Depends.
+     - Add the lsb-security package.
+     - Drop the now-obsolete lsb-qt4 package.
+    Debian changes:
+     - libgl1-mesa-glx is the first alternative for libgl1;
+     - Make sure all packages have ${misc:Depends}.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Mar 2012 22:42:21 +0100
+
 lsb (3.2+Debian30) unstable; urgency=low
 
   * Drop Depends on essentials sed & ncurses-bin. (Closes: #488237)

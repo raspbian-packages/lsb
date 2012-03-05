@@ -3,7 +3,7 @@ lsb (3.2+Debian30) unstable; urgency=low
   * Drop Depends on essentials sed & ncurses-bin. (Closes: #488237)
   * Don't display Debian revision in lsb_release modules version output.
   * Update Qt4 relationships to current packaging. (Closes: #661888)
-  * Remove /lib/ld-lsb-x86-64.so.* only on upgrade. (Closes: #642079)
+  * Remove /lib/ld-lsb-x86-64.so.* only on upgrade. (Closes: #642076)
 
  -- Didier Raboud <odyx@debian.org>  Mon, 05 Mar 2012 20:15:43 +0100
 

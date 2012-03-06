@@ -308,6 +308,7 @@ Description: Linux Standard Base 3.2 init script functionality
 
 Package: lsb-release
 Architecture: all
+Priority: optional
 Multi-Arch: foreign
 Depends: ${python:Depends},
  ${misc:Depends}

@@ -137,7 +137,7 @@ killproc () {
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
     sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
-    if [ -z "$sig" ] || [ "$sig" = 15 ] || [ "$sig" = TERM ]; then
+    if [ "$sig" = 15 ] || [ "$sig" = TERM ]; then
         is_term_sig="terminate_signal"
     fi
     status=0
@@ -147,6 +147,7 @@ killproc () {
 		--quiet $name_param || status="$?"
         else
             /sbin/start-stop-daemon --stop \
+		--retry 5 \
 		--quiet $name_param || status="$?"
         fi
     else

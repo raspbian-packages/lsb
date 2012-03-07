@@ -81,7 +81,8 @@ pidofproc () {
         pidfile="/var/run/$base.pid"
     fi
 
-    if [ -n "${pidfile:-}" ] && [ -r "$pidfile" ]; then
+    if [ -n "${pidfile:-}" ]; then
+      if [ -r "$pidfile" ]; then
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
             if $(kill -0 "${pid:-}" 2> /dev/null); then
@@ -94,6 +95,9 @@ pidofproc () {
                 return 1 # program is dead and /var/run pid file exists
             fi
         fi
+      else
+        return 4 # pid file not readable, hence status is unknown.
+      fi
     fi
     if [ -x /bin/pidof ] && [ ! "$specified" ]; then
         status="0"

@@ -68,6 +68,35 @@ specific to Debian and (in some cases) other derived distributions.
     Note that unlike log_end_msg(), this function does not return the
     first argument as its exit code.
 
+  - status_of_proc [-p pidfile] pathname "Daemon_name"
+
+    Log the status of a process and return an LSB-compliant exit status
+    code:
+
+    0       program is running or service is OK
+    1       program is dead and /var/run pid file exists
+    2       program is dead and /var/lock lock file exists
+    3       program is not running
+    4       program or service status is unknown
+    5-99    reserved for future LSB use
+    100-149 reserved for distribution use
+    150-199 reserved for application use
+    200-254 reserved
+
+    On Debian, outputs:
+      "Daemon_name is running.".
+      "Daemon_name is not running ... failed!"
+
+    The pidfile path will be used as argument for pidofproc and must be
+    provided if the pidfile is not /var/run/$daemon_basename.pid.
+
+    status_of_proc can be used to easily implement the "status" argument
+    of init scripts:
+
+      status)
+        status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+      ;;
+
 A deprecated function, log_start_msg, is also provided for
 compatibility with a few older packages and a derived distribution.
 This may eventually disappear.

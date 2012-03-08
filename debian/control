@@ -49,7 +49,7 @@ Depends: lsb-release,
  ${python:Depends},
  ${misc:Depends},
  ${depends},
- lsb-base,
+ lsb-base (>= ${source:Version}),
  time
 Provides: lsb-core-noarch, ${provides}
 Description: Linux Standard Base 4.1 core support package
@@ -71,7 +71,7 @@ Description: Linux Standard Base 4.1 core support package
 
 Package: lsb-graphics
 Architecture: any
-Depends: lsb-core,
+Depends: lsb-core (>= ${source:Version}),
  libgl1-mesa-glx | libgl1,
  libglu1-mesa | libglu1,
  libx11-6 | xlibs,
@@ -96,7 +96,7 @@ Description: Linux Standard Base 4.1 graphics support package
 
 Package: lsb-cxx
 Architecture: any
-Depends: lsb-core,
+Depends: lsb-core (>= ${source:Version}),
  libstdc++6,
  ${misc:Depends}
 Provides: lsb-cxx-noarch,
@@ -120,7 +120,7 @@ Description: Linux Standard Base 4.1 C++ support package
 
 Package: lsb-desktop
 Architecture: any
-Depends: lsb-graphics,
+Depends: lsb-graphics (>= ${source:Version}),
  fontconfig (>= 2.6.0),
  libfontconfig1 (>= 2.6.0),
  libpng12-0,
@@ -168,7 +168,7 @@ Description: Linux Standard Base 4.1 Desktop support package
 
 Package: lsb-languages
 Architecture: any
-Depends: lsb-core (>= 4.1~),
+Depends: lsb-core (>= ${source:Version}),
  python (>= 2.4),
  perl (>= 5.8.8),
  perl (<< 6),
@@ -193,7 +193,7 @@ Description: Linux Standard Base 4.1 Runtime Languages package
 
 Package: lsb-multimedia
 Architecture: any
-Depends: lsb-core (>= 4.1~),
+Depends: lsb-core (>= ${source:Version}),
  libasound2,
  ${misc:Depends}
 Provides: lsb-multimedia-noarch,
@@ -217,7 +217,7 @@ Description: Linux Standard Base 4.1 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 4.1~),
+Depends: lsb-core (>= ${source:Version}),
  libcups2,
  libcupsimage2,
  foomatic-filters,
@@ -244,7 +244,7 @@ Description: Linux Standard Base 4.1 Printing package
 
 Package: lsb-security
 Architecture: any
-Depends: lsb-core (>= 4.1~),
+Depends: lsb-core (>= ${source:Version}),
  libnss3-1d,
  libnspr4-0d,
  ${misc:Depends}
@@ -269,14 +269,14 @@ Description: Linux Standard Base 4.1 Security package
 
 Package: lsb
 Architecture: all
-Depends: lsb-core,
- lsb-graphics,
- lsb-cxx,
- lsb-desktop,
- lsb-printing,
+Depends: lsb-core (>= ${source:Version}),
+ lsb-graphics (>= ${source:Version}),
+ lsb-cxx (>= ${source:Version}),
+ lsb-desktop (>= ${source:Version}),
+ lsb-printing (>= ${source:Version}),
  ${misc:Depends}
-Suggests: lsb-multimedia,
- lsb-languages
+Suggests: lsb-multimedia (>= ${source:Version}),
+ lsb-languages (>= ${source:Version})
 Description: Linux Standard Base 4.1 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

@@ -1,3 +1,16 @@
+lsb (3.2+Debian31) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Correct a bug number in the 3.2+Debian30 upload.
+  * Promote lsb-release to Priority: optional.
+  * Fix both unused and undeclared local variables in pidofproc.
+    (Closes: #663351)
+
+  [ Peter Eisentraut ]
+  * Handle non-world-readable pid files. (Closes: #653598)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 11 Mar 2012 15:04:47 +0100
+
 lsb (3.2+Debian30) unstable; urgency=low
 
   * Drop Depends on essentials sed & ncurses-bin. (Closes: #488237)

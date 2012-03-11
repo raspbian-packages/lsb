@@ -62,7 +62,7 @@ start_daemon () {
 }
 
 pidofproc () {
-    local pidfile line status specified pid
+    local pidfile base status specified pid
     pidfile=
     specified=
     

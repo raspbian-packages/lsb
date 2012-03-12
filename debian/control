@@ -50,6 +50,7 @@ Depends: lsb-release (>= ${source:Version}),
  ${misc:Depends},
  ${depends},
  lsb-base (>= ${source:Version}),
+ lsb-security (>= ${source:Version}),
  time
 Provides: lsb-core-noarch, ${provides}
 Description: Linux Standard Base 4.1 core support package
@@ -121,6 +122,7 @@ Description: Linux Standard Base 4.1 C++ support package
 Package: lsb-desktop
 Architecture: any
 Depends: lsb-graphics (>= ${source:Version}),
+ lsb-multimedia (>= ${source:Version}),
  fontconfig (>= 2.6.0),
  libfontconfig1 (>= 2.6.0),
  libpng12-0,
@@ -244,10 +246,10 @@ Description: Linux Standard Base 4.1 Printing package
 
 Package: lsb-security
 Architecture: any
-Depends: lsb-core (>= ${source:Version}),
- libnss3-1d,
+Depends: libnss3-1d,
  libnspr4-0d,
  ${misc:Depends}
+Recommends: lsb-core (>= ${source:Version}),
 Provides: lsb-security-noarch,
  ${provides}
 Description: Linux Standard Base 4.1 Security package

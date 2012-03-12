@@ -14,12 +14,12 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release,
+Depends: lsb-release (>= ${source:Version}),
  ${glibc},
  libz1,
  libncurses5,
  libpam0g,
- lsb-invalid-mta | mail-transport-agent,
+ lsb-invalid-mta (>= ${source:Version}) | mail-transport-agent,
  at,
  bc,
  binutils,

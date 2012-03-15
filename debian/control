@@ -278,6 +278,7 @@ Depends: lsb-core (>= ${source:Version}),
  lsb-cxx (>= ${source:Version}),
  lsb-desktop (>= ${source:Version}),
  lsb-printing (>= ${source:Version}),
+ lsb-languages (>= ${source:Version}),
  ${misc:Depends}
 Suggests: lsb-multimedia (>= ${source:Version}),
  lsb-languages (>= ${source:Version})

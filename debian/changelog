@@ -1,3 +1,13 @@
+lsb (4.1+Debian0) unstable; urgency=low
+
+  * Upload LSB 4.1 support to unstable.
+  * Add lsb-languages to lsb Depends.
+  * Drop lsb suggests, obsoleted by dependencies changes.
+  * Make init-functions' status_of_proc return the LSB-documented 3 on
+    inexistant pidfiles. (Closes: #664621)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 26 Mar 2012 22:54:40 +0200
+
 lsb (4.1+Debian0~exp2) experimental; urgency=low
 
    * lsb-base.README.Debian: Document status_of_proc. (Closes: #565631)

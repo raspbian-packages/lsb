@@ -280,8 +280,6 @@ Depends: lsb-core (>= ${source:Version}),
  lsb-printing (>= ${source:Version}),
  lsb-languages (>= ${source:Version}),
  ${misc:Depends}
-Suggests: lsb-multimedia (>= ${source:Version}),
- lsb-languages (>= ${source:Version})
 Description: Linux Standard Base 4.1 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

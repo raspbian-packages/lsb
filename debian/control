@@ -7,19 +7,19 @@ Build-Depends: debhelper (>> 7.0.50~),
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
  python-all-dev (>= 2.6.6-6~)
-Standards-Version: 3.9.1
+Standards-Version: 3.9.3
 Homepage: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 Vcs-Git: git://anonscm.debian.org/collab-maint/lsb.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release,
+Depends: lsb-release (>= ${source:Version}),
  ${glibc},
  libz1,
  libncurses5,
  libpam0g,
- exim4 | mail-transport-agent,
+ lsb-invalid-mta (>= ${source:Version}) | mail-transport-agent,
  at,
  bc,
  binutils,
@@ -49,15 +49,16 @@ Depends: lsb-release,
  ${python:Depends},
  ${misc:Depends},
  ${depends},
- lsb-base,
+ lsb-base (>= ${source:Version}),
+ lsb-security (>= ${source:Version}),
  time
 Provides: lsb-core-noarch, ${provides}
-Description: Linux Standard Base 3.2 core support package
+Description: Linux Standard Base 4.1 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of the core of version 3.2 of
+ This package provides an implementation of the core of version 4.1 of
  the Linux Standard Base for Debian on the Intel x86, Intel ia64
  (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
  kernel. Future revisions of the specification and this package may
@@ -71,17 +72,18 @@ Description: Linux Standard Base 3.2 core support package
 
 Package: lsb-graphics
 Architecture: any
-Depends: lsb-core,
- xlibmesa3-gl | libgl1,
+Depends: lsb-core (>= ${source:Version}),
+ libgl1-mesa-glx | libgl1,
+ libglu1-mesa | libglu1,
  libx11-6 | xlibs,
  ${misc:Depends}
 Provides: lsb-graphics-noarch, ${provides}
-Description: Linux Standard Base 3.2 graphics support package
+Description: Linux Standard Base 4.1 graphics support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base graphics specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
@@ -95,17 +97,17 @@ Description: Linux Standard Base 3.2 graphics support package
 
 Package: lsb-cxx
 Architecture: any
-Depends: lsb-core,
+Depends: lsb-core (>= ${source:Version}),
  libstdc++6,
  ${misc:Depends}
 Provides: lsb-cxx-noarch,
  ${provides}
-Description: Linux Standard Base 3.2 C++ support package
+Description: Linux Standard Base 4.1 C++ support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base C++ (CXX) specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
@@ -119,15 +121,17 @@ Description: Linux Standard Base 3.2 C++ support package
 
 Package: lsb-desktop
 Architecture: any
-Depends: lsb-graphics,
- fontconfig (>= 2.3.0),
- libfontconfig1 (>= 2.3.0),
+Depends: lsb-graphics (>= ${source:Version}),
+ lsb-multimedia (>= ${source:Version}),
+ fontconfig (>= 2.6.0),
+ libfontconfig1 (>= 2.6.0),
  libpng12-0,
  libjpeg62,
- libglib2.0-0 (>= 2.6.2),
- libatk1.0-0 (>= 1.9.0),
- libpango1.0-0 (>= 1.8.0),
- libgtk2.0-0 (>= 2.6.2),
+ libglib2.0-0 (>= 2.12.13),
+ libatk1.0-0 (>= 1.10.3),
+ libpango1.0-0 (>= 1.10.4),
+ libgtk2.0-0 (>= 2.10.14),
+ libcairo2 (>= 1.2.0),
  libqt3-mt (>= 3.3.6),
  libqtcore4,
  libqtgui4,
@@ -140,18 +144,19 @@ Depends: lsb-graphics,
  libxml2,
  libfreetype6,
  libxrender1,
+ libxtst6,
  libxft2,
  xdg-utils,
  libnss3-1d,
  ${misc:Depends}
 # libqt4-sql-sqlite is Not strictly needed by LSB, but the tests want a valid database handler
 Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
-Description: Linux Standard Base 3.2 Desktop support package
+Description: Linux Standard Base 4.1 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base Desktop specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
@@ -163,47 +168,22 @@ Description: Linux Standard Base 3.2 Desktop support package
  Standard Base, and should not be construed as a statement that Debian
  is LSB-compliant.
 
-Package: lsb-qt4
-Architecture: any
-Depends: lsb-desktop (>= 3.2),
- ${misc:Depends}
-Provides: lsb-qt4-noarch,
- ${provides}
-Description: Linux Standard Base 3.2 Qt4 support package
- The Linux Standard Base (http://www.linuxbase.org/) is a standard
- core system that third-party applications written for Linux can
- depend upon.
- .
- This package provides an implementation of version 3.2 of the Linux
- Standard Base Qt4 specification for Debian on the Intel x86, Intel
- ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with the
- Linux kernel. Future revisions of the specification and this package
- may support the LSB on additional architectures and kernels.
- .
- The intent of this package is to provide a best current practice way
- of installing and running LSB packages on Debian GNU/Linux. Its
- presence does not imply that Debian fully complies
- with the Linux Standard Base, and should not be construed as a
- statement that Debian is LSB-compliant.
- .
- The lsb-qt4 module appears to be deprecated upstream; this package is
- provided for compatibility with LSB 3.1 and may be dropped in
- subsequent releases.
-
 Package: lsb-languages
 Architecture: any
-Depends: lsb-core (>= 3.2),
+Depends: lsb-core (>= ${source:Version}),
  python (>= 2.4),
  perl (>= 5.8.8),
  perl (<< 6),
+# Already deprecated in LSB4.1, but still required.
+ libpod-plainer-perl,
  ${misc:Depends}
 Provides: lsb-languages-noarch, ${provides}
-Description: Linux Standard Base 3.2 Runtime Languages package
+Description: Linux Standard Base 4.1 Runtime Languages package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base Languages specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
@@ -217,17 +197,17 @@ Description: Linux Standard Base 3.2 Runtime Languages package
 
 Package: lsb-multimedia
 Architecture: any
-Depends: lsb-core (>= 3.2),
+Depends: lsb-core (>= ${source:Version}),
  libasound2,
  ${misc:Depends}
 Provides: lsb-multimedia-noarch,
  ${provides}
-Description: Linux Standard Base 3.2 Multimedia package
+Description: Linux Standard Base 4.1 Multimedia package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base Multimedia specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
@@ -241,20 +221,46 @@ Description: Linux Standard Base 3.2 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 3.2),
+Depends: lsb-core (>= ${source:Version}),
  libcups2,
  libcupsimage2,
  foomatic-filters,
  ghostscript,
+ ghostscript-cups,
  ${misc:Depends}
 Provides: lsb-printing-noarch, ${provides}
-Description: Linux Standard Base 3.2 Printing package
+Description: Linux Standard Base 4.1 Printing package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of version 3.2 of the Linux
+ This package provides an implementation of version 4.1 of the Linux
  Standard Base Printing specification for Debian on the Intel x86,
+ Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
+ the Linux kernel. Future revisions of the specification and this
+ package may support the LSB on additional architectures and kernels.
+ .
+ The intent of this package is to provide a best current practice way
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
+ with the Linux Standard Base, and should not be construed as a
+ statement that Debian is LSB-compliant.
+
+Package: lsb-security
+Architecture: any
+Depends: libnss3-1d,
+ libnspr4-0d,
+ ${misc:Depends}
+Recommends: lsb-core (>= ${source:Version}),
+Provides: lsb-security-noarch,
+ ${provides}
+Description: Linux Standard Base 4.1 Security package
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package provides an implementation of version 4.1 of the Linux
+ Standard Base Security specification for Debian on the Intel x86,
  Intel ia64 (Itanium), IBM S390, and PowerPC 32-bit architectures with
  the Linux kernel. Future revisions of the specification and this
  package may support the LSB on additional architectures and kernels.
@@ -267,20 +273,21 @@ Description: Linux Standard Base 3.2 Printing package
 
 Package: lsb
 Architecture: all
-Depends: lsb-core,
- lsb-graphics,
- lsb-cxx,
- lsb-desktop,
+Depends: lsb-core (>= ${source:Version}),
+ lsb-graphics (>= ${source:Version}),
+ lsb-cxx (>= ${source:Version}),
+ lsb-desktop (>= ${source:Version}),
+ lsb-printing (>= ${source:Version}),
+ lsb-languages (>= ${source:Version}),
  ${misc:Depends}
-Suggests: lsb-printing,
- lsb-multimedia,
- lsb-languages
-Description: Linux Standard Base 3.2 support package
+Suggests: lsb-multimedia (>= ${source:Version}),
+ lsb-languages (>= ${source:Version})
+Description: Linux Standard Base 4.1 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
  .
- This package provides an implementation of all modules of version 3.2
+ This package provides an implementation of all modules of version 4.1
  of the Linux Standard Base for Debian on the Intel x86, Intel ia64
  (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
  kernel. Future revisions of the specification and this package may
@@ -297,7 +304,7 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
 Priority: required
-Description: Linux Standard Base 3.2 init script functionality
+Description: Linux Standard Base 4.1 init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
  depend upon.
@@ -327,3 +334,31 @@ Description: Linux Standard Base version reporting utility
  While it is intended for use by LSB packages, this command may also
  be useful for programmatically distinguishing between a pure Debian
  installation and derived distributions.
+
+Package: lsb-invalid-mta
+Architecture: all
+Depends: ${misc:Depends}
+Suggests: lsb
+Provides: mail-transport-agent
+Conflicts: mail-transport-agent
+Description: Linux Standard Base sendmail dummy
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package contains nothing else than a fake /usr/sbin/sendmail
+ command to fulfill the LSB's requirement of providing this command without
+ requiring an MTA to get installed, which once introduces a daemon which
+ can cause security problems and second, users get asked questions about
+ how they want their MTA configured when in reality they simply wanted to
+ install a deskltop application or a printer driver, but the dependency on
+ LSB compliance pulls in an MTA with the installation.
+ .
+ The LSB requirement on /usr/sbin/sendmail comes from old times where Linux
+ and Unix machines had all fixed IPs and did server tasks in data centers.
+ Today's typical desktop Linux machines do not do local e-mail any more as
+ users use external e-mail services.
+ .
+ The /usr/sbin/sendmail always exits with exit status -1 (255) and sends a
+ warning message to stderr, so that if a program actually tries to send e-mail
+ via the sendmail command the user gets note.

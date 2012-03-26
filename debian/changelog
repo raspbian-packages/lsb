@@ -1,3 +1,58 @@
+lsb (4.1+Debian0~exp2) experimental; urgency=low
+
+   * lsb-base.README.Debian: Document status_of_proc. (Closes: #565631)
+   * Tighten more dependencies between lsb packages.
+   * Update package relationships to match LSB 4.1:
+     - Add lsb-security to lsb-core Depends.
+     - Add lsb-multimedia to lsb-desktop Depends.
+     - Add libpod-plainer-perl to lsb-languages depends.
+   * Rewrite debian/copyright using the copyright-format 1.0.
+   * Bump Standards-Version to 3.9.3 without changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 15 Mar 2012 11:02:19 +0100
+
+lsb (4.1+Debian0~exp1) experimental; urgency=low
+
+  * Merge the lsb 3.2+Debian31 Debian release.
+  * Tighten dependencies between lsb-* packages.
+  * In killproc(), re-add a '--retry 5' to s-s-d when no signal is
+    specified. (Closes: #650584)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 11 Mar 2012 17:34:53 +0100
+
+lsb (4.1+Debian0~exp0) experimental; urgency=low
+
+  [ Till Kamppeter ]
+  * Add the "lsb-invalid-mta" package, with a fake sendmail. This allows
+    the installation of LSB packages to not pull in an MTA any more,
+    which once adds awkward configuration questions to the installation
+    process and second adds an often unnneeded daemon to the system.
+    (LP: #141641)
+
+  [ Didier Raboud ]
+  * Upgrade to support LSB 4.1. (Closes: #586191, LP: #385606, #386128)
+    LSB changes:
+     - Bump Depends:
+       - on libglib2.0-0  to >= 2.12.13;
+       - on fontconfig    to >= 2.6.0;
+       - on libglib2.0-0  to >= 2.12.13;
+       - on libatk1.0-0   to >= 1.10.3;
+       - on libpango1.0-0 to >= 1.10.4;
+       - on libgtk2.0-0   to >= 2.10.14;
+     - Add Depends:
+       - on libglu1;
+       - on libcairo2     to >= 1.2.0;
+       - on libxtst6;
+       - on ghostscript-cups;
+     - In lsb, bump lsb-printing from Suggests to Depends.
+     - Add the lsb-security package.
+     - Drop the now-obsolete lsb-qt4 package.
+    Debian changes:
+     - libgl1-mesa-glx is the first alternative for libgl1;
+     - Make sure all packages have ${misc:Depends}.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Mar 2012 22:42:21 +0100
+
 lsb (3.2+Debian31) unstable; urgency=low
 
   [ Didier Raboud ]

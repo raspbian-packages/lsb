@@ -1,3 +1,12 @@
+lsb (4.1+Debian0+fancy0) experimental; urgency=low
+
+  * Make the init.d scripts messages fancier by prepending them a [....]
+    block that becomes [ ok ], [warn] or [FAIL] depending on the daemons
+    exit statuses (Closes: #416485).
+    - Update lsb-base' README.Debian and NEWS.
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 18:49:23 +0200
+
 lsb (4.1+Debian0) unstable; urgency=low
 
   * Upload LSB 4.1 support to unstable.

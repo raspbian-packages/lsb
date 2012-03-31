@@ -1,4 +1,4 @@
-lsb (4.1+Debian0+) UNRELEASED; urgency=low
+lsb (4.1+Debian0+fancy0) experimental; urgency=low
 
   This version implements a new "fancy" output in the form of "[....] "
   blocks prepended to the daemon status messages:
@@ -44,4 +44,4 @@ lsb (4.1+Debian0+) UNRELEASED; urgency=low
   * The information from this NEWS file will get moved to README.Debian
     (hence avoiding the gory details to stable-upgrading users).
 
- -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 17:06:27 +0200
+ -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 18:49:23 +0200

@@ -7,9 +7,14 @@ specific to Debian and (in some cases) other derived distributions.
 
   - log_daemon_msg "Starting/stopping long daemon name" "daemond"
 
-    Log starting/stopping of daemons.  On Debian, outputs:
+    Log starting/stopping of daemons. On Debian, outputs:
 
     "Starting/stopping long daemon name: daemond"
+
+    and leaves the cursor at the end of the line. If "Fancy output" is
+    enabled, outputs:
+
+    "[....] Starting/stopping long daemon name: daemond"
 
     and leaves the cursor at the end of the line.
 
@@ -28,6 +33,11 @@ specific to Debian and (in some cases) other derived distributions.
     Unsucessful startup will cause the specified failure code to be
     returned by this function; unless trapped, this may end your init
     script depending on whether or not set -e is used.
+
+    If "Fancy output" is enabled, it will store the cursor position,
+    move it to the start of the line, write a colored "[ ok ]", "[FAIL]"
+    or "[warn]" and restore the cursor position. This has the effect of
+    updating the "[....]" printed by log_daemon_msg.
 
   - log_action_msg "Setting VARIABLE to VALUE"
 
@@ -96,10 +106,6 @@ specific to Debian and (in some cases) other derived distributions.
       status)
         status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
       ;;
-
-A deprecated function, log_start_msg, is also provided for
-compatibility with a few older packages and a derived distribution.
-This may eventually disappear.
 
 To use these functions, source /lib/lsb/init-functions at the
 beginning of your (Bourne sh or compatible) init script.
@@ -179,3 +185,4 @@ function; the "pre" functions operate before any output, while the
 "post" functions operate after the output is produced.
 
  -- Chris Lawrence <lawrencc@debian.org>, Sat, 18 Sep 2010 17:09:57 -0500
+ -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 17:03:10 +0200

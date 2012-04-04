@@ -356,7 +356,9 @@ log_end_msg () {
 }
 
 log_action_msg () {
+    log_action_msg_pre "$@"
     echo "$@."
+    log_action_msg_post "$@"
 }
 
 log_action_begin_msg () {
@@ -425,6 +427,14 @@ log_end_msg_pre () {
     fi
 }
 log_end_msg_post () { :; }
+log_action_msg_pre () {
+    if log_use_fancy_output; then
+        CYAN=$( $TPUT setaf 6)
+        NORMAL=$( $TPUT op)
+        /bin/echo -ne "[${CYAN}info${NORMAL}] "
+    fi
+}
+log_action_msg_post () { :; }
 log_action_begin_msg_pre () {
     log_daemon_msg_pre "$@"
 }

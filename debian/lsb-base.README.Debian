@@ -173,8 +173,8 @@ log_daemon_msg_pre
 log_daemon_msg_post
 log_begin_msg_pre (since 4.1+Debian0+fancy0)
 log_begin_msg_post (since 4.1+Debian0+fancy0)
-log_action_msg_pre (since 4.1+Debian0+fancy0+)
-log_action_msg_post (since 4.1+Debian0+fancy0+)
+log_action_msg_pre (since 4.1+Debian0+fancy1)
+log_action_msg_post (since 4.1+Debian0+fancy1)
 log_action_begin_msg_pre (since 4.1+Debian0+fancy0)
 log_action_begin_msg_post (since 4.1+Debian0+fancy0)
 log_end_msg_pre

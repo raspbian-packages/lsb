@@ -1,3 +1,9 @@
+lsb (4.1+Debian0+fancy1) experimental; urgency=low
+
+  * Fancy output: prepend [info] blocks to log_action_msg calls.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 12 Apr 2012 21:20:09 +0200
+
 lsb (4.1+Debian0+fancy0) experimental; urgency=low
 
   * Make the init.d scripts messages fancier by prepending them a [....]

@@ -160,7 +160,7 @@ killproc () {
 	    --oknodo $name_param || status="$?"
     fi
     if [ "$status" = 1 ]; then
-        if [ -n "$sig" ]; then
+        if [ -z "$sig" ]; then
             return 0
         fi
         return 3 # program is not running

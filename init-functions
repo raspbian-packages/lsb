@@ -100,16 +100,17 @@ pidofproc () {
         return 4 # pid file not readable, hence status is unknown.
       fi
      else
-       return 3 # pid file doesn't exist, program probably stopped
+       # pid file doesn't exist, try to find the pid nevertheless
+       if [ -x /bin/pidof ] && [ ! "$specified" ]; then
+         status="0"
+         /bin/pidof -o %PPID -x $1 || status="$?"
+         if [ "$status" = 1 ]; then
+             return 3 # program is not running
+         fi
+         return 0
+       fi
+       return 3 # specified pid file doesn't exist, program probably stopped
      fi
-    fi
-    if [ -x /bin/pidof ] && [ ! "$specified" ]; then
-        status="0"
-        /bin/pidof -o %PPID -x $1 || status="$?"
-        if [ "$status" = 1 ]; then
-            return 3 # program is not running
-        fi
-        return 0
     fi
     if [ "$specified" ]; then
         return 3 # almost certain it's not running

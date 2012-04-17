@@ -261,10 +261,12 @@ get_lsb_header_val () {
 
 # int log_begin_message (char *message)
 log_begin_msg () {
+    log_begin_msg_pre "$@"
     if [ -z "${1:-}" ]; then
         return 1
     fi
     /bin/echo -n "$@"
+    log_begin_msg_post "$@"
 }
 
 # Sample usage:
@@ -355,11 +357,15 @@ log_end_msg () {
 }
 
 log_action_msg () {
+    log_action_msg_pre "$@"
     echo "$@."
+    log_action_msg_post "$@"
 }
 
 log_action_begin_msg () {
+    log_action_begin_msg_pre "$@"
     /bin/echo -n "$@..."
+    log_action_begin_msg_post "$@"
 }
 
 log_action_cont_msg () {
@@ -390,11 +396,53 @@ log_action_end_msg () {
 }
 
 # Hooks for /etc/lsb-base-logging.sh
-log_daemon_msg_pre () { :; }
+log_daemon_msg_pre () {
+    if log_use_fancy_output; then
+        /bin/echo -n "[....] "
+    fi
+}
 log_daemon_msg_post () { :; }
-log_end_msg_pre () { :; }
+log_begin_msg_pre () {
+    log_daemon_msg_pre "$@"
+}
+log_begin_msg_post() { :; }
+log_end_msg_pre () {
+    if log_use_fancy_output; then
+        RED=$( $TPUT setaf 1)
+        GREEN=$( $TPUT setaf 2)
+        YELLOW=$( $TPUT setaf 3)
+        NORMAL=$( $TPUT op)
+
+        $TPUT sc
+        $TPUT hpa 0
+        /bin/echo -n "["
+        if [ $1 -eq 0 ]; then
+            /bin/echo -ne "${GREEN} ok "
+        elif [ $1 -eq 255 ]; then
+            /bin/echo -ne "${YELLOW}warn"
+        else
+            /bin/echo -ne "${RED}FAIL"
+        fi
+        /bin/echo -ne "${NORMAL}]"
+        $TPUT rc
+    fi
+}
 log_end_msg_post () { :; }
-log_action_end_msg_pre () { :; }
+log_action_msg_pre () {
+    if log_use_fancy_output; then
+        CYAN=$( $TPUT setaf 6)
+        NORMAL=$( $TPUT op)
+        /bin/echo -ne "[${CYAN}info${NORMAL}] "
+    fi
+}
+log_action_msg_post () { :; }
+log_action_begin_msg_pre () {
+    log_daemon_msg_pre "$@"
+}
+log_action_begin_msg_post () { :; }
+log_action_end_msg_pre () {
+    log_end_msg_pre "$@"
+}
 log_action_end_msg_post () { :; }
 
 FANCYTTY=

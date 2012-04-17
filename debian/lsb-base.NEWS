@@ -1,0 +1,47 @@
+lsb (4.1+Debian0+fancy0) experimental; urgency=low
+
+  This version implements a new "fancy" output in the form of "[....] "
+  blocks prepended to the daemon status messages:
+
+  Before:
+     Starting/stopping long daemon name: daemond daemon2d
+  After:
+     [....] Starting/stopping long daemon name: daemond daemon2d
+
+  This block will become either a green [ ok ], a yellow [warn]
+  or a red [FAIL] depending on the daemon exit status.
+
+  == How do I disable this? ==
+
+  This is currently implemented in /lib/lsb/init-functions as _pre and
+  _post functions. As such, they are overridable as function definitions
+  in the /etc/lsb-base-logging.sh configuration file; for example:
+
+    log_daemon_msg_pre () { :; }
+
+  It is also possible to completely disable the "Fancy output" by setting
+  the FANCYTTY variable to 0 in the same file.
+
+  == Known bugs and plan for inclusion in unstable ==
+
+  * Daemons writing too much information on the screen (hence getting
+    their output spawned on multiple lines) won't get their [....]
+    replaced by [ ok ] as the replacement will happen on the last input
+    line.
+  * The above has the side-effect of hiding 7 characters of potentially
+    useful output.
+  * init.d scripts not using the /lib/lsb/init-functions provided
+    functions will (obviously) not get the fancy output.
+
+  Feedback, ideas and help are welcome as bugs on the lsb-base package.
+
+  Before including this change to unstable, the following changes will
+  most probably happen:
+
+  * The implementation will move from _pre/_post functions to the
+    functions themselves. This is safe-guarded by the FANCYTTY global
+    variable anyway.
+  * The information from this NEWS file will get moved to README.Debian
+    (hence avoiding the gory details to stable-upgrading users).
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 18:49:23 +0200

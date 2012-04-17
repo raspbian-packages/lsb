@@ -45,14 +45,18 @@ specific to Debian and (in some cases) other derived distributions.
     setting of a kernel variable, but it might be something else that is
     not expected to take any time (or fail).
 
-    On Debian, a trailing period will be added to the message,
-    followed by a newline.
+    On Debian, a trailing period will be added to the message, followed by
+    a newline. If "Fancy output" is enabled, the message will get prepended
+    with a blue [info].
 
   - log_action_begin_msg "Configuring network interfaces"
 
     Log the start of an action that is expected to take some time.  On
     Debian, an elipsis (...) will follow the message, and the cursor will
     stay at EOL.
+
+    If "Fancy output" is enabled, it will get the same [....] block as
+    log_daemon_msg.
 
   - log_action_cont_msg "flushing ARP cache"
 

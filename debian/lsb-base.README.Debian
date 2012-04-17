@@ -186,5 +186,16 @@ Each function receives all of the arguments sent to the parent
 function; the "pre" functions operate before any output, while the
 "post" functions operate after the output is produced.
 
+FANCY OUTPUT, KNOWN BUGS
+
+  * Daemons writing too much information on the screen (hence getting
+    their output spawned on multiple lines) won't get their [....]
+    replaced by [ ok ] as the replacement will happen on the last input
+    line.
+  * The above has the side-effect of hiding 7 characters of potentially
+    useful output.
+  * init.d scripts not using the /lib/lsb/init-functions provided
+    functions will (obviously) not get the fancy output.
+
  -- Chris Lawrence <lawrencc@debian.org>, Sat, 18 Sep 2010 17:09:57 -0500
- -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 17:03:10 +0200
+ -- Didier Raboud <odyx@debian.org>  Tue, 17 Apr 2012 11:42:28 +0200

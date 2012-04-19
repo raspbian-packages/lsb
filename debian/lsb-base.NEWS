@@ -1,4 +1,4 @@
-lsb (4.1+Debian0+) unstable; urgency=low
+lsb (4.1+Debian1) unstable; urgency=low
 
   This version implements a new "Fancy output" in the form of "[....] "
   blocks prepended to the daemon status messages:
@@ -14,4 +14,4 @@ lsb (4.1+Debian0+) unstable; urgency=low
   The "Fancy output" can be disabled by setting the FANCYTTY variable to 0
   in the /etc/lsb-base-logging.sh configuration file.
 
- -- Didier Raboud <odyx@debian.org>  Tue, 17 Apr 2012 11:30:05 +0200
+ -- Didier Raboud <odyx@debian.org>  Thu, 19 Apr 2012 11:25:01 +0200

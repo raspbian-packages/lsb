@@ -1,3 +1,15 @@
+lsb (4.1+Debian1) unstable; urgency=low
+
+  * lsb-base: Upload the new "Fancy output" to unstable:
+    - Move information from NEWS.Debian to README.Debian, enhance it.
+
+  * pidofproc(): Make sure to try /bin/pidof when no pidfile is
+    specified. (Closes: #668958)
+  * In killproc(), make sure to exit 0 when the program is not running
+    and when no signal was specified. (Closes: #668416)
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 19 Apr 2012 11:25:01 +0200
+
 lsb (4.1+Debian0+fancy1) experimental; urgency=low
 
   * Fancy output: prepend [info] blocks to log_action_msg calls.

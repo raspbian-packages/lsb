@@ -28,7 +28,7 @@
 #EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 start_daemon () {
-    local force nice pidfile exec args
+    local force nice pidfile exec args OPTIND
     force=""
     nice=0
     pidfile=/dev/null
@@ -62,7 +62,7 @@ start_daemon () {
 }
 
 pidofproc () {
-    local pidfile base status specified pid
+    local pidfile base status specified pid OPTIND
     pidfile=
     specified=
     
@@ -120,7 +120,7 @@ pidofproc () {
 
 # start-stop-daemon uses the same algorithm as "pidofproc" above.
 killproc () {
-    local pidfile sig status base name_param is_term_sig
+    local pidfile sig status base name_param is_term_sig OPTIND
     pidfile=
     name_param=
     is_term_sig=
@@ -174,7 +174,7 @@ killproc () {
 
 # Return LSB status
 status_of_proc () {
-    local pidfile daemon name status
+    local pidfile daemon name status OPTIND
 
     pidfile=
     OPTIND=1

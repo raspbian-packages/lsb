@@ -415,15 +415,13 @@ log_end_msg_pre () {
 
         $TPUT sc
         $TPUT hpa 0
-        /bin/echo -n "["
         if [ $1 -eq 0 ]; then
-            /bin/echo -ne "${GREEN} ok "
+            /bin/echo -ne "[${GREEN} ok ${NORMAL}"
         elif [ $1 -eq 255 ]; then
-            /bin/echo -ne "${YELLOW}warn"
+            /bin/echo -ne "[${YELLOW}warn${NORMAL}"
         else
-            /bin/echo -ne "${RED}FAIL"
+            /bin/echo -ne "[${RED}FAIL${NORMAL}"
         fi
-        /bin/echo -ne "${NORMAL}]"
         $TPUT rc
     fi
 }

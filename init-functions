@@ -413,6 +413,7 @@ log_end_msg_pre () {
         YELLOW=$( $TPUT setaf 3)
         NORMAL=$( $TPUT op)
 
+        $TPUT civis
         $TPUT sc
         $TPUT hpa 0
         if [ $1 -eq 0 ]; then
@@ -423,6 +424,7 @@ log_end_msg_pre () {
             /bin/echo -ne "[${RED}FAIL${NORMAL}"
         fi
         $TPUT rc
+        $TPUT cnorm
     fi
 }
 log_end_msg_post () { :; }

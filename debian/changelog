@@ -1,3 +1,12 @@
+lsb (4.1+Debian2) unstable; urgency=low
+
+  * Fancy output:
+    - Avoid two superfluous calls to /bin/echo.
+    - Make the cursor invisible when printing the status block.
+  * Make sure OPTIND is marked local for each use. (Closes: #669909)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 24 Apr 2012 21:33:39 +0200
+
 lsb (4.1+Debian1) unstable; urgency=low
 
   * lsb-base: Upload the new "Fancy output" to unstable:

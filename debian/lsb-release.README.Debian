@@ -28,11 +28,11 @@ DISTRIB_RELEASE=(The release number)
 DISTRIB_CODENAME=(The codename for the release)
 
 Any other variable assignments will be silently ignored.  For Debian
-3.1 (sarge), it might have read:
+7.0 (wheezy), it might have read:
 
 DISTRIB_ID=Debian
-DISTRIB_DESCRIPTION="Debian GNU/Linux 3.1 (sarge)"
-DISTRIB_RELEASE=3.1
-DISTRIB_CODENAME=sarge
+DISTRIB_DESCRIPTION="Debian GNU/Linux 7.0 (wheezy)"
+DISTRIB_RELEASE=7.0
+DISTRIB_CODENAME=wheezy
 
  -- Chris Lawrence <lawrencc@debian.org>, Wed Sep 21 20:40:25 2005

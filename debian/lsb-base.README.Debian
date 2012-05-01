@@ -122,8 +122,8 @@ specific to Debian and (in some cases) other derived distributions.
 To use these functions, source /lib/lsb/init-functions at the
 beginning of your (Bourne sh or compatible) init script.
 
-Please depend on lsb-base (>= 3.0-6) to ensure all of these
-functions are available for your init scripts.
+Please depend on lsb-base to ensure all of these functions are available
+for your init scripts.
 
 LSB LOGGING FUNCTIONS
 
@@ -153,7 +153,7 @@ pidofproc [-p pidfile] pathname
 
 For full documentation, please refer to:
 
-http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptfunc.html
+http://refspecs.linuxbase.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptfunc.html
 
 Note: Debian packages probably should use start-stop-daemon directly;
 however, these functions may be useful in porting init scripts from

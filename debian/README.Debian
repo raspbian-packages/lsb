@@ -23,39 +23,30 @@ The LSB implementation in Debian is currently divided into eight
 packages:
 
 * The "lsb-core" package depends on the Debian packages that are
-  required to comply with the LSB-Core 3.2 specification; this is
-  roughly equivalent to the LSB 1.3 specification, except X11 libraries
-  are not required.  It also includes some subroutines that are used
-  by LSB-compliant applications when they are being installed or
-  removed.
+  required to comply with the LSB-Core 4.1 specification. It also
+  includes some subroutines that are used by LSB-compliant applications
+  when they are being installed or removed.
 
 * The "lsb-graphics" package depends on the X11 libraries required for
-  the LSB-Graphics 3.2 specification.
+  the LSB-Graphics 4.1 specification.
 
-* The "lsb-cxx" package depends on libstdc++5, required for the
-  LSB-CXX (LSB-C++) 3.2 specification.
+* The "lsb-cxx" package depends on libstdc++6, required for the
+  LSB-CXX (LSB-C++) 4.1 specification.
 
 * The "lsb-desktop" package depends on the Gtk+ and Qt libraries required
-  for the LSB-Desktop 3.2 specification.
-
-* The "lsb-qt4" package depends on the Qt version 4 libraries required
-  for the LSB-Qt4 3.1 module.  Note that this module is essentially
-  folded into lsb-desktop for LSB 3.2 and above.
+  for the LSB-Desktop 4.1 specification.
 
 * The "lsb-languages" package depends on Python 2.4 and Perl 5.8.8 or later.
 
 * The "lsb-multimedia" package depends on libasound2.
 
-* The "lsb-printing" package depends on the CUPS libraries (libcupsys2
-  and libcupsimage2), foomatic-rip, and Ghostscript.
+* The "lsb-printing" package depends on the CUPS libraries (libcups2
+  and libcupsimage2), foomatic-filters, and Ghostscript.
 
-* The "lsb" package depends on all of the above packages, and exists
-  for backwards compatibility purposes with LSB 1.3.
+* The "lsb" package depends on all of the above packages.
 
 * The "lsb-base" package includes a number of functions used by init.d
-  scripts in some LSB packages; this package was separated in Debian's
-  lsb 2.0-6 package so other packages could make use of the init
-  functionality without requiring a full LSB installation.
+  scripts in some LSB packages.
 
   For documentation of those functions (and those added for Debian's use),
   please see the README.Debian file in that package.
@@ -102,16 +93,6 @@ DEVIATIONS FROM LSB
 
 The package and its dependencies implement all of LSB on Debian, with
 these exceptions:
-
-- LSB 3.2 assumes a 2.4 or later kernel.  Debian ships a 2.4 kernel by
-  default on most architectures as of sarge, although 2.2 and 2.6 are
-  optional.  There is no way in the Debian system to ensure a package
-  is only installed on a specific kernel release.  Running LSB
-  applications on 2.2 kernels may result in subtle bugs or failures,
-  particularly if they depend on large file support or new syscall
-  interfaces introduced in Linux 2.3+.
-
-  (We do not consider this a bug in the package.)
 
 - LSB 3.2 doesn't fully specify what the init_functions should do.  I
   have chosen to implement them in a way that is consistent with

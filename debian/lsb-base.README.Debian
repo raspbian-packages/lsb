@@ -111,6 +111,14 @@ specific to Debian and (in some cases) other derived distributions.
         status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
       ;;
 
+  - init_is_upstart
+
+    If the currently running init daemon is upstart, return zero; if the
+    calling init script belongs to a package which also provides a native
+    upstart job, it should generally exit non-zero in this case.
+
+    init_is_upstart is available from lsb-base 4.1+Debian2+.
+
 To use these functions, source /lib/lsb/init-functions at the
 beginning of your (Bourne sh or compatible) init script.
 

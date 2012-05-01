@@ -259,6 +259,18 @@ get_lsb_header_val () {
         sed -n "/$LSB_S/,/$LSB_E/ s/# $2: \(.*\)/\1/p" $1
 }
 
+# If the currently running init daemon is upstart, return zero; if the
+# calling init script belongs to a package which also provides a native
+# upstart job, it should generally exit non-zero in this case.
+init_is_upstart()
+{
+   if which initctl && initctl version | grep -q upstart
+   then
+       return 0
+   fi
+   return 1
+}
+
 # int log_begin_message (char *message)
 log_begin_msg () {
     log_begin_msg_pre "$@"

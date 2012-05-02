@@ -349,7 +349,7 @@ Description: Linux Standard Base sendmail dummy
  requiring an MTA to get installed, which once introduces a daemon which
  can cause security problems and second, users get asked questions about
  how they want their MTA configured when in reality they simply wanted to
- install a deskltop application or a printer driver, but the dependency on
+ install a desktop application or a printer driver, but the dependency on
  LSB compliance pulls in an MTA with the installation.
  .
  The LSB requirement on /usr/sbin/sendmail comes from old times where Linux

@@ -264,8 +264,7 @@ get_lsb_header_val () {
 # upstart job, it should generally exit non-zero in this case.
 init_is_upstart()
 {
-   if which initctl && initctl version | grep -q upstart
-   then
+   if [ -x /sbin/initctl ] && /sbin/initctl version | /bin/grep -q upstart; then
        return 0
    fi
    return 1

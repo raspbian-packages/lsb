@@ -2,6 +2,8 @@
 
 derives_from_ubuntu := $(shell (dpkg-vendor --derives-from Ubuntu && echo "yes") || echo "no")
 
+PY2VERSIONS=$(shell pyversions -vr)
+
 %:
 	dh --with python2 $@
 
@@ -43,6 +45,11 @@ endif
 override_dh_clean:
 	dh_clean
 	rm -f *.py[co]
+
+override_dh_auto_test: $(PY2VERSIONS:%=test-python%)
+
+test-python%:
+	PYTHONPATH=. python$* test/test_lsb_release.py -vv
 
 override_dh_python2:
 	dh_python2

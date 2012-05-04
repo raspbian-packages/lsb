@@ -19,5 +19,24 @@ class TestLSBRelease(unittest.TestCase):
 			self.assertEqual(lr.lookup_codename(rno + '.' + str(random.randint(0,9)),badDefault),cdn,'Release name `' + rno + '.*` is not recognized.')
 			self.assertEqual(lr.lookup_codename('inexistent_release' + str(random.randint(0,9)),badDefault),badDefault,'Default release codename is not accepted.')
 
+	def test_valid_lsb_versions(self):
+		raise NotImplementedError()
+	def test_check_modules_installed(self):
+		raise NotImplementedError()
+	def test_parse_policy_line(self):
+		raise NotImplementedError()
+	def test_compare_release(self):
+		raise NotImplementedError()
+	def test_parse_apt_policy(self):
+		raise NotImplementedError()
+	def test_guess_release_from_apt(self):
+		raise NotImplementedError()
+	def test_guess_debian_release(self):
+		raise NotImplementedError()
+	def test_get_lsb_information(self):
+		raise NotImplementedError()
+	def test_get_distro_information(self):
+		raise NotImplementedError()
+
 if __name__ == '__main__':
 	unittest.main()

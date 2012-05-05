@@ -68,6 +68,8 @@ def valid_lsb_versions(version, module):
     elif version == '3.1':
         if module in ('desktop', 'qt4'):
             return ['3.1']
+        elif module == 'cxx':
+            return ['3.0', '3.1']
         else:
             return ['2.0', '3.0', '3.1']
     elif version == '3.2':

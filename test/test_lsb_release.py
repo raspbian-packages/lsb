@@ -57,20 +57,28 @@ class TestLSBRelease(unittest.TestCase):
 									 [elem for elem in in_versions if int(float(elem)*10) <= int(float(test_v)*10)],
 									 assert_text)
 
+	@unittest.skip('Test not implemented.')
 	def test_check_modules_installed(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_parse_policy_line(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_compare_release(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_parse_apt_policy(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_guess_release_from_apt(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_guess_debian_release(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_get_lsb_information(self):
 		raise NotImplementedError()
+	@unittest.skip('Test not implemented.')
 	def test_get_distro_information(self):
 		raise NotImplementedError()
 

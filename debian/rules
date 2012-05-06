@@ -50,6 +50,7 @@ override_dh_auto_test: $(PY2VERSIONS:%=test-python%)
 
 test-python%:
 	PYTHONPATH=. python$* test/test_lsb_release.py -vv
+	PYTHONPATH=. python$* test/test_initdutils.py -vv
 
 override_dh_python2:
 	dh_python2

@@ -1,3 +1,21 @@
+lsb (4.1+Debian3) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Compress the orig source tarball with bzip2.
+  * Update LSB and packages versions in README.Debian.
+  * Fix typo in lsb-invalid-mta's Description.
+  * Drop empty directory in lsb-base.
+    Instead of moving lsb-base-logging.sh to /etc/lsb/, drop the empty /etc/lsb.
+    (Closes: #671730)
+
+  [ Steve Langasek ]
+  * Add a new helper function: init_is_upstart().
+    init_is_upstart() is to be used by init scripts of upstart-aware packages to
+    render the init script inert when upstart is present.
+    Signed-off-by: Didier Raboud <odyx@debian.org> (Closes: #661109)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 May 2012 19:21:36 +0200
+
 lsb (4.1+Debian2) unstable; urgency=low
 
   * Fancy output:

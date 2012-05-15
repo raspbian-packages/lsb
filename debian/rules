@@ -43,6 +43,7 @@ endif
 override_dh_clean:
 	dh_clean
 	rm -f *.py[co]
+	rm -f debian/lsb-base.maintscript
 
 override_dh_python2:
 	dh_python2
@@ -51,7 +52,11 @@ override_dh_python2:
 override_dh_install:
 	dh_install
 ifeq ($(derives_from_ubuntu),yes)
-	cp -p lsb-base-logging-ubuntu.sh debian/lsb-base/etc/lsb-base-logging.sh
+	cp -p init-functions.d/50-ubuntu-logging debian/lsb-base/lib/lsb/init-functions.d/
+
+override_dh_installdeb:
+	cp debian/lsb-base.maintscript.Ubuntu debian/lsb-base.maintscript
+	dh_installdeb
 endif
 
 override_dh_gencontrol:

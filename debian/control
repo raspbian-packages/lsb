@@ -301,6 +301,7 @@ Package: lsb-base
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
 Priority: required
 Description: Linux Standard Base 4.1 init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

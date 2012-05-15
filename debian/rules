@@ -2,6 +2,9 @@
 
 derives_from_ubuntu := $(shell (dpkg-vendor --derives-from Ubuntu && echo "yes") || echo "no")
 
+PY2VERSIONS=$(shell pyversions -vr)
+PY3VERSIONS=$(shell [ -x /usr/bin/py3versions ] && py3versions -vr)
+
 %:
 	dh --with python2 $@
 
@@ -44,6 +47,12 @@ override_dh_clean:
 	dh_clean
 	rm -f *.py[co]
 	rm -f debian/lsb-base.maintscript
+
+override_dh_auto_test: $(PY2VERSIONS:%=test-python%) $(PY3VERSIONS:%=test-python%)
+
+test-python%:
+	PYTHONPATH=. python$* test/test_lsb_release.py -vv
+	PYTHONPATH=. python$* test/test_initdutils.py -vv
 
 override_dh_python2:
 	dh_python2

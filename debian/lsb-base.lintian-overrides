@@ -1,2 +1,0 @@
-# This folder is meant for other packages' hooks.
-package-contains-empty-directory lib/lsb/init-functions.d/

@@ -456,10 +456,10 @@ log_action_end_msg_pre () {
 }
 log_action_end_msg_post () { :; }
 
-FANCYTTY=
-[ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true
-
 # Include hooks from other packages in /lib/lsb/init-functions.d
 for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2>/dev/null); do
     [ -r $hook ] && . $hook || true
 done
+
+FANCYTTY=
+[ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true

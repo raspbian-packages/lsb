@@ -200,7 +200,7 @@ function; the "pre" functions operate before any output, while the
 
 HOOKING INIT-FUNCTIONS
 
-Since lsb-base 4.1+Debian3+, init-functions will source all files under
+Since lsb-base 4.1+Debian4, init-functions will source all files under
 /lib/lsb/init-functions.d for the purpose of allowing packages to alter
 or enhance the init-functions functions.
 

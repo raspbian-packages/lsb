@@ -1,3 +1,20 @@
+lsb (4.1+Debian4) unstable; urgency=low
+
+  * In init-functions, include hooks from /lib/lsb/init-functions.d
+    - Source any file in there.
+    - Document that in lsb-base.README.
+    - Put the Ubuntu logging functions in there; remove the now-obsolete
+      configuration file with dpkg-maintscript-helper.
+    - Move the "Fancy output left info blocks" in there.
+
+  * Python code: Add an initial (but incomplete) unittest framework for python
+    2.7 and 3.2.
+
+  * Properly document the first version with init_is_upstart.
+  * Avoid writing the now useless lsb-qt4.substvars file.
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 18 May 2012 22:06:07 +0200
+
 lsb (4.1+Debian3) unstable; urgency=low
 
   [ Didier Raboud ]

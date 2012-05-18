@@ -1,1 +1,1 @@
-rm_conffile /etc/lsb-base-logging.sh 4.1+Debian3+ lsb-base
+rm_conffile /etc/lsb-base-logging.sh 4.1+Debian4 lsb-base

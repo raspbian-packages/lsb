@@ -60,9 +60,18 @@ class TestLSBRelease(unittest.TestCase):
 	@unittest.skip('Test not implemented.')
 	def test_check_modules_installed(self):
 		raise NotImplementedError()
-	@unittest.skip('Test not implemented.')
+
 	def test_parse_policy_line(self):
-		raise NotImplementedError()
+		release_line = ''
+		shortnames = lr.longnames.keys()
+		random.shuffle(shortnames)
+		longnames = {}
+		for shortname in shortnames:
+			longnames[lr.longnames[shortname]] = ''.join( [random.choice(string.letters) for i in xrange(random.randint(1,9))])
+			release_line += shortname + '=' + longnames[lr.longnames[shortname]] + ','
+		release_line = string.strip(release_line,',')
+		self.assertEqual(sorted(lr.parse_policy_line(release_line)),sorted(longnames),'parse_policy_line(' + release_line + ')')
+
 	@unittest.skip('Test not implemented.')
 	def test_compare_release(self):
 		raise NotImplementedError()

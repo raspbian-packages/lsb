@@ -164,12 +164,28 @@ behaviors are those in the specification above.
 
 CUSTOMIZING LOGGING OUTPUT
 
-If it exists, /etc/lsb-base-logging.sh will be sourced by
-/lib/lsb/init-functions.  You may override any of the log_* functions
-in this file.  The intent is for this file to be supplied as a
-conffile by derived distributions wishing to log init script events in
-a different way; this may also be useful on systems where the console
-log is not visible during startup.
+  - FOR PACKAGES AND DISTRIBUTIONS
+
+Since lsb-base 4.1+Debian4, init-functions will source all
+correctly-named files under /lib/lsb/init-functions.d for the purpose of
+allowing packages to alter or enhance the init-functions functions.
+
+By providing a file in there, any package or derivative distribution can
+override the default behaviour of /lib/lsb/init-functions: logging init
+script events, changing the logging messages format, etc.
+
+If supplied, these script fragments shall be compatible with any Debian
+/bin/sh, as init scripts sourcing /lib/lsb/init-functions may be running
+under any Bourne-style shell permitted by Debian policy (i.e. not just
+bash).
+
+  - FOR ADMINISTRATORS
+
+After those distribution-provided files, if it exists,
+/etc/lsb-base-logging.sh will be sourced by /lib/lsb/init-functions.
+This file is to be supplied by the administrator for machine-specific
+overrides. This file may also be useful on systems where the console log
+is not visible during startup.
 
 If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
@@ -198,12 +214,6 @@ Each function receives all of the arguments sent to the parent
 function; the "pre" functions operate before any output, while the
 "post" functions operate after the output is produced.
 
-HOOKING INIT-FUNCTIONS
-
-Since lsb-base 4.1+Debian4, init-functions will source all files under
-/lib/lsb/init-functions.d for the purpose of allowing packages to alter
-or enhance the init-functions functions.
-
 FANCY OUTPUT, KNOWN BUGS
 
   * Daemons writing too much information on the screen (hence getting
@@ -216,4 +226,4 @@ FANCY OUTPUT, KNOWN BUGS
     functions will (obviously) not get the fancy output.
 
  -- Chris Lawrence <lawrencc@debian.org>, Sat, 18 Sep 2010 17:09:57 -0500
- -- Didier Raboud <odyx@debian.org>  Tue, 17 Apr 2012 11:42:28 +0200
+ -- Didier Raboud <odyx@debian.org>  Mon, 21 May 2012 15:00:10 +0200

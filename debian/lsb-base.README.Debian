@@ -191,7 +191,11 @@ If supplied, this script fragment should be compatible with any Debian
 /bin/sh, as init scripts sourcing this file may be running under any
 Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
-"Fancy output" can be overridden by setting FANCYTTY=0 in this file.
+  - FANCY OUTPUT
+
+"Fancy output" can be overridden by setting FANCYTTY=0 in /etc/default/rcS.
+
+  - OUTPUT FUNCTIONS
 
 From lsb-base 3.2-14, you can use the following hook functions which
 are called by the appropriate functions, instead of supplying your own

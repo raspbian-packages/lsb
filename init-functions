@@ -406,7 +406,7 @@ log_action_end_msg () {
     log_action_end_msg_post "$@"
 }
 
-# Hooks for /etc/lsb-base-logging.sh
+# Pre&Post empty function declaration, to be overriden from /lib/lsb/init-functions.d/*
 log_daemon_msg_pre () { :; }
 log_daemon_msg_post () { :; }
 log_begin_msg_pre () { :; }

@@ -6,6 +6,9 @@ import lsb_release as lr
 import random
 import string
 
+def rnd_string(min_l,max_l):
+	return ''.join( [random.choice(string.letters) for i in xrange(random.randint(min_l,max_l))])
+
 class TestLSBRelease(unittest.TestCase):
 
 	def test_lookup_codename(self):
@@ -13,7 +16,7 @@ class TestLSBRelease(unittest.TestCase):
 		for rno in lr.RELEASE_CODENAME_LOOKUP:
 			cdn = lr.RELEASE_CODENAME_LOOKUP[rno]
 			# Test that 1.1, 1.1r0 and 1.1.8 lead to buzz. Default is picked randomly and is not supposed to go trough
-			badDefault = ''.join( [random.choice(string.letters) for i in xrange(random.randint(0,9))])
+			badDefault = rnd_string(0,9)
 			self.assertEqual(lr.lookup_codename(rno,badDefault),cdn,'Release name `' + rno + '` is not recognized.')
 			self.assertEqual(lr.lookup_codename(rno + 'r' + str(random.randint(0,9)),badDefault),cdn,'Release name `' + rno + 'r*` is not recognized.')
 			self.assertEqual(lr.lookup_codename(rno + '.' + str(random.randint(0,9)),badDefault),cdn,'Release name `' + rno + '.*` is not recognized.')
@@ -67,7 +70,7 @@ class TestLSBRelease(unittest.TestCase):
 		random.shuffle(shortnames)
 		longnames = {}
 		for shortname in shortnames:
-			longnames[lr.longnames[shortname]] = ''.join( [random.choice(string.letters) for i in xrange(random.randint(1,9))])
+			longnames[lr.longnames[shortname]] = rnd_string(1,9)
 			release_line += shortname + '=' + longnames[lr.longnames[shortname]] + ','
 		release_line = string.strip(release_line,',')
 		self.assertEqual(sorted(lr.parse_policy_line(release_line)),sorted(longnames),'parse_policy_line(' + release_line + ')')

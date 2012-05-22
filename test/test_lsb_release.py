@@ -75,9 +75,33 @@ class TestLSBRelease(unittest.TestCase):
 		release_line = string.strip(release_line,',')
 		self.assertEqual(sorted(lr.parse_policy_line(release_line)),sorted(longnames),'parse_policy_line(' + release_line + ')')
 
-	@unittest.skip('Test not implemented.')
 	def test_compare_release(self):
-		raise NotImplementedError()
+		# Test that equal suite strings lead to 0
+		fake_release_equal = rnd_string(1,25)
+		x = [rnd_string(1,12), {'suite': fake_release_equal}]
+		y = [rnd_string(1,12), {'suite': fake_release_equal}]
+		self.assertEqual(lr.compare_release(x,y),0)
+		
+		# Test that sequences in RELEASES_ORDER lead to reliable output
+		RO_min = 0
+		RO_max = len(lr.RELEASES_ORDER) - 1
+		x_suite_i = random.randint(RO_min,RO_max)
+		y_suite_i = random.randint(RO_min,RO_max)
+		x[1]['suite'] = lr.RELEASES_ORDER[x_suite_i]
+		y[1]['suite'] = lr.RELEASES_ORDER[y_suite_i]
+		supposed_output = y_suite_i - x_suite_i
+		self.assertEqual(lr.compare_release(x,y),
+				 supposed_output,
+				 'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))
+		
+		# Test that sequences not in RELEASES_ORDER lead to reliable output
+		x[1]['suite'] = rnd_string(1,12)
+		y[1]['suite'] = rnd_string(1,12)
+		supposed_output = cmp(x[1]['suite'],y[1]['suite'])
+		self.assertEqual(lr.compare_release(x,y),
+				 supposed_output,
+				 'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))
+
 	@unittest.skip('Test not implemented.')
 	def test_parse_apt_policy(self):
 		raise NotImplementedError()

@@ -6,6 +6,8 @@ import lsb_release as lr
 import random
 import string
 
+import os
+
 def rnd_string(min_l,max_l):
 	return ''.join( [random.choice(string.letters) for i in xrange(random.randint(min_l,max_l))])
 
@@ -102,9 +104,19 @@ class TestLSBRelease(unittest.TestCase):
 				 supposed_output,
 				 'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))
 
-	@unittest.skip('Test not implemented.')
 	def test_parse_apt_policy(self):
-		raise NotImplementedError()
+		# Test almost-empty apt-cache policy
+		supposed_output = [(100, {'suite': 'now'})]
+		self.assertEqual(lr.parse_apt_policy(),supposed_output)
+		# Add one fake entry
+		os.environ['TEST_APT_CACHE1'] = '132'
+		supposed_output.append((132, {'origin': 'oRigIn', 'suite': 'SuiTe', 'component': 'C0mp0nent', 'label': 'lABel'}))
+		self.assertEqual(lr.parse_apt_policy(),supposed_output)
+		# Add a second fake entry, unordered
+		os.environ['TEST_APT_CACHE2'] = '35'
+		supposed_output.append((35, {'origin': '0RigIn', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
+		self.assertEqual(lr.parse_apt_policy(),supposed_output)
+
 	@unittest.skip('Test not implemented.')
 	def test_guess_release_from_apt(self):
 		raise NotImplementedError()

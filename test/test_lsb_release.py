@@ -132,9 +132,20 @@ class TestLSBRelease(unittest.TestCase):
 	@unittest.skip('Test not implemented.')
 	def test_guess_debian_release(self):
 		raise NotImplementedError()
-	@unittest.skip('Test not implemented.')
+
 	def test_get_lsb_information(self):
-		raise NotImplementedError()
+		# Test that an inexistant /etc/lsb-release leads to empty output
+		supposed_output = {}
+		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/inexistant_file_' + rnd_string(2,5)
+		self.assertEqual(lr.get_lsb_information(),supposed_output)
+		# Test that a fake /etc/lsb-release leads to output with only the content we want
+		supposed_output = {'RELEASE': '(The release number)',
+				   'CODENAME': '(The codename for the release)',
+				   'ID': '(Distributor ID)',
+				   'DESCRIPTION': '(A human-readable description of the release)'}
+		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/lsb-release'
+		self.assertEqual(lr.get_lsb_information(),supposed_output)
+
 	@unittest.skip('Test not implemented.')
 	def test_get_distro_information(self):
 		raise NotImplementedError()

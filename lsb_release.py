@@ -300,9 +300,10 @@ def guess_debian_release():
 # Whatever is guessed above can be overridden in /etc/lsb-release
 def get_lsb_information():
     distinfo = {}
-    if os.path.exists('/etc/lsb-release'):
+    etc_lsb_release = os.environ.get('LSB_ETC_LSB_RELEASE','/etc/lsb-release')
+    if os.path.exists(etc_lsb_release):
         try:
-            with open('/etc/lsb-release') as lsb_release_file:
+            with open(etc_lsb_release) as lsb_release_file:
                 for line in lsb_release_file:
                     line = line.strip()
                     if not line:
@@ -318,7 +319,7 @@ def get_lsb_information():
                         if arg: # Ignore empty arguments
                             distinfo[var] = arg.strip()
         except IOError, msg:
-            print >> sys.stderr, 'Unable to open /etc/lsb-release:', str(msg)
+            print >> sys.stderr, 'Unable to open ' + etc_lsb_release , str(msg)
             
     return distinfo
 

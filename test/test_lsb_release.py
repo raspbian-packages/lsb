@@ -125,6 +125,8 @@ class TestLSBRelease(unittest.TestCase):
 		os.environ['TEST_APT_CACHE2'] = '35'
 		supposed_output.append((35, {'origin': '0RigIn', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
+		os.environ.pop('TEST_APT_CACHE1')
+		os.environ.pop('TEST_APT_CACHE2')
 
 	@unittest.skip('Test not implemented.')
 	def test_guess_release_from_apt(self):
@@ -145,6 +147,7 @@ class TestLSBRelease(unittest.TestCase):
 				   'DESCRIPTION': '(A human-readable description of the release)'}
 		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/lsb-release'
 		self.assertEqual(lr.get_lsb_information(),supposed_output)
+		os.environ.pop('LSB_ETC_LSB_RELEASE')
 
 	@unittest.skip('Test not implemented.')
 	def test_get_distro_information(self):

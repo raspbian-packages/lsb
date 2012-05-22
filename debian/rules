@@ -54,7 +54,7 @@ test-python2.6:
 	# Tests are not backported to python2.6, sorry.
 
 test-python%:
-	PYTHONPATH=. python$* test/test_lsb_release.py -vv
+	PATH=test/:$${PATH} PYTHONPATH=. python$* test/test_lsb_release.py -vv
 	PYTHONPATH=. python$* test/test_initdutils.py -vv
 
 override_dh_python2:

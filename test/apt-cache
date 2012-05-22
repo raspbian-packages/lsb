@@ -1,0 +1,15 @@
+#!/usr/bin/python
+
+# Fake apt-cache python script to emulate policy output for test usage
+
+# Python3-compatible print() function
+from __future__ import print_function
+
+import sys
+
+if len(sys.argv) <= 1 or sys.argv[1] != 'policy':
+	sys.exit("Shall only be run with exactly one argument: 'policy'")
+
+print("Package files:")
+print(" 100 /var/lib/dpkg/status")
+print("     release a=now")

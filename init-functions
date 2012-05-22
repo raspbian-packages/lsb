@@ -87,10 +87,10 @@ pidofproc () {
         read pid < "$pidfile"
         if [ -n "${pid:-}" ]; then
             if $(kill -0 "${pid:-}" 2> /dev/null); then
-                echo "$pid"
+                echo "$pid" || true
                 return 0
             elif ps "${pid:-}" >/dev/null 2>&1; then
-                echo "$pid"
+                echo "$pid" || true
                 return 0 # program is running, but not owned by this user
             else
                 return 1 # program is dead and /var/run pid file exists
@@ -276,7 +276,7 @@ log_begin_msg () {
     if [ -z "${1:-}" ]; then
         return 1
     fi
-    /bin/echo -n "$@"
+    /bin/echo -n "$@" || true
     log_begin_msg_post "$@"
 }
 
@@ -301,11 +301,11 @@ log_daemon_msg () {
     log_daemon_msg_pre "$@"
 
     if [ -z "${2:-}" ]; then
-        /bin/echo -n "$1:"
+        /bin/echo -n "$1:" || true
         return
     fi
     
-    /bin/echo -n "$1: $2"
+    /bin/echo -n "$1: $2" || true
     log_daemon_msg_post "$@"
 }
 
@@ -328,7 +328,7 @@ log_progress_msg () {
     if [ -z "${1:-}" ]; then
         return 1
     fi
-    /bin/echo -n " $@"
+    /bin/echo -n " $@" || true
 }
 
 
@@ -357,11 +357,11 @@ log_end_msg () {
     fi
 
     if [ $1 -eq 0 ]; then
-        echo "."
+        echo "." || true
     elif [ $1 -eq 255 ]; then
-        /bin/echo -e " ${YELLOW}(warning).${NORMAL}"
+        /bin/echo -e " ${YELLOW}(warning).${NORMAL}" || true
     else
-        /bin/echo -e " ${RED}failed!${NORMAL}"
+        /bin/echo -e " ${RED}failed!${NORMAL}" || true
     fi
     log_end_msg_post "$@"
     return $retval
@@ -369,18 +369,18 @@ log_end_msg () {
 
 log_action_msg () {
     log_action_msg_pre "$@"
-    echo "$@."
+    echo "$@." || true
     log_action_msg_post "$@"
 }
 
 log_action_begin_msg () {
     log_action_begin_msg_pre "$@"
-    /bin/echo -n "$@..."
+    /bin/echo -n "$@..." || true
     log_action_begin_msg_post "$@"
 }
 
 log_action_cont_msg () {
-    /bin/echo -n "$@..."
+    /bin/echo -n "$@..." || true
 }
 
 log_action_end_msg () {
@@ -393,14 +393,14 @@ log_action_end_msg () {
     fi
 
     if [ $1 -eq 0 ]; then
-        echo "done${end}"
+        echo "done${end}" || true
     else
         if log_use_fancy_output; then
             RED=$( $TPUT setaf 1)
             NORMAL=$( $TPUT op)
-            /bin/echo -e "${RED}failed${end}${NORMAL}"
+            /bin/echo -e "${RED}failed${end}${NORMAL}" || true
         else
-            echo "failed${end}"
+            echo "failed${end}" || true
         fi
     fi
     log_action_end_msg_post "$@"

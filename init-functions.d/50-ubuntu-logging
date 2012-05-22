@@ -10,16 +10,16 @@ log_use_plymouth () {
 }
 
 log_success_msg () {
-    echo " * $@"
+    echo " * $@" || true
 }
 
 log_failure_msg () {
     if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
-        echo " $RED*$NORMAL $@"
+        echo " $RED*$NORMAL $@" || true
     else
-        echo " * $@"
+        echo " * $@" || true
     fi
 }
 
@@ -27,9 +27,9 @@ log_warning_msg () {
     if log_use_fancy_output; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
-        echo " $YELLOW*$NORMAL $@"
+        echo " $YELLOW*$NORMAL $@" || true
     else
-        echo " * $@"
+        echo " * $@" || true
     fi
 }
 
@@ -71,14 +71,14 @@ log_daemon_msg () {
         # and we won't be able to reliably know where the colourful
         # asterisk ought to go.
 
-        printf " * $*       "
+        printf " * $*       " || true
         # Enough trailing spaces for ` [fail]' to fit in; if the message
         # is too long it wraps here rather than later, which is what we
         # want.
-        $TPUT hpa `$EXPR $COLS - 1`
-        printf ' '
+        $TPUT hpa `$EXPR $COLS - 1` || true
+        printf ' ' || true
     else
-        echo " * $@"
+        echo " * $@" || true
         COL=
     fi
 }
@@ -102,37 +102,37 @@ log_end_msg () {
             fi
         fi
 
-        printf "\r"
+        printf "\r" || true
         $TPUT hpa $COL
         if [ "$1" -eq 0 ]; then
-            echo "[ OK ]"
+            echo "[ OK ]" || true
         else
-            printf '['
-            $TPUT setaf 1 # red
-            printf fail
-            $TPUT op # normal
-            echo ']'
+            printf '[' || true
+            $TPUT setaf 1 || true # red
+            printf fail || true
+            $TPUT op || true # normal
+            echo ']' || true
         fi
     else
         if [ "$1" -eq 0 ]; then
-            echo "   ...done."
+            echo "   ...done." || true
         else
-            echo "   ...fail!"
+            echo "   ...fail!" || true
         fi
     fi
     return $1
 }
 
 log_action_msg () {
-    echo " * $@"
+    echo " * $@" || true
 }
 
 log_action_begin_msg () {
-    log_daemon_msg "$@..."
+    log_daemon_msg "$@..." || true
 }
 
 log_action_cont_msg () {
-    log_daemon_msg "$@..."
+    log_daemon_msg "$@..." || true
 }
 
 log_action_end_msg () {

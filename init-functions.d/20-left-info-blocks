@@ -1,7 +1,7 @@
 # Default info blocks put to the left of the screen
 log_daemon_msg_pre () {
     if log_use_fancy_output; then
-        /bin/echo -n "[....] "
+        /bin/echo -n "[....] " || true
     fi
 }
 log_begin_msg_pre () {
@@ -14,25 +14,25 @@ log_end_msg_pre () {
         YELLOW=$( $TPUT setaf 3)
         NORMAL=$( $TPUT op)
 
-        $TPUT civis
-        $TPUT sc
-        $TPUT hpa 0
+        $TPUT civis || true
+        $TPUT sc && \
+        $TPUT hpa 0 && \
         if [ $1 -eq 0 ]; then
-            /bin/echo -ne "[${GREEN} ok ${NORMAL}"
+            /bin/echo -ne "[${GREEN} ok ${NORMAL}" || true
         elif [ $1 -eq 255 ]; then
-            /bin/echo -ne "[${YELLOW}warn${NORMAL}"
+            /bin/echo -ne "[${YELLOW}warn${NORMAL}" || true
         else
-            /bin/echo -ne "[${RED}FAIL${NORMAL}"
-        fi
-        $TPUT rc
-        $TPUT cnorm
+            /bin/echo -ne "[${RED}FAIL${NORMAL}" || true
+        fi && \
+        $TPUT rc || true
+        $TPUT cnorm || true
     fi
 }
 log_action_msg_pre () {
     if log_use_fancy_output; then
         CYAN=$( $TPUT setaf 6)
         NORMAL=$( $TPUT op)
-        /bin/echo -ne "[${CYAN}info${NORMAL}] "
+        /bin/echo -ne "[${CYAN}info${NORMAL}] " || true
     fi
 }
 log_action_begin_msg_pre () {

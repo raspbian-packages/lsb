@@ -118,19 +118,30 @@ class TestLSBRelease(unittest.TestCase):
 		supposed_output = [(100, {'suite': 'now'})]
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		# Add one fake entry
-		os.environ['TEST_APT_CACHE1'] = '132'
-		supposed_output.append((132, {'origin': 'oRigIn', 'suite': 'SuiTe', 'component': 'C0mp0nent', 'label': 'lABel'}))
+		os.environ['TEST_APT_CACHE1'] = '932'
+		supposed_output.append((932, {'origin': 'oRigIn', 'suite': 'SuiTe', 'component': 'C0mp0nent', 'label': 'lABel'}))
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		# Add a second fake entry, unordered
-		os.environ['TEST_APT_CACHE2'] = '35'
-		supposed_output.append((35, {'origin': '0RigIn', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
+		os.environ['TEST_APT_CACHE2'] = '600'
+		supposed_output.append((600, {'origin': '0RigIn', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		os.environ.pop('TEST_APT_CACHE1')
 		os.environ.pop('TEST_APT_CACHE2')
 
-	@unittest.skip('Test not implemented.')
 	def test_guess_release_from_apt(self):
-		raise NotImplementedError()
+		os.environ['TEST_APT_CACHE1'] = '932'
+		os.environ['TEST_APT_CACHE2'] = '600'
+		os.environ['TEST_APT_CACHE_RELEASE'] = '512'
+		supposed_output = {'origin': 'or1g1n', 'suite': 'testing', 'component': 'c0mp0nent', 'label': 'l8bel'}
+		self.assertEqual(lr.guess_release_from_apt(origin='or1g1n',label='l8bel',component='c0mp0nent',ignoresuites=('c0mp0nentIgn')),supposed_output)
+
+		# Test with a special repository (for Ports)
+		supposed_output = {'origin': 'P-or1g1n', 'suite': 'sid', 'component': 'OtherComp', 'label': 'P-l8bel'}
+		self.assertEqual(lr.guess_release_from_apt(origin='or1g1n',label='l8bel',component='c0mp0nent',ignoresuites=('c0mp0nentIgn'),alternate_olabels={'P-or1g1n':'P-l8bel'}),supposed_output)
+		os.environ.pop('TEST_APT_CACHE1')
+		os.environ.pop('TEST_APT_CACHE2')
+		os.environ.pop('TEST_APT_CACHE_RELEASE')
+
 	@unittest.skip('Test not implemented.')
 	def test_guess_debian_release(self):
 		raise NotImplementedError()

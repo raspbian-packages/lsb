@@ -3,7 +3,7 @@ import unittest
 
 import initdutils as iu
 
-class TestInitdUtilse(unittest.TestCase):
+class TestInitdUtils(unittest.TestCase):
 
 	@unittest.skip('Test not implemented.')
 	def test_scan_initfile():

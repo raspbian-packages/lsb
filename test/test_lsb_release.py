@@ -7,6 +7,7 @@ import random
 import string
 
 import os
+import sys
 
 def rnd_string(min_l,max_l):
 	return ''.join( [random.choice(string.ascii_letters) for i in range(random.randint(min_l,max_l))])
@@ -109,10 +110,11 @@ class TestLSBRelease(unittest.TestCase):
 			suite_name = rnd_string(8,25)
 			suites.append(suite_name)
 			releases.append([rnd_string(1,12), {'suite': suite_name}])
-		suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
-		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
 		suites.sort()
-		self.assertEqual(suites,suites_from_releases)
+		if sys.version_info[0] == '2':
+			suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
+			self.assertEqual(suites,suites_from_releases)
+		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
 		self.assertEqual(suites,suites_from_releases_new)
 
 		# Compare suites with known suite names
@@ -125,10 +127,11 @@ class TestLSBRelease(unittest.TestCase):
 			suite_name = lr.RELEASES_ORDER[suite_i]
 			suites.append(suite_name)
 			releases.append([rnd_string(1,12), {'suite': suite_name}])
-		suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
-		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
 		suites.sort(key=lambda suite: int(lr.RELEASES_ORDER.index(suite)),reverse=True)
-		self.assertEqual(suites,suites_from_releases)
+		if sys.version_info[0] == '2':
+			suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
+			self.assertEqual(suites,suites_from_releases)
+		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
 		self.assertEqual(suites,suites_from_releases_new)
 
 	def test_compare_release(self):

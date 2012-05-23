@@ -247,7 +247,7 @@ def guess_release_from_apt(origin='Debian', component='main',
 
     max_priority = releases[0][0]
     releases = [x for x in releases if x[0] == max_priority]
-    releases.sort(compare_release)
+    releases.sort(key=release_index)
 
     return releases[0][1]
 

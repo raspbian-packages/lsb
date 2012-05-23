@@ -137,6 +137,8 @@ def check_modules_installed():
 
     modules = set()
     for line in output.split(os.linesep):
+        if not line:
+           break
         version, provides = line.split(' ', 1)
         # Debian package versions can be 3.2-$REV, 3.2+$REV or 3.2~$REV.
         version = re.split('[-+~]', version, 1)[0]

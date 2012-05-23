@@ -271,8 +271,9 @@ def guess_debian_release():
     # This is slightly faster and less error prone in case the user
     # has an entry in his /etc/apt/sources.list but has not actually
     # upgraded the system.
-    rinfo = guess_release_from_apt()
-    if rinfo and not distinfo.get('CODENAME'):
+    if not distinfo.get('CODENAME'):
+      rinfo = guess_release_from_apt()
+      if rinfo:
         release = rinfo.get('version')
 
         # Special case Debian-Ports as their Release file has 'version': '1.0'

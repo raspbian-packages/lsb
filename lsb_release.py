@@ -185,7 +185,7 @@ def compare_release(x, y):
         if suite_x in RELEASES_ORDER and suite_y in RELEASES_ORDER:
             return RELEASES_ORDER.index(suite_y)-RELEASES_ORDER.index(suite_x)
         else:
-            return cmp(suite_x, suite_y)
+            return (suite_x > suite_y) - (suite_x < suite_y)
 
     return 0
 

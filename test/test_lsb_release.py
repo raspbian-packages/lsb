@@ -123,7 +123,7 @@ class TestLSBRelease(unittest.TestCase):
 		# Test that sequences not in RELEASES_ORDER lead to reliable output
 		x[1]['suite'] = rnd_string(1,12)
 		y[1]['suite'] = rnd_string(1,12)
-		supposed_output = cmp(x[1]['suite'],y[1]['suite'])
+		supposed_output = (x[1]['suite'] > y[1]['suite']) - (x[1]['suite'] < y[1]['suite'])
 		self.assertEqual(lr.compare_release(x,y),
 				 supposed_output,
 				 'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))

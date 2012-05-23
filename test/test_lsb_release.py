@@ -9,7 +9,7 @@ import string
 import os
 
 def rnd_string(min_l,max_l):
-	return ''.join( [random.choice(string.letters) for i in xrange(random.randint(min_l,max_l))])
+	return ''.join( [random.choice(string.ascii_letters) for i in range(random.randint(min_l,max_l))])
 
 def get_arch_distinfo():
 	# Copied verbatim from guess_debian_release; sucks but unavoidable.

@@ -11,6 +11,21 @@ import os
 def rnd_string(min_l,max_l):
 	return ''.join( [random.choice(string.letters) for i in xrange(random.randint(min_l,max_l))])
 
+def get_arch_distinfo():
+	# Copied verbatim from guess_debian_release; sucks but unavoidable.
+	distinfo = {'ID' : 'Debian'}
+	kern = os.uname()[0]
+	if kern in ('Linux', 'Hurd', 'NetBSD'):
+		distinfo['OS'] = 'GNU/'+kern
+	elif kern == 'FreeBSD':
+		distinfo['OS'] = 'GNU/k'+kern
+	elif kern in ('GNU/Linux', 'GNU/kFreeBSD'):
+		distinfo['OS'] = kern
+	else:
+		distinfo['OS'] = 'GNU'
+	return distinfo
+
+
 class TestLSBRelease(unittest.TestCase):
 
 	def test_lookup_codename(self):
@@ -156,17 +171,7 @@ class TestLSBRelease(unittest.TestCase):
 		os.environ.pop('TEST_APT_CACHE_RELEASE')
 
 	def test_guess_debian_release(self):
-		# Copied verbatim from guess_debian_release; sucks but unavoidable.
-		distinfo = {'ID' : 'Debian'}
-		kern = os.uname()[0]
-		if kern in ('Linux', 'Hurd', 'NetBSD'):
-			distinfo['OS'] = 'GNU/'+kern
-		elif kern == 'FreeBSD':
-			distinfo['OS'] = 'GNU/k'+kern
-		elif kern in ('GNU/Linux', 'GNU/kFreeBSD'):
-			distinfo['OS'] = kern
-		else:
-			distinfo['OS'] = 'GNU'
+		distinfo = get_arch_distinfo()
 
 		# Test "stable releases" with numeric debian_versions
 		for rno in lr.RELEASE_CODENAME_LOOKUP:

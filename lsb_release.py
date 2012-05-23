@@ -17,6 +17,9 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
 
+# Python3-compatible print() function
+from __future__ import print_function
+
 import sys
 import commands
 import os
@@ -247,8 +250,8 @@ def guess_debian_release():
         try:
             with open(etc_debian_version) as debian_version:
                 release = debian_version.read().strip()
-        except IOError, msg:
-            print >> sys.stderr, 'Unable to open ' + etc_debian_version + ':', str(msg)
+        except IOError as msg:
+            print('Unable to open ' + etc_debian_version + ':', str(msg), file=sys.stderr)
             release = 'unknown'
             
         if not release[0:1].isalpha():
@@ -320,8 +323,8 @@ def get_lsb_information():
                             arg = arg[1:-1]
                         if arg: # Ignore empty arguments
                             distinfo[var] = arg.strip()
-        except IOError, msg:
-            print >> sys.stderr, 'Unable to open ' + etc_lsb_release , str(msg)
+        except IOError as msg:
+            print('Unable to open ' + etc_lsb_release + ':', str(msg), file=sys.stderr)
             
     return distinfo
 
@@ -337,8 +340,8 @@ def get_distro_information():
         return lsbinfo
 
 def test():
-    print get_distro_information()
-    print check_modules_installed()
+    print(get_distro_information())
+    print(check_modules_installed())
 
 if __name__ == '__main__':
     test()

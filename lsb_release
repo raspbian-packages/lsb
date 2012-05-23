@@ -17,6 +17,9 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
 
+# Python3-compatible print() function
+from __future__ import print_function
+
 from optparse import OptionParser
 import sys
 import commands
@@ -62,35 +65,35 @@ def main():
     if none or options.all or options.version:
         verinfo = lsb_release.check_modules_installed()
         if not verinfo:
-            print >> sys.stderr, "No LSB modules are available."
+            print("No LSB modules are available.", file=sys.stderr)
         elif short:
-            print ':'.join(verinfo)
+            print(':'.join(verinfo))
         else:
-            print 'LSB Version:\t' + ':'.join(verinfo)
+            print('LSB Version:\t' + ':'.join(verinfo))
 
     if options.id or options.all:
         if short:
-            print distinfo.get('ID', 'n/a')
+            print(distinfo.get('ID', 'n/a'))
         else:
-            print 'Distributor ID:\t%s' % distinfo.get('ID', 'n/a')
+            print('Distributor ID:\t%s' % distinfo.get('ID', 'n/a'))
 
     if options.description or options.all:
         if short:
-            print distinfo.get('DESCRIPTION', 'n/a')
+            print(distinfo.get('DESCRIPTION', 'n/a'))
         else:
-            print 'Description:\t%s' % distinfo.get('DESCRIPTION', 'n/a')
+            print('Description:\t%s' % distinfo.get('DESCRIPTION', 'n/a'))
 
     if options.release or options.all:
         if short:
-            print distinfo.get('RELEASE', 'n/a')
+            print(distinfo.get('RELEASE', 'n/a'))
         else:
-            print 'Release:\t%s' % distinfo.get('RELEASE', 'n/a')
+            print('Release:\t%s' % distinfo.get('RELEASE', 'n/a'))
 
     if options.codename or options.all:
         if short:
-            print distinfo.get('CODENAME', 'n/a')
+            print(distinfo.get('CODENAME', 'n/a'))
         else:
-            print 'Codename:\t%s' % distinfo.get('CODENAME', 'n/a')
+            print('Codename:\t%s' % distinfo.get('CODENAME', 'n/a'))
 
 if __name__ == '__main__':
     main()

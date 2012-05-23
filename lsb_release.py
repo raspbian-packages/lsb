@@ -45,9 +45,9 @@ RELEASE_CODENAME_LOOKUP = {
 
 TESTING_CODENAME = 'unknown.new.testing'
 
-RELEASES_ORDER = RELEASE_CODENAME_LOOKUP.items()
+RELEASES_ORDER = list(RELEASE_CODENAME_LOOKUP.items())
 RELEASES_ORDER.sort()
-RELEASES_ORDER = list(zip(*RELEASES_ORDER)[1])
+RELEASES_ORDER = list(list(zip(*RELEASES_ORDER))[1])
 RELEASES_ORDER.extend(['stable', 'testing', 'unstable', 'sid'])
 
 def lookup_codename(release, unknown=None):
@@ -229,8 +229,7 @@ def guess_release_from_apt(origin='Debian', component='main',
     if not releases:
         return None
     
-    releases.sort()
-    releases.reverse()
+    releases.sort(key=lambda tuple: tuple[0],reverse=True)
 
     # We've sorted the list by descending priority, so the first entry should
     # be the "main" release in use on the system

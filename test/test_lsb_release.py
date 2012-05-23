@@ -93,13 +93,13 @@ class TestLSBRelease(unittest.TestCase):
 
 	def test_parse_policy_line(self):
 		release_line = ''
-		shortnames = lr.longnames.keys()
+		shortnames = list(lr.longnames.keys())
 		random.shuffle(shortnames)
 		longnames = {}
 		for shortname in shortnames:
 			longnames[lr.longnames[shortname]] = rnd_string(1,9)
 			release_line += shortname + '=' + longnames[lr.longnames[shortname]] + ','
-		release_line = string.strip(release_line,',')
+		release_line = release_line[:-1]
 		self.assertEqual(sorted(lr.parse_policy_line(release_line)),sorted(longnames),'parse_policy_line(' + release_line + ')')
 
 	def test_sort_releases(self):

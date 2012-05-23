@@ -242,12 +242,13 @@ def guess_debian_release():
 
     distinfo['DESCRIPTION'] = '%(ID)s %(OS)s' % distinfo
 
-    if os.path.exists('/etc/debian_version'):
+    etc_debian_version = os.environ.get('LSB_ETC_DEBIAN_VERSION','/etc/debian_version')
+    if os.path.exists(etc_debian_version):
         try:
-            with open('/etc/debian_version') as debian_version:
+            with open(etc_debian_version) as debian_version:
                 release = debian_version.read().strip()
         except IOError, msg:
-            print >> sys.stderr, 'Unable to open /etc/debian_version:', str(msg)
+            print >> sys.stderr, 'Unable to open ' + etc_debian_version + ':', str(msg)
             release = 'unknown'
             
         if not release[0:1].isalpha():

@@ -142,9 +142,92 @@ class TestLSBRelease(unittest.TestCase):
 		os.environ.pop('TEST_APT_CACHE2')
 		os.environ.pop('TEST_APT_CACHE_RELEASE')
 
-	@unittest.skip('Test not implemented.')
 	def test_guess_debian_release(self):
-		raise NotImplementedError()
+		# Copied verbatim from guess_debian_release; sucks but unavoidable.
+		distinfo = {'ID' : 'Debian'}
+		kern = os.uname()[0]
+		if kern in ('Linux', 'Hurd', 'NetBSD'):
+			distinfo['OS'] = 'GNU/'+kern
+		elif kern == 'FreeBSD':
+			distinfo['OS'] = 'GNU/k'+kern
+		elif kern in ('GNU/Linux', 'GNU/kFreeBSD'):
+			distinfo['OS'] = kern
+		else:
+			distinfo['OS'] = 'GNU'
+
+		# Test "stable releases" with numeric debian_versions
+		for rno in lr.RELEASE_CODENAME_LOOKUP:
+			distinfo['RELEASE'] = rno + random.choice('.r') + str(random.randint(0,9))
+			distinfo['CODENAME'] = lr.RELEASE_CODENAME_LOOKUP[rno]
+			distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
+			fn = 'test/debian_version_' + rnd_string(5,5)
+			f = open(fn,'w')
+			f.write(distinfo['RELEASE'])
+			f.close()
+			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+			self.assertEqual(lr.guess_debian_release(),distinfo)
+			os.remove(fn)
+		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
+
+		# Remove the CODENAME from the supposed output
+		distinfo.pop('CODENAME')
+		# Test "stable releases" with string debian_versions, go read invalid apt-cache policy
+		for rno in lr.RELEASE_CODENAME_LOOKUP:
+			distinfo['RELEASE']  = lr.RELEASE_CODENAME_LOOKUP[rno]
+			distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s' % distinfo
+			fn = 'test/debian_version_' + rnd_string(5,12)
+			f = open(fn,'w')
+			f.write(distinfo['RELEASE'])
+			f.close()
+			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+			self.assertEqual(lr.guess_debian_release(),distinfo)
+			os.remove(fn)
+		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
+
+		# Test "unstable releases" that end in /sid, go read invalid apt-cache policy
+		distinfo['RELEASE'] = 'testing/unstable'
+		distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s' % distinfo
+		for rno in lr.RELEASE_CODENAME_LOOKUP:
+			fn = 'test/debian_version_' + rnd_string(5,12)
+			f = open(fn,'w')
+			f.write(lr.RELEASE_CODENAME_LOOKUP[rno] + '/sid')
+			f.close()
+			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+			self.assertEqual(lr.guess_debian_release(),distinfo)
+			os.remove(fn)
+		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
+
+		# Test "unstable releases" that end in /sid, go read valid apt-cache policy
+		os.environ['TEST_APT_CACHE_UNSTABLE'] = '500'
+		distinfo['CODENAME'] = 'sid'
+		distinfo['RELEASE'] = 'unstable'
+		distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
+		for rno in lr.RELEASE_CODENAME_LOOKUP:
+			fn = 'test/debian_version_' + rnd_string(5,12)
+			f = open(fn,'w')
+			f.write(lr.RELEASE_CODENAME_LOOKUP[rno] + '/sid')
+			f.close()
+			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+			self.assertEqual(lr.guess_debian_release(),distinfo)
+			os.remove(fn)
+		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
+
+		# Test "unstable releases with Debian Ports" that end in /sid, go read valid apt-cache policy
+		os.environ['TEST_APT_CACHE_UNSTABLE_PORTS'] = '500'
+		distinfo['CODENAME'] = 'sid'
+		distinfo['RELEASE'] = 'unstable'
+		distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
+		for rno in lr.RELEASE_CODENAME_LOOKUP:
+			fn = 'test/debian_version_' + rnd_string(5,12)
+			f = open(fn,'w')
+			f.write(lr.RELEASE_CODENAME_LOOKUP[rno] + '/sid')
+			f.close()
+			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+			self.assertEqual(lr.guess_debian_release(),distinfo)
+			os.remove(fn)
+		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
+		os.environ.pop('TEST_APT_CACHE_UNSTABLE_PORTS')
+		os.environ.pop('TEST_APT_CACHE_UNSTABLE')
 
 	def test_get_lsb_information(self):
 		# Test that an inexistant /etc/lsb-release leads to empty output

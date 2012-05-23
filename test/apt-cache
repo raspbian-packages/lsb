@@ -37,3 +37,15 @@ if os.environ.get('TEST_APT_CACHE_RELEASE') == '512':
 	print(' 512 http://MirRor_is_not_read/folder-either-debian/ exp/main arch Packages')
 	print('     release o=P-or1g1n,a=sid,n=codename-not-read,l=P-l8bel,c=OtherComp')
 	print('     origin MirRor-is-not-read')
+
+if os.environ.get('TEST_APT_CACHE_UNSTABLE') == '500':
+	print(' 500 http://MirRor_is_not_read/folder-either-debian/ sid/main arch Packages')
+	print('     release o=Debian,a=unstable,n=sid,l=Debian,c=main')
+	print('     origin MirRor-is-not-read')
+
+if os.environ.get('TEST_APT_CACHE_UNSTABLE_PORTS') == '500':
+	print(' 500 http://MirRor_is_not_read/folder-either-debian-ports/ sid/main arch Packages')
+	print('     release o=Debian Ports,a=unstable,n=sid,l=ftp.debian-ports.org,c=main,v=1.0')
+	print('     origin MirRor-is-not-read')
+
+print('Pinned packages:')

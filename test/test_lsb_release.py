@@ -9,6 +9,8 @@ import string
 import os
 import sys
 
+import warnings
+
 def rnd_string(min_l,max_l):
 	return ''.join( [random.choice(string.ascii_letters) for i in range(random.randint(min_l,max_l))])
 

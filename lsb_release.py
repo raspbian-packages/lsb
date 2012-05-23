@@ -24,6 +24,7 @@ import sys
 import subprocess
 import os
 import re
+import warnings
 
 # XXX: Update as needed
 # This should really be included in apt-cache policy output... it is already
@@ -187,16 +188,14 @@ def release_index(x):
     return 0
 
 def compare_release(x, y):
-    suite_x = x[1].get('suite')
-    suite_y = y[1].get('suite')
-
-    if suite_x and suite_y:
-        if suite_x in RELEASES_ORDER and suite_y in RELEASES_ORDER:
-            return RELEASES_ORDER.index(suite_y)-RELEASES_ORDER.index(suite_x)
-        else:
-            return (suite_x > suite_y) - (suite_x < suite_y)
-
-    return 0
+    warnings.warn('compare_release(x,y) is deprecated; please use the release_index(x) as key for sort() instead.', DeprecationWarning, stacklevel=2)
+    suite_x_i = release_index(x)
+    suite_y_i = release_index(y)
+    
+    try:
+        return suite_x_i - suite_y_i
+    except TypeError:
+        return (suite_x_i > suite_y_i) - (suite_x_i < suite_y_i)
 
 def parse_apt_policy():
     data = []

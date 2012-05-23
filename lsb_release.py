@@ -21,7 +21,7 @@
 from __future__ import print_function
 
 import sys
-import commands
+import subprocess
 import os
 import re
 
@@ -125,7 +125,13 @@ except NameError:
 # This is Debian-specific at present
 def check_modules_installed():
     # Find which LSB modules are installed on this system
-    output = commands.getoutput("dpkg-query -f '${Version} ${Provides}\n' -W %s 2>/dev/null" % PACKAGES)
+    C_env = os.environ.copy(); C_env['LC_ALL'] = 'C'
+    output = subprocess.Popen(['dpkg-query','-f',"${Version} ${Provides}\n",'-W'] + PACKAGES.split(),
+                              env=C_env,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+                              close_fds=True).communicate()[0].decode('ascii')
+
     if not output:
         return []
 
@@ -184,7 +190,12 @@ def compare_release(x, y):
 def parse_apt_policy():
     data = []
     
-    policy = commands.getoutput('LANG=C apt-cache policy 2>/dev/null')
+    C_env = os.environ.copy(); C_env['LC_ALL'] = 'C'
+    policy = subprocess.Popen(['apt-cache','policy'],
+                              env=C_env,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+                              close_fds=True).communicate()[0].decode('ascii')
     for line in policy.split('\n'):
         line = line.strip()
         m = re.match(r'(-?\d+)', line)

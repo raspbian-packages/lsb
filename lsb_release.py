@@ -177,6 +177,15 @@ def parse_policy_line(data):
                 retval[longnames[k]] = v
     return retval
 
+def release_index(x):
+    suite = x[1].get('suite')
+    if suite:
+        if suite in RELEASES_ORDER:
+            return int(len(RELEASES_ORDER) - RELEASES_ORDER.index(suite))
+        else:
+            return suite
+    return 0
+
 def compare_release(x, y):
     suite_x = x[1].get('suite')
     suite_y = y[1].get('suite')

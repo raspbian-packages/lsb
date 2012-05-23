@@ -101,6 +101,36 @@ class TestLSBRelease(unittest.TestCase):
 		release_line = string.strip(release_line,',')
 		self.assertEqual(sorted(lr.parse_policy_line(release_line)),sorted(longnames),'parse_policy_line(' + release_line + ')')
 
+	def test_sort_releases(self):
+		# Compare suites with random suite names
+		releases = []
+		suites = []
+		for i in range(random.randint(5,40)):
+			suite_name = rnd_string(8,25)
+			suites.append(suite_name)
+			releases.append([rnd_string(1,12), {'suite': suite_name}])
+		suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
+		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
+		suites.sort()
+		self.assertEqual(suites,suites_from_releases)
+		self.assertEqual(suites,suites_from_releases_new)
+
+		# Compare suites with known suite names
+		releases = []
+		suites = []
+		RO_min = 0
+		RO_max = len(lr.RELEASES_ORDER) - 1
+		for i in range(random.randint(5,7)):
+			suite_i = random.randint(RO_min,RO_max)
+			suite_name = lr.RELEASES_ORDER[suite_i]
+			suites.append(suite_name)
+			releases.append([rnd_string(1,12), {'suite': suite_name}])
+		suites_from_releases     = [x[1]['suite'] for x in sorted(releases,lr.compare_release)]
+		suites_from_releases_new = [x[1]['suite'] for x in sorted(releases,key=lr.release_index)]
+		suites.sort(key=lambda suite: int(lr.RELEASES_ORDER.index(suite)),reverse=True)
+		self.assertEqual(suites,suites_from_releases)
+		self.assertEqual(suites,suites_from_releases_new)
+
 	def test_compare_release(self):
 		# Test that equal suite strings lead to 0
 		fake_release_equal = rnd_string(1,25)

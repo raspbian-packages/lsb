@@ -1,3 +1,27 @@
+lsb (4.1+Debian5) unstable; urgency=low
+
+  * lsb-base; init-functions:
+    - Correct comment about hooks.
+    - Enhance doc about files sourced from init-functions
+    - Allow FANCYTTY to be sourced from /etc/default/rcS. (Closes: #673207)
+    - Safe-guard calls to echo with `|| true`; this helps towards making
+      sure init.d scripts called with `set -e` continue to work, see
+      #661002.
+
+  * lsb-release; python code:
+    - In guess_debian_release(), avoid calling guess_release_from_apt()
+      and hence the slow `apt-cache policy` if a codename is already
+      provided. Patch by Francois Gouget. (Closes: #674143)
+    - Add unittests for all lsb_release.py functions.
+    - Upgrade to python3-compatible syntax.
+    - Deprecate the lsb_release.compare_releases() function.
+
+  * lsb-invalid-mta;
+    -  Add the /usr/lib/sendmail symlink to /usr/sbin/sendmail.
+       (LP: #580914)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 29 May 2012 09:33:04 +0200
+
 lsb (4.1+Debian4) unstable; urgency=low
 
   * In init-functions, include hooks from /lib/lsb/init-functions.d

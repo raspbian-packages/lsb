@@ -1,3 +1,11 @@
+lsb (4.1+Debian6) unstable; urgency=low
+
+  * Revert "Allow FANCYTTY to be sourced from /etc/default/rcS." This
+    avoids one ugly `set +u` in the $() subshell and avoids the hijack
+    of /etc/default/rcS. (Reopens: #673207, Closes: #675162, #675197)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 30 May 2012 19:27:22 +0200
+
 lsb (4.1+Debian5) unstable; urgency=low
 
   * lsb-base; init-functions:

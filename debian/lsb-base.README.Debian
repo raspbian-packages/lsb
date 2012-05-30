@@ -193,7 +193,8 @@ Bourne-style shell permitted by Debian policy (i.e. not just bash).
 
   - FANCY OUTPUT
 
-"Fancy output" can be overridden by setting FANCYTTY=0 in /etc/default/rcS.
+"Fancy output" can be overridden by setting FANCYTTY=0 in
+/etc/lsb-base-logging.sh .
 
   - OUTPUT FUNCTIONS
 

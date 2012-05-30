@@ -425,5 +425,5 @@ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2>/dev/nul
     [ -r $hook ] && . $hook || true
 done
 
-FANCYTTY=$([ -e /etc/default/rcS ] && . /etc/default/rcS && echo $FANCYTTY)
+FANCYTTY=
 [ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true

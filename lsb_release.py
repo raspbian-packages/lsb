@@ -131,7 +131,7 @@ def check_modules_installed():
                               env=C_env,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE,
-                              close_fds=True).communicate()[0].decode('ascii')
+                              close_fds=True).communicate()[0].decode('utf-8')
 
     if not output:
         return []
@@ -205,7 +205,7 @@ def parse_apt_policy():
                               env=C_env,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE,
-                              close_fds=True).communicate()[0].decode('ascii')
+                              close_fds=True).communicate()[0].decode('utf-8')
     for line in policy.split('\n'):
         line = line.strip()
         m = re.match(r'(-?\d+)', line)

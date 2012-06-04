@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# coding=utf-8
+from __future__ import unicode_literals
+
 import unittest
 
 import lsb_release as lr
@@ -175,12 +178,18 @@ class TestLSBRelease(unittest.TestCase):
 		os.environ['TEST_APT_CACHE2'] = '600'
 		supposed_output.append((600, {'origin': '0RigIn', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
+		# Add a third fake entry, unordered, with non-ascii chars (#675618)
+		os.environ['TEST_APT_CACHE3'] = '754'
+		supposed_output.append((754, {'origin': 'Jérôme Helvète', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
+		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		os.environ.pop('TEST_APT_CACHE1')
 		os.environ.pop('TEST_APT_CACHE2')
+		os.environ.pop('TEST_APT_CACHE3')
 
 	def test_guess_release_from_apt(self):
 		os.environ['TEST_APT_CACHE1'] = '932'
 		os.environ['TEST_APT_CACHE2'] = '600'
+		os.environ['TEST_APT_CACHE3'] = '754'
 		os.environ['TEST_APT_CACHE_RELEASE'] = '512'
 		supposed_output = {'origin': 'or1g1n', 'suite': 'testing', 'component': 'c0mp0nent', 'label': 'l8bel'}
 		self.assertEqual(
@@ -203,6 +212,7 @@ class TestLSBRelease(unittest.TestCase):
 			supposed_output)
 		os.environ.pop('TEST_APT_CACHE1')
 		os.environ.pop('TEST_APT_CACHE2')
+		os.environ.pop('TEST_APT_CACHE3')
 		os.environ.pop('TEST_APT_CACHE_RELEASE')
 
 	def test_guess_debian_release(self):

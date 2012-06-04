@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 
 # Fake apt-cache python script to emulate policy output for test usage
 
@@ -23,6 +24,11 @@ if os.environ.get('TEST_APT_CACHE1') == '932':
 if os.environ.get('TEST_APT_CACHE2') == '600':
 	print('600  http://MirRor_is_not_read/folder-either-debian/ sid/main arch Packages')
 	print('     release o=0RigIn,a=5uiTe,n=codename-not-read,l=1ABel,c=C03p0nent')
+	print('     origin MirRor-is-not-read')
+
+if os.environ.get('TEST_APT_CACHE3') == '754':
+	print(' 754 http://MirRor_is_not_read/folder-either-debian/ sid/main arch Packages')
+	print('     release o=Jérôme Helvète,a=5uiTe,n=codename-not-read,l=1ABel,c=C03p0nent')
 	print('     origin MirRor-is-not-read')
 
 if os.environ.get('TEST_APT_CACHE_RELEASE') == '512':

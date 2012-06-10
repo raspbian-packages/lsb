@@ -1,3 +1,16 @@
+lsb (4.1+Debian7) unstable; urgency=low
+
+  * lsb-desktop: Demote Qt3 dependency to a Recommends. Closes: #604360
+    - Add a README.Debian to lsb-desktop to document the possibility to
+      install Qt3 from snapshot.debian.org;
+    - Add a NEWS.Debian to lsb-desktop to document the derogation to the
+      LSB 4.1 specification.
+
+  * Accept utf-8 in `apt-cache policy` and `dpkg-query` outputs; add
+    test-case. (Closes: #675618)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 10 Jun 2012 23:18:07 +0200
+
 lsb (4.1+Debian6) unstable; urgency=low
 
   * Revert "Allow FANCYTTY to be sourced from /etc/default/rcS." This

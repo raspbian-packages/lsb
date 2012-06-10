@@ -1,6 +1,6 @@
-lsb (4.1+Debian4+) unstable; urgency=low
+lsb (4.1+Debian7) unstable; urgency=low
 
-  From its 4.1+Debian4+ version on, lsb-desktop doesn't depend on Qt3 anymore.
+  From its 4.1+Debian7 version on, lsb-desktop doesn't depend on Qt3 anymore.
   This is an explicit and Debian-specific derogation from the LSB 4.1
   specification.
 
@@ -12,4 +12,4 @@ lsb (4.1+Debian4+) unstable; urgency=low
   Please refer to /usr/share/doc/lsb-desktop/README.Debian for instructions to
   install Qt3 from unsupported sources.
 
- -- Didier Raboud <odyx@debian.org>  Mon, 28 May 2012 11:31:12 +0200
+ -- Didier Raboud <odyx@debian.org>  Sun, 10 Jun 2012 23:18:07 +0200

@@ -150,7 +150,7 @@ Depends: lsb-graphics (>= ${source:Version}),
  libnss3-1d,
  ${misc:Depends}
 # libqt4-sql-sqlite is Not strictly needed by LSB, but the tests want a valid database handler
-Recommends: libqt3-mt (>= 3.3.6)
+Recommends: libqt3-mt (>= 3:3.3.6)
 Provides: lsb-desktop-noarch, lsb-qt4, lsb-qt4-noarch, ${provides}
 Description: Linux Standard Base 4.1 Desktop support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

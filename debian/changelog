@@ -1,3 +1,9 @@
+lsb (4.1+Debian8) UNRELEASED; urgency=low
+
+  * Fix initdutils for compatibility with Python 3.
+
+ -- Jeff Licquia <licquia@debian.org>  Sun, 15 Jul 2012 15:08:26 -0400
+
 lsb (4.1+Debian7) unstable; urgency=low
 
   * lsb-desktop: Demote Qt3 dependency to a Recommends. Closes: #604360

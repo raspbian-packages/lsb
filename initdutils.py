@@ -1,12 +1,13 @@
 # Support for scanning init scripts for LSB info
 
-import re, sys, os
-import pickle
+import re, sys, os, cStringIO
+import cPickle
 
 try:
-    from io import StringIO
-except ImportError:
-    from cStringIO import StringIO
+    assert True
+except:
+    True = 1
+    False = 0
 
 class RFC822Parser(dict):
     "A dictionary-like object."
@@ -14,14 +15,14 @@ class RFC822Parser(dict):
     
     def __init__(self, fileob=None, strob=None, startcol=0, basedict=None):
         if not fileob and not strob:
-            raise ValueError('need a file or string')
+            raise ValueError, 'need a file or string'
         if not basedict:
             basedict = {}
         
         super(RFC822Parser, self).__init__(basedict)
 
         if not fileob:
-            fileob = StringIO(strob)
+            fileob = cStringIO.StringIO(strob)
 
         key = None
         for line in fileob:
@@ -118,7 +119,7 @@ def load_facilities():
                 scriptname, name, start, stop = line.strip().split()
                 facilities.setdefault(name, {})[scriptname] = (int(start),
                                                                int(stop))
-            except ValueError as x:
+            except ValueError, x:
                 print >> sys.stderr, 'Invalid facility line', line
 
     return facilities
@@ -173,4 +174,4 @@ def save_lsbinstall_info(filemap):
     fh.close()
 
 if __name__ == '__main__':
-    print (scan_initfile('init-fragment'))
+    print scan_initfile('init-fragment')

@@ -1,3 +1,11 @@
+lsb (4.1+Debian8) unstable; urgency=low
+
+  * Fix libqt3-mt missing epoch.
+  * Hide the stderr output of $(initctl version) in init_is_upstart.
+    (Closes: #682032)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Nov 2012 12:03:33 +0100
+
 lsb (4.1+Debian7) unstable; urgency=low
 
   * lsb-desktop: Demote Qt3 dependency to a Recommends. Closes: #604360

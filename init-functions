@@ -75,6 +75,10 @@ pidofproc () {
         esac
     done
     shift $(($OPTIND - 1))
+    if [ $# -ne 1 ]; then
+        echo "$0: invalid arguments" >&2
+        return 4
+    fi
 
     base=${1##*/}
     if [ ! "$specified" ]; then

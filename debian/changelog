@@ -1,10 +1,9 @@
-lsb (4.1+Debian8+exp0) experimental; urgency=low
+lsb (4.1+Debian9) unstable; urgency=low
 
   [ Jeff Licquia ]
-  * Fix initdutils for compatibility with Python 3.
-  * Sanity-check pidofproc parameters (Closes: #691422)
+  * Sanity-check pidofproc parameters. (Closes: #691422)
 
- -- Didier Raboud <odyx@debian.org>  Sat, 10 Nov 2012 17:00:30 +0100
+ -- Didier Raboud <odyx@debian.org>  Mon, 12 Nov 2012 08:58:04 +0100
 
 lsb (4.1+Debian8) unstable; urgency=low
 

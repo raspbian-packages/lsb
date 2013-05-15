@@ -1,3 +1,10 @@
+lsb (4.1+Debian11) UNRELEASED; urgency=low
+
+  * add -Es to the lsb_release python shebang, as discussed in
+    <https://lists.debian.org/debian-python/2012/10/msg00021.html>.
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 15 May 2013 04:53:22 -0500
+
 lsb (4.1+Debian10) unstable; urgency=low
 
   [ Steve Langasek ]

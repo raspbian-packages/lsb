@@ -42,6 +42,7 @@ RELEASE_CODENAME_LOOKUP = {
     '5.0' : 'lenny',
     '6.0' : 'squeeze',
     '7.0' : 'wheezy',
+    '8.0' : 'jessie',
     }
 
 TESTING_CODENAME = 'unknown.new.testing'

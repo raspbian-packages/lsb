@@ -6,6 +6,8 @@ lsb (4.1+Debian11) UNRELEASED; urgency=low
     Ubuntu logging functions.
   * Correct duplicate reference to log_action_end_msg_post in
     debian/lsb-base.README.Debian.
+  * debian/rules: fix the build on Ubuntu derivatives when building only the
+    arch-dependent packages.
 
  -- Steve Langasek <vorlon@debian.org>  Wed, 15 May 2013 04:53:22 -0500
 

@@ -252,7 +252,25 @@ def guess_release_from_apt(origin='Debian', component='main',
     return releases[0][1]
 
 def guess_debian_release():
-    distinfo = {'ID' : 'Debian'}
+    distinfo = {}
+
+    distinfo['ID'] = 'Debian'
+    # Use /etc/dpkg/origins/default to fetch the distribution name
+    etc_dpkg_origins_default = os.environ.get('LSB_ETC_DPKG_ORIGINS_DEFAULT','/etc/dpkg/origins/default')
+    if os.path.exists(etc_dpkg_origins_default):
+        try:
+            with open(etc_dpkg_origins_default) as dpkg_origins_file:
+                for line in dpkg_origins_file:
+                    try:
+                        (header, content) = line.split(': ', 1)
+                        header = header.lower()
+                        content = content.strip()
+                        if header == 'vendor':
+                            distinfo['ID'] = content
+                    except ValueError:
+                        pass
+        except IOError as msg:
+            print('Unable to open ' + etc_dpkg_origins_default + ':', str(msg), file=sys.stderr)
 
     kern = os.uname()[0]
     if kern in ('Linux', 'Hurd', 'NetBSD'):

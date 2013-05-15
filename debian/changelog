@@ -1,5 +1,6 @@
-lsb (4.1+Debian11) UNRELEASED; urgency=low
+lsb (4.1+Debian11) unstable; urgency=low
 
+  [ Steve Langasek ]
   * add -Es to the lsb_release python shebang, as discussed in
     <https://lists.debian.org/debian-python/2012/10/msg00021.html>.
   * Fix debian/copyright to list the correct Canonical copyright for the
@@ -9,7 +10,14 @@ lsb (4.1+Debian11) UNRELEASED; urgency=low
   * debian/rules: fix the build on Ubuntu derivatives when building only the
     arch-dependent packages.
 
- -- Steve Langasek <vorlon@debian.org>  Wed, 15 May 2013 04:53:22 -0500
+  [ Didier Raboud ]
+  * Add jessie to the release codenames lookup table
+  * Get Distributor ID from /etc/dpkg/origins/default if existant
+    (Closes: #703677)
+  * Bump Standards-Version to 3.9.4 without changes needed
+  * Correct lsb-desktop.NEWS syntax errors
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 15 May 2013 22:15:05 +0200
 
 lsb (4.1+Debian10) unstable; urgency=low
 

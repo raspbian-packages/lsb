@@ -1,12 +1,10 @@
 # Support for scanning init scripts for LSB info
 
-import re, sys, os
-import pickle
+# Python3-compatible print() function
+from __future__ import print_function
 
-try:
-    from io import StringIO
-except ImportError:
-    from cStringIO import StringIO
+import re, sys, os, io
+import pickle
 
 class RFC822Parser(dict):
     "A dictionary-like object."
@@ -21,7 +19,7 @@ class RFC822Parser(dict):
         super(RFC822Parser, self).__init__(basedict)
 
         if not fileob:
-            fileob = StringIO(strob)
+            fileob = io.StringIO(strob)
 
         key = None
         for line in fileob:
@@ -107,7 +105,7 @@ def save_facilities(facilities):
         if facility.startswith('$'): continue
         for (scriptname, pri) in entries.items():
             start, stop = pri
-            print >> fh, "%(scriptname)s %(facility)s %(start)d %(stop)d" % locals()
+            print("%(scriptname)s %(facility)s %(start)d %(stop)d" % locals(), file=fh)
     fh.close()
 
 def load_facilities():
@@ -119,7 +117,7 @@ def load_facilities():
                 facilities.setdefault(name, {})[scriptname] = (int(start),
                                                                int(stop))
             except ValueError as x:
-                print >> sys.stderr, 'Invalid facility line', line
+                print('Invalid facility line', line, file=sys.stderr)
 
     return facilities
 
@@ -142,7 +140,7 @@ def save_depends(depends):
     
     fh = file(DEPENDS, 'w')
     for initfile, facilities in depends.iteritems():
-        print >> fh, '%s: %s' % (initfile, ' '.join(facilities))
+        print('%s: %s' % (initfile, ' '.join(facilities)), fh)
     fh.close()
 
 # filemap entries are mappings, { (package, filename) : instloc }
@@ -151,7 +149,7 @@ def load_lsbinstall_info():
         return {}
     
     fh = open(LSBINSTALL, 'rb')
-    filemap = cPickle.load(fh)
+    filemap = pickle.load(fh)
     fh.close()
 
     # Just in case it's corrupted somehow
@@ -169,8 +167,8 @@ def save_lsbinstall_info(filemap):
         return
     
     fh = open(LSBINSTALL, 'wb')
-    cPickle.dump(fh, filemap)
+    pickle.dump(fh, filemap)
     fh.close()
 
 if __name__ == '__main__':
-    print (scan_initfile('init-fragment'))
+    print(scan_initfile('init-fragment'))

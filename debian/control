@@ -147,7 +147,7 @@ Depends: lsb-graphics (>= ${source:Version}),
  libxtst6,
  libxft2,
  xdg-utils,
- libnss3-1d,
+ libnss3,
  ${misc:Depends}
 # libqt4-sql-sqlite is Not strictly needed by LSB, but the tests want a valid database handler
 Recommends: libqt3-mt (>= 3:3.3.6)
@@ -249,8 +249,8 @@ Description: Linux Standard Base 4.1 Printing package
 
 Package: lsb-security
 Architecture: any
-Depends: libnss3-1d,
- libnspr4-0d,
+Depends: libnss3,
+ libnspr4,
  ${misc:Depends}
 Recommends: lsb-core (>= ${source:Version}),
 Provides: lsb-security-noarch,

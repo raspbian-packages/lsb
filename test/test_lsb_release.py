@@ -346,8 +346,10 @@ class TestLSBRelease(unittest.TestCase):
 		f.write('testing/sid')
 		f.close()
 		os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+		os.environ['LSB_ETC_DPKG_ORIGINS_DEFAULT'] = ''
 		self.assertEqual(lr.get_distro_information(),supposed_output)
 		os.remove(fn)
+		os.environ.pop('LSB_ETC_DPKG_ORIGINS_DEFAULT')
 		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
 
 if __name__ == '__main__':

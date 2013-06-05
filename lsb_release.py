@@ -41,8 +41,8 @@ RELEASE_CODENAME_LOOKUP = {
     '4.0' : 'etch',
     '5.0' : 'lenny',
     '6.0' : 'squeeze',
-    '7.0' : 'wheezy',
-    '8.0' : 'jessie',
+    '7'   : 'wheezy',
+    '8'   : 'jessie',
     }
 
 TESTING_CODENAME = 'unknown.new.testing'
@@ -57,7 +57,10 @@ def lookup_codename(release, unknown=None):
     if not m:
         return unknown
 
-    shortrelease = '%s.%s' % m.group(1,2)
+    if int(m.group(1)) < 7:
+        shortrelease = '%s.%s' % m.group(1,2)
+    else:
+        shortrelease = '%s' % m.group(1)
     return RELEASE_CODENAME_LOOKUP.get(shortrelease, unknown)
 
 # LSB compliance packages... may grow eventually

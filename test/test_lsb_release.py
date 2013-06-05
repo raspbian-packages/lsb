@@ -40,6 +40,9 @@ class TestLSBRelease(unittest.TestCase):
 			cdn = lr.RELEASE_CODENAME_LOOKUP[rno]
 			# Test that 1.1, 1.1r0 and 1.1.8 lead to buzz. Default is picked randomly and is not supposed to go trough
 			badDefault = rnd_string(0,9)
+			# From Wheezy on, the codename is defined by the first number but a dot-revision is mandatory
+			if float(rno) >= 7:
+				rno = rno + '.' + str(random.randint(0,9))
 			self.assertEqual(lr.lookup_codename(rno,badDefault),cdn,'Release name `' + rno + '` is not recognized.')
 			self.assertEqual(lr.lookup_codename(rno + 'r' + str(random.randint(0,9)),badDefault),cdn,'Release name `' + rno + 'r*` is not recognized.')
 			self.assertEqual(lr.lookup_codename(rno + '.' + str(random.randint(0,9)),badDefault),cdn,'Release name `' + rno + '.*` is not recognized.')
@@ -241,7 +244,11 @@ class TestLSBRelease(unittest.TestCase):
 
 		# Test "stable releases" with numeric debian_versions
 		for rno in lr.RELEASE_CODENAME_LOOKUP:
-			distinfo['RELEASE'] = rno + random.choice('.r') + str(random.randint(0,9))
+			# From Wheezy on, the codename is defined by the first number but a dot-revision is mandatory
+			if float(rno) >= 7:
+				distinfo['RELEASE'] = rno + '.' + str(random.randint(0,9))
+			else:
+				distinfo['RELEASE'] = rno + random.choice('.r') + str(random.randint(0,9))
 			distinfo['CODENAME'] = lr.RELEASE_CODENAME_LOOKUP[rno]
 			distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
 			fn = 'test/debian_version_' + rnd_string(5,5)

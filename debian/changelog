@@ -1,3 +1,16 @@
+lsb (4.1+Debian12) unstable; urgency=low
+
+  [ Colin Watson ]
+  * Depend directly on libnss3 and libnspr4 rather than via the
+    transitional packages libnss3-1d and libnspr4-0d.
+
+  [ Didier Raboud ]
+  * Drop one more unnecessary use of /bin/echo -n.
+  * Fix lsb_release to correctly work with stable release updates
+    incrementing the second digit from Wheezy on. (Closes: #711174)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 05 Jun 2013 12:30:53 +0200
+
 lsb (4.1+Debian11) unstable; urgency=low
 
   [ Steve Langasek ]

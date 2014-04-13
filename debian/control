@@ -227,7 +227,7 @@ Depends: lsb-core (>= ${source:Version}),
  libcupsimage2,
  foomatic-filters,
  ghostscript,
- ghostscript-cups,
+ cups-filters (>= 1.0.36) | ghostscript-cups,
  ${misc:Depends}
 Provides: lsb-printing-noarch, ${provides}
 Description: Linux Standard Base 4.1 Printing package

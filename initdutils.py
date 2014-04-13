@@ -11,7 +11,7 @@ class RFC822Parser(dict):
     __linere = re.compile(r'([^:]+):\s*(.*)$')
     
     def __init__(self, fileob=None, strob=None, startcol=0, basedict=None):
-        if not fileob and not strob:
+        if fileob is None and strob is None:
             raise ValueError('need a file or string')
         if not basedict:
             basedict = {}

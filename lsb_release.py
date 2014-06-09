@@ -304,7 +304,6 @@ def guess_debian_release():
             if release.rstrip('/sid').lower().isalpha() != 'testing':
                 global TESTING_CODENAME
                 TESTING_CODENAME = release.rstrip('/sid')
-            distinfo['CODENAME'] = TESTING_CODENAME
             distinfo['RELEASE'] = 'testing/unstable'
         else:
             distinfo['RELEASE'] = release

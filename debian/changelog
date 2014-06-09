@@ -1,3 +1,31 @@
+lsb (4.1+Debian13) unstable; urgency=medium
+
+  [ Steve Langasek ]
+  * test/test_lsb_release.py: also, make lsb_release ignore dpkg origins for
+    the test, otherwise the test fails on derivatives.
+
+  [ Colin Watson ]
+  * Use open() rather than file() in initdutils.py, for Python 3 compatibility
+    (see LP #1035136)
+  * Test fileob and strob against None in RFC822Parser.__init__ rather than
+    testing their truth value, to avoid a misleading error in the case of a
+    file with no LSB headers
+
+  [ Adam Conrad ]
+  * Allow lsb-printing to depend on cups-filters | ghostscript-cups
+
+  [ Didier Raboud ]
+  * Revert "Fix the remaining problems of initdutils.py python3 compatibility"
+    (Closes: #743903)
+  * Allow multiarch alternatives of libc6-i386 and lib32z1.
+    Thanks to Michael Biebl (Closes: #748426)
+
+  [ Marcel Partap ]
+  * In lsb_release, don't forget CODENAME when it's testing; therefore stop
+  * calling apt-cache policy again (Closes: #747413)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 09 Jun 2014 08:07:23 +0200
+
 lsb (4.1+Debian12) unstable; urgency=low
 
   [ Colin Watson ]

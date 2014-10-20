@@ -1,3 +1,11 @@
+lsb (4.1+Debian13.1) unstable; urgency=medium
+
+  [ Ondřej Surý]
+  * Non-maintainer upload with maintainer agreement
+  * Change libjpeg62 dependency to libjpeg62-turbo (Closes: #766023)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 20 Oct 2014 11:37:56 +0200
+
 lsb (4.1+Debian13) unstable; urgency=medium
 
   [ Steve Langasek ]

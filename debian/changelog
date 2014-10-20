@@ -1,4 +1,4 @@
-lsb (4.1+Debian13.1) unstable; urgency=medium
+lsb (4.1+Debian13+nmu1) unstable; urgency=medium
 
   [ Ondřej Surý]
   * Non-maintainer upload with maintainer agreement

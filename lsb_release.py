@@ -204,7 +204,7 @@ def compare_release(x, y):
 def parse_apt_policy():
     data = []
     
-    C_env = os.environ.copy(); C_env['LC_ALL'] = 'C'
+    C_env = os.environ.copy(); C_env['LC_ALL'] = 'C.UTF-8'
     policy = subprocess.Popen(['apt-cache','policy'],
                               env=C_env,
                               stdout=subprocess.PIPE,

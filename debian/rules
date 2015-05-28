@@ -2,11 +2,10 @@
 
 derives_from_ubuntu := $(shell (dpkg-vendor --derives-from Ubuntu && echo "yes") || echo "no")
 
-PY2VERSIONS=$(shell pyversions -vr)
 PY3VERSIONS=$(shell [ -x /usr/bin/py3versions ] && py3versions -vr)
 
 %:
-	dh $@ --with python2
+	dh $@ --with python3
 
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
@@ -47,19 +46,21 @@ override_dh_clean:
 	dh_clean
 	rm -f *.py[co]
 	rm -f debian/lsb-base.maintscript
+	rm -rf __pycache__
+	rm -rf test/__pycache__
 
-override_dh_auto_test: $(PY2VERSIONS:%=test-python%) $(PY3VERSIONS:%=test-python%)
-
-test-python2.6:
-	# Tests are not backported to python2.6, sorry.
+override_dh_auto_test: $(PY3VERSIONS:%=test-python%)
 
 test-python%:
 	PATH=test/:$${PATH} PYTHONPATH=. python$* test/test_lsb_release.py -vv
 	PYTHONPATH=. python$* test/test_initdutils.py -vv
+	rm -rf __pycache__
+	rm -rf test/__pycache__
+	rm -f test/debian_version_*
 
-override_dh_python2:
-	dh_python2
-	dh_python2 /usr/lib/lsb
+override_dh_python3:
+	dh_python3
+	dh_python3 /usr/lib/lsb
 
 override_dh_install:
 	dh_install

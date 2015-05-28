@@ -1,4 +1,4 @@
-#!/usr/bin/python -Es
+#!/usr/bin/python3 -Es
 
 # lsb_release command for Debian
 # (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
@@ -16,9 +16,6 @@
 #    along with this package; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
-
-# Python3-compatible print() function
-from __future__ import print_function
 
 from optparse import OptionParser
 import sys

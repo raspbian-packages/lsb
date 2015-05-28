@@ -3,10 +3,7 @@
 import re, sys, os
 import pickle
 
-try:
-    from io import StringIO
-except ImportError:
-    from cStringIO import StringIO
+from io import StringIO
 
 class RFC822Parser(dict):
     "A dictionary-like object."
@@ -78,13 +75,13 @@ def scan_initfile(initfile):
 
     inheaders = RFC822Parser(strob=headerlines)
     headers = {}
-    for header, body in inheaders.iteritems():
+    for header, body in inheaders.items():
         # Ignore empty headers
         if not body.strip():
             continue
         
         if header in ('Default-Start', 'Default-Stop'):
-            headers[header] = map(int, body.split())
+            headers[header] = list(map(int, body.split()))
         elif header in ('Required-Start', 'Required-Stop', 'Provides',
                         'Should-Start', 'Should-Stop'):
             headers[header] = body.split()
@@ -107,19 +104,19 @@ def save_facilities(facilities):
         if facility.startswith('$'): continue
         for (scriptname, pri) in entries.items():
             start, stop = pri
-            print >> fh, "%(scriptname)s %(facility)s %(start)d %(stop)d" % locals()
+            print("%(scriptname)s %(facility)s %(start)d %(stop)d" % locals(), file=fh)
     fh.close()
 
 def load_facilities():
     facilities = {}
     if os.path.exists(FACILITIES):
-        for line in open(FACILITIES).xreadlines():
+        for line in open(FACILITIES):
             try:
                 scriptname, name, start, stop = line.strip().split()
                 facilities.setdefault(name, {})[scriptname] = (int(start),
                                                                int(stop))
             except ValueError as x:
-                print >> sys.stderr, 'Invalid facility line', line
+                print('Invalid facility line', line, file=sys.stderr)
 
     return facilities
 
@@ -128,7 +125,7 @@ def load_depends():
 
     if os.path.exists(DEPENDS):
         independs = RFC822Parser(fileob=open(DEPENDS))
-        for initfile, facilities in independs.iteritems():
+        for initfile, facilities in independs.items():
             depends[initfile] = facilities.split()
     return depends
 
@@ -141,8 +138,8 @@ def save_depends(depends):
         return
     
     fh = open(DEPENDS, 'w')
-    for initfile, facilities in depends.iteritems():
-        print >> fh, '%s: %s' % (initfile, ' '.join(facilities))
+    for initfile, facilities in depends.items():
+        print('%s: %s' % (initfile, ' '.join(facilities)), file=fh)
     fh.close()
 
 # filemap entries are mappings, { (package, filename) : instloc }
@@ -173,4 +170,4 @@ def save_lsbinstall_info(filemap):
     fh.close()
 
 if __name__ == '__main__':
-    print (scan_initfile('init-fragment'))
+    print(scan_initfile('init-fragment'))

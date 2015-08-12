@@ -278,8 +278,7 @@ def guess_debian_release():
             print('Unable to open ' + etc_dpkg_origins_default + ':', str(msg), file=sys.stderr)
 
     # Populate RELEASES_ORDER for the correct distro
-    if distinfo['ID'].lower() != 'Debian':
-        get_distro_info(distinfo['ID'])
+    get_distro_info(distinfo['ID'])
 
     kern = os.uname()[0]
     if kern in ('Linux', 'Hurd', 'NetBSD'):
@@ -307,7 +306,7 @@ def guess_debian_release():
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
         elif release.endswith('/sid'):
-            if release.rstrip('/sid').lower() != 'testing':
+            if release.rstrip('/sid').lower().isalpha() != 'testing':
                 global TESTING_CODENAME
                 TESTING_CODENAME = release.rstrip('/sid')
             distinfo['RELEASE'] = 'testing/unstable'

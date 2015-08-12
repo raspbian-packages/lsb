@@ -1,3 +1,26 @@
+lsb (4.1+Debian14) unstable; urgency=low
+
+  [ Alexandre Detiste ]
+  * Convert packaging to Debhelper 9
+  * Port to python3, keep compatibility symlink for lsb_release.py
+    (Closes: #719063)
+
+  [ Mert Dirik ]
+  * Add Turkish translation of lsb debconf messages (Closes: #757509)
+
+  [ Didier Raboud ]
+  * Add gbp.conf
+  * Rework the releases codename handling:
+    - Depend and Build-Depend on distro-info-data, and populate the
+      RELEASES_CODENAME_LOOKUP from that reference
+    - Drop meaningless tests trying to compare random release names
+  * Make sure '-proposed-updates' don't sort before unstable
+  * Actuall ignore suites when guessing the release from apt
+  * Fix comparison of testing codename (Closes: #691744)
+  * Bump Standards-Version to 3.9.6 without changes needed
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 12 Aug 2015 17:09:55 +0200
+
 lsb (4.1+Debian13+nmu1) unstable; urgency=medium
 
   [ Ondřej Surý]

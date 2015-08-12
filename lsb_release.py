@@ -43,7 +43,7 @@ def get_distro_info(origin='Debian'):
 
     if origin.lower() == 'debian':
         TESTING_CODENAME = 'unknown.new.testing'
-        RELEASES_ORDER.extend(['stable', 'testing', 'unstable', 'sid'])
+        RELEASES_ORDER.extend(['stable', 'proposed-updates', 'testing', 'testing-proposed-updates', 'unstable', 'sid'])
 
     csvfile.close()
 
@@ -235,6 +235,7 @@ def guess_release_from_apt(origin='Debian', component='main',
     # We only care about the specified origin, component, and label
     releases = [x for x in releases if (
         x[1].get('origin', '') == origin and
+        x[1].get('suite', '') not in ignoresuites and
         x[1].get('component', '') == component and
         x[1].get('label', '') == label) or (
         x[1].get('origin', '') in alternate_olabels and
@@ -306,7 +307,7 @@ def guess_debian_release():
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
         elif release.endswith('/sid'):
-            if release.rstrip('/sid').lower().isalpha() != 'testing':
+            if release.rstrip('/sid').lower() != 'testing':
                 global TESTING_CODENAME
                 TESTING_CODENAME = release.rstrip('/sid')
             distinfo['RELEASE'] = 'testing/unstable'

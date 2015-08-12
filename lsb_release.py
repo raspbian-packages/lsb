@@ -25,32 +25,30 @@ import subprocess
 import os
 import re
 import warnings
+import csv
 
-# XXX: Update as needed
-# This should really be included in apt-cache policy output... it is already
-# in the Release file...
-RELEASE_CODENAME_LOOKUP = {
-    '1.1' : 'buzz',
-    '1.2' : 'rex',
-    '1.3' : 'bo',
-    '2.0' : 'hamm',
-    '2.1' : 'slink',
-    '2.2' : 'potato',
-    '3.0' : 'woody',
-    '3.1' : 'sarge',
-    '4.0' : 'etch',
-    '5.0' : 'lenny',
-    '6.0' : 'squeeze',
-    '7'   : 'wheezy',
-    '8'   : 'jessie',
-    }
+def get_distro_info(origin='Debian'):
+    try:
+        csvfile = open('/usr/share/distro-info/%s.csv' % origin.lower())
+    except FileNotFoundError:
+        # Unknown distro, fallback to Debian
+        csvfile = open('/usr/share/distro-info/debian.csv')
 
-TESTING_CODENAME = 'unknown.new.testing'
+    reader = csv.DictReader(csvfile)
+    global RELEASE_CODENAME_LOOKUP, RELEASES_ORDER, TESTING_CODENAME
+    RELEASE_CODENAME_LOOKUP = { r['version']: r['series'] for r in reader if r['version']}
+    RELEASES_ORDER = list(RELEASE_CODENAME_LOOKUP.items())
+    RELEASES_ORDER.sort(key=lambda n: float(n[0]))
+    RELEASES_ORDER = list(list(zip(*RELEASES_ORDER))[1])
 
-RELEASES_ORDER = list(RELEASE_CODENAME_LOOKUP.items())
-RELEASES_ORDER.sort()
-RELEASES_ORDER = list(list(zip(*RELEASES_ORDER))[1])
-RELEASES_ORDER.extend(['stable', 'testing', 'unstable', 'sid'])
+    if origin.lower() == 'debian':
+        TESTING_CODENAME = 'unknown.new.testing'
+        RELEASES_ORDER.extend(['stable', 'testing', 'unstable', 'sid'])
+
+    csvfile.close()
+
+# Populate default distro info
+get_distro_info()
 
 def lookup_codename(release, unknown=None):
     m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
@@ -188,7 +186,10 @@ def release_index(x):
         if suite in RELEASES_ORDER:
             return int(len(RELEASES_ORDER) - RELEASES_ORDER.index(suite))
         else:
-            return suite
+            try:
+                return float(suite)
+            except ValueError:
+                return 0
     return 0
 
 def compare_release(x, y):
@@ -274,6 +275,10 @@ def guess_debian_release():
                         pass
         except IOError as msg:
             print('Unable to open ' + etc_dpkg_origins_default + ':', str(msg), file=sys.stderr)
+
+    # Populate RELEASES_ORDER for the correct distro
+    if distinfo['ID'].lower() != 'Debian':
+        get_distro_info(distinfo['ID'])
 
     kern = os.uname()[0]
     if kern in ('Linux', 'Hurd', 'NetBSD'):

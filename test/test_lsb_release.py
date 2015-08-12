@@ -91,13 +91,6 @@ class TestLSBRelease(unittest.TestCase):
 		self.assertEqual(lr.check_modules_installed(),[])
 		os.environ.pop('TEST_DPKG_QUERY_NONE')
 
-		# Test with all packages available.
-		supposed_output = [pkg[4::] + '-9.8-TESTarch' for pkg in lr.PACKAGES.split(' ')]
-		supposed_output += [pkg[4::] + '-9.8-noarch' for pkg in lr.PACKAGES.split(' ')]
-		supposed_output.sort()
-		os.environ['TEST_DPKG_QUERY_ALL'] = '1'
-		self.assertEqual(sorted(lr.check_modules_installed()),supposed_output)
-
 	def test_parse_policy_line(self):
 		release_line = ''
 		shortnames = list(lr.longnames.keys())

@@ -306,7 +306,7 @@ def guess_debian_release():
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
         elif release.endswith('/sid'):
-            if release.rstrip('/sid').lower().isalpha() != 'testing':
+            if release.rstrip('/sid').lower() != 'testing':
                 global TESTING_CODENAME
                 TESTING_CODENAME = release.rstrip('/sid')
             distinfo['RELEASE'] = 'testing/unstable'

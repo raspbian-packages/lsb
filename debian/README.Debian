@@ -5,7 +5,7 @@ This package used to provide the Linux Standard Base on Debian systems.
 The LSB is a specification for allowing the same binary package to be used
 on multiple distributions.
 
-Since version 4.1+Debian14+UNRELEASED, this package stopped providing the compatibility
+Since version 9.20150826, this package stopped providing the compatibility
 LSB packages and only provides two otherwise important packages:
 
 * The "lsb-base" package includes a number of functions used by init.d

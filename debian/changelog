@@ -1,3 +1,14 @@
+lsb (9.20150826) unstable; urgency=low
+
+  * Drop all the LSB compatibility packages besides lsb-release and lsb-base
+    - Drop packages-availability checking in lsb-release
+    - Truncate README.Debian to a minimum
+    - Document this in lsb-base.NEWS.Debian
+  * Change the versioning number to avoid any ambiguity; use joeyh's
+    version.date, with version being Debian next stable's
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 26 Aug 2015 12:00:00 +0200
+
 lsb (4.1+Debian14) unstable; urgency=low
 
   [ Alexandre Detiste ]

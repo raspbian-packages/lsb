@@ -1,3 +1,9 @@
+lsb (9.20150917) unstable; urgency=medium
+
+  * Demote Build-Depends from python3-all-dev to python3-all (Closes: #799210)
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 17 Sep 2015 10:10:29 +0200
+
 lsb (9.20150826) unstable; urgency=low
 
   * Drop all the LSB compatibility packages besides lsb-release and lsb-base

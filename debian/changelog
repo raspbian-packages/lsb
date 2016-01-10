@@ -1,3 +1,13 @@
+lsb (9.20160110) unstable; urgency=medium
+
+  * Merge the last Ubuntu diff
+
+  [ Stéphane Graber & Dimitri John Ledkov ]
+  * Add 01-upstart-lsb from the upstart package, and make executing rc.d
+    scripts no-op if there is an upstart job for that script
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 10 Jan 2016 12:32:59 +0100
+
 lsb (9.20150917) unstable; urgency=medium
 
   * Demote Build-Depends from python3-all-dev to python3-all (Closes: #799210)

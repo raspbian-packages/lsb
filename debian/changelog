@@ -1,3 +1,12 @@
+lsb (9.20160601) unstable; urgency=medium
+
+  * Revert "Add 01-upstart-lsb from the upstart package, and make executing
+    rc.d scripts no-op if there is an upstart job for that script"
+    (Closes: #825946)
+  * Bump Standards-Version to 3.9.8 without changes needed
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 01 Jun 2016 08:46:56 +0200
+
 lsb (9.20160110) unstable; urgency=medium
 
   * Merge the last Ubuntu diff

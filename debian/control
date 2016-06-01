@@ -20,8 +20,6 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Replaces: upstart (<< 1.12.1-0ubuntu8)
-Breaks: upstart (<< 1.12.1-0ubuntu8)
 Priority: required
 Description: Linux Standard Base init script functionality
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

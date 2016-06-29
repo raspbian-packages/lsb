@@ -163,7 +163,7 @@ class TestLSBRelease(unittest.TestCase):
 				label='l8bel',
 				component='c0mp0nent',
 				ignoresuites=('c0mp0nentIgn'),
-				alternate_olabels={'P-or1g1n':'P-l8bel'}),
+				alternate_olabels={'P-or1g1n': ('P-l8bel', 'P-l9bel')}),
 			supposed_output)
 		os.environ.pop('TEST_APT_CACHE1')
 		os.environ.pop('TEST_APT_CACHE2')
@@ -255,21 +255,23 @@ class TestLSBRelease(unittest.TestCase):
 			os.remove(fn)
 		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
 
-		# Test "unstable releases with Debian Ports" that end in /sid, go read valid apt-cache policy
-		os.environ['TEST_APT_CACHE_UNSTABLE_PORTS'] = '500'
 		distinfo['CODENAME'] = 'sid'
 		distinfo['RELEASE'] = 'unstable'
 		distinfo['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s (%(CODENAME)s)' % distinfo
-		for rno in lr.RELEASE_CODENAME_LOOKUP:
-			fn = 'test/debian_version_' + rnd_string(5,12)
-			f = open(fn,'w')
-			f.write(lr.RELEASE_CODENAME_LOOKUP[rno] + '/sid')
-			f.close()
-			os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
-			self.assertEqual(lr.guess_debian_release(),distinfo)
-			os.remove(fn)
+
+		for CODE in ('PORTS', 'PORTS_OLD'):
+			# Test "unstable releases with Debian Ports" that end in /sid, go read valid apt-cache policy
+			os.environ['TEST_APT_CACHE_UNSTABLE_' + CODE] = '500'
+			for rno in lr.RELEASE_CODENAME_LOOKUP:
+				fn = 'test/debian_version_' + rnd_string(5,12)
+				f = open(fn,'w')
+				f.write(lr.RELEASE_CODENAME_LOOKUP[rno] + '/sid')
+				f.close()
+				os.environ['LSB_ETC_DEBIAN_VERSION'] = fn
+				self.assertEqual(lr.guess_debian_release(),distinfo)
+				os.remove(fn)
+			os.environ.pop('TEST_APT_CACHE_UNSTABLE_' + CODE)
 		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
-		os.environ.pop('TEST_APT_CACHE_UNSTABLE_PORTS')
 		os.environ.pop('TEST_APT_CACHE_UNSTABLE')
 
 	def test_get_lsb_information(self):

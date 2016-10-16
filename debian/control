@@ -15,6 +15,44 @@ Homepage: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 Vcs-Git: git://anonscm.debian.org/collab-maint/lsb.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
 
+Package: lsb-base
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Priority: required
+Description: Linux Standard Base init script functionality
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package only includes the init-functions shell library, which
+ may be used by other packages' initialization scripts for console
+ logging and other purposes.
+
+Package: lsb-release
+Architecture: all
+Priority: optional
+Multi-Arch: foreign
+Depends: ${python3:Depends},
+ ${misc:Depends},
+ distro-info-data,
+Recommends: apt
+Suggests: lsb
+Description: Linux Standard Base version reporting utility
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ The lsb-release command is a simple tool to help identify the Linux
+ distribution being used and its compliance with the Linux Standard Base.
+ LSB conformance will not be reported unless the required metapackages are
+ installed.
+ .
+ While it is intended for use by LSB packages, this command may also
+ be useful for programmatically distinguishing between a pure Debian
+ installation and derived distributions.
+
 Package: lsb-core
 Architecture: any
 Depends: lsb-release (>= ${source:Version}),
@@ -72,41 +110,3 @@ Description: Linux Standard Base 4.1 core support package
  presence does not imply that Debian fully complies
  with the Linux Standard Base, and should not be construed as a
  statement that Debian is LSB-compliant.
-
-Package: lsb-base
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Priority: required
-Description: Linux Standard Base init script functionality
- The Linux Standard Base (http://www.linuxbase.org/) is a standard
- core system that third-party applications written for Linux can
- depend upon.
- .
- This package only includes the init-functions shell library, which
- may be used by other packages' initialization scripts for console
- logging and other purposes.
-
-Package: lsb-release
-Architecture: all
-Priority: optional
-Multi-Arch: foreign
-Depends: ${python3:Depends},
- ${misc:Depends},
- distro-info-data,
-Recommends: apt
-Suggests: lsb
-Description: Linux Standard Base version reporting utility
- The Linux Standard Base (http://www.linuxbase.org/) is a standard
- core system that third-party applications written for Linux can
- depend upon.
- .
- The lsb-release command is a simple tool to help identify the Linux
- distribution being used and its compliance with the Linux Standard Base.
- LSB conformance will not be reported unless the required metapackages are
- installed.
- .
- While it is intended for use by LSB packages, this command may also
- be useful for programmatically distinguishing between a pure Debian
- installation and derived distributions.

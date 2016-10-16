@@ -48,12 +48,6 @@ export PATH
 
 case "$1" in
     configure)
-        if [ ! -e /etc/shadow ]; then
-            db_get lsb/shadowconfig
-            if [ "$RET" = "true" ]; then
-                shadowconfig on >&2 || true
-            fi
-        fi
         if dpkg --compare-versions "$2" lt "3.2+Debian30" ; then
           [ -L /lib/ld-lsb-x86-64.so.2 ] && rm /lib/ld-lsb-x86-64.so.2 || true
           [ -L /lib/ld-lsb-x86-64.so.3 ] && rm /lib/ld-lsb-x86-64.so.3 || true

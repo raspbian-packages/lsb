@@ -1,3 +1,14 @@
+lsb (9.20161016) unstable; urgency=medium
+
+  * Introduce the new lsb-compat package, providing a limited compatibility
+    layer for some selected LSB packages
+    - Provides, and replaces lsb & lsb-core
+    - Should be sufficient to install and run:
+      - Epson printer drivers (LP: #1536353)
+      - Google Earth (Closes: #830481)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 16 Oct 2016 15:55:46 +0200
+
 lsb (9.20160629) unstable; urgency=medium
 
   [ Helge Deller ]

@@ -61,10 +61,20 @@ Depends: lsb-release (>= ${source:Version}),
  ${python3:Depends},
  ${misc:Depends},
  ${depends},
+# printer drivers, such as epson-inkjet-printer-201106w
+ libcups2,
+ libcupsimage2,
+ ghostscript,
+ cups-filters (>= 1.0.36),
 Provides: ${provides},
- lsb-core
-Conflicts: lsb-core
-Replaces: lsb-core
+ lsb-core (= 4.1),
+ lsb (= 4.1),
+Conflicts:
+ lsb-core,
+ lsb
+Replaces:
+ lsb-core,
+ lsb
 Description: Linux Standard Base Compatibility
  The Linux Standard Base (http://www.linuxbase.org/) was a standard
  core system that third-party applications written for Linux could

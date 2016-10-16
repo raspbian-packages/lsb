@@ -15,6 +15,64 @@ Homepage: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 Vcs-Git: git://anonscm.debian.org/collab-maint/lsb.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
 
+Package: lsb-core
+Architecture: any
+Depends: lsb-release (>= ${source:Version}),
+ ${glibc},
+ libz1,
+ libncurses5,
+ libpam0g,
+ lsb-invalid-mta (>= ${source:Version}) | mail-transport-agent,
+ at,
+ bc,
+ binutils,
+ bsdmainutils,
+ bsdutils,
+ cpio,
+ cron | cron-daemon,
+ ed,
+ file,
+ libc6-dev | libc-dev,
+ locales,
+ cups-bsd | lpr,
+ lprng | cups-client,
+ m4,
+ mailutils | mailx,
+ make,
+ man-db,
+ mawk | gawk,
+ ncurses-term,
+ passwd,
+ patch,
+ pax,
+ procps,
+ psmisc,
+ rsync,
+ alien (>= 8.36),
+ ${python3:Depends},
+ ${misc:Depends},
+ ${depends},
+ lsb-base (>= ${source:Version}),
+ lsb-security (>= ${source:Version}),
+ time
+Provides: lsb-core-noarch, ${provides}
+Description: Linux Standard Base 4.1 core support package
+ The Linux Standard Base (http://www.linuxbase.org/) is a standard
+ core system that third-party applications written for Linux can
+ depend upon.
+ .
+ This package provides an implementation of the core of version 4.1 of
+ the Linux Standard Base for Debian on the Intel x86, Intel ia64
+ (Itanium), IBM S390, and PowerPC 32-bit architectures with the Linux
+ kernel. Future revisions of the specification and this package may
+ support the LSB on additional architectures and kernels.
+ .
+ The intent of this package is to provide a best current practice way
+ of installing and running LSB packages on Debian GNU/Linux. Its
+ presence does not imply that Debian fully complies
+ with the Linux Standard Base, and should not be construed as a
+ statement that Debian is LSB-compliant.
+
 Package: lsb-base
 Architecture: all
 Multi-Arch: foreign

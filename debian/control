@@ -53,7 +53,7 @@ Description: Linux Standard Base version reporting utility
  be useful for programmatically distinguishing between a pure Debian
  installation and derived distributions.
 
-Package: lsb-core
+Package: lsb-compat
 Architecture: any
 Depends: lsb-release (>= ${source:Version}),
  ${glibc},
@@ -93,7 +93,10 @@ Depends: lsb-release (>= ${source:Version}),
  lsb-base (>= ${source:Version}),
  lsb-security (>= ${source:Version}),
  time
-Provides: lsb-core-noarch, ${provides}
+Provides: lsb-compat-noarch, ${provides},
+ lsb-core
+Conflicts: lsb-core
+Replaces: lsb-core
 Description: Linux Standard Base 4.1 core support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can

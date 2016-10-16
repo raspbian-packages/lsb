@@ -60,7 +60,7 @@ Depends: lsb-release (>= ${source:Version}),
  libz1,
  libncurses5,
  libpam0g,
- lsb-invalid-mta (>= ${source:Version}) | mail-transport-agent,
+ mail-transport-agent,
  at,
  bc,
  binutils,
@@ -91,9 +91,8 @@ Depends: lsb-release (>= ${source:Version}),
  ${misc:Depends},
  ${depends},
  lsb-base (>= ${source:Version}),
- lsb-security (>= ${source:Version}),
  time
-Provides: lsb-compat-noarch, ${provides},
+Provides: ${provides},
  lsb-core
 Conflicts: lsb-core
 Replaces: lsb-core

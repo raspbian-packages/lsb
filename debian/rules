@@ -49,7 +49,11 @@ override_dh_clean:
 	rm -rf __pycache__
 	rm -rf test/__pycache__
 
+ifneq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
+override_dh_auto_test:
+else
 override_dh_auto_test: $(PY3VERSIONS:%=test-python%)
+endif
 
 test-python%:
 	PATH=test/:$${PATH} PYTHONPATH=. python$* test/test_lsb_release.py -vv

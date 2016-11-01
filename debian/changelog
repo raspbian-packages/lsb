@@ -1,3 +1,11 @@
+lsb (9.20161101) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Fix FTCBFS: Annotate Build-Depends: python3-all with :any (Closes: #841679)
+  * Add support for DEB_BUILD_OPTIONS=nocheck
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 01 Nov 2016 22:00:00 +0100
+
 lsb (9.20161016) unstable; urgency=medium
 
   * Introduce the new lsb-compat package, providing a limited compatibility

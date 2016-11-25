@@ -1,4 +1,5 @@
 # Support for scanning init scripts for LSB info
+from __future__ import print_function
 
 import re, sys, os
 import pickle

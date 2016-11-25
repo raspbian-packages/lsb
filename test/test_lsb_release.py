@@ -135,7 +135,7 @@ class TestLSBRelease(unittest.TestCase):
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		# Add a third fake entry, unordered, with non-ascii chars (#675618)
 		os.environ['TEST_APT_CACHE3'] = '754'
-		supposed_output.append((754, {'origin': 'Jérôme Helvète', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
+		supposed_output.append((754, {'origin': u'Jérôme Helvète', 'suite': '5uiTe', 'component': 'C03p0nent', 'label': '1ABel'}))
 		self.assertEqual(lr.parse_apt_policy(),supposed_output)
 		os.environ.pop('TEST_APT_CACHE1')
 		os.environ.pop('TEST_APT_CACHE2')

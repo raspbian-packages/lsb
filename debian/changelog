@@ -1,3 +1,15 @@
+lsb (9.20161125) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * Test the distro-info non-Debian fallback, to fix #845489
+  * Also run the tests for all pyversions (Python 2.7 only)
+  * Fix regressions on python2 (Closes: #845489)
+
+  [ Philipp Hahn ]
+  * Strip leading spaces in get_lsb_header_val (Closes: #837639)
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 25 Nov 2016 16:15:24 +0100
+
 lsb (9.20161101) unstable; urgency=medium
 
   [ Helmut Grohne ]

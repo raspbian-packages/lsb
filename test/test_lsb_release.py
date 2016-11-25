@@ -288,6 +288,13 @@ class TestLSBRelease(unittest.TestCase):
 		self.assertEqual(lr.get_lsb_information(),supposed_output)
 		os.environ.pop('LSB_ETC_LSB_RELEASE')
 
+	def test_get_distro_information_no_distinfo_file(self):
+		# Test that a missing /usr/share/distro-info/{distro}.csv indeed falls
+		# back on Debian's information
+		debian_info = lr.get_distro_info()
+		other_distro_info = lr.get_distro_info(origin='x-not-debian')
+		self.assertEqual(debian_info, other_distro_info)
+
 	def test_get_distro_information(self):
 		# Test that an inexistant /etc/lsb-release leads to empty output
 		supposed_output = get_arch_distinfo()

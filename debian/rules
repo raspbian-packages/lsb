@@ -2,6 +2,7 @@
 
 derives_from_ubuntu := $(shell (dpkg-vendor --derives-from Ubuntu && echo "yes") || echo "no")
 
+PY2VERSIONS=$(shell [ -x /usr/bin/pyversions ] && pyversions -vr)
 PY3VERSIONS=$(shell [ -x /usr/bin/py3versions ] && py3versions -vr)
 
 %:
@@ -52,7 +53,7 @@ override_dh_clean:
 ifneq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
 override_dh_auto_test:
 else
-override_dh_auto_test: $(PY3VERSIONS:%=test-python%)
+override_dh_auto_test: $(PY3VERSIONS:%=test-python%) $(PY2VERSIONS:%=test-python%)
 endif
 
 test-python%:

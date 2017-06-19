@@ -78,17 +78,3 @@ override_dh_installdeb:
 	cp debian/lsb-base.maintscript.Ubuntu debian/lsb-base.maintscript
 	dh_installdeb
 endif
-
-override_dh_gencontrol:
-	@echo >> debian/lsb-compat.substvars "glibc=${LIBC}"
-#	@[ ${DEB_HOST_GNU_TYPE} != 'arm-linux-gnueabi' ] && echo >> debian/lsb-cxx.substvars "depends=libstdc++5" || true
-	@echo >> debian/lsb-cxx.substvars "provides=lsb-cxx-${lsbarch}"
-	@echo >> debian/lsb-graphics.substvars "provides=lsb-graphics-${lsbarch}"
-	@echo >> debian/lsb-desktop.substvars "provides=lsb-qt4-${lsbarch}, lsb-desktop-${lsbarch}"
-	@echo >> debian/lsb-multimedia.substvars "provides=lsb-multimedia-${lsbarch}"
-	@echo >> debian/lsb-languages.substvars "provides=lsb-languages-${lsbarch}"
-	@echo >> debian/lsb-printing.substvars "provides=lsb-printing-${lsbarch}"
-	@echo >> debian/lsb-security.substvars "provides=lsb-security-${lsbarch}"
-	@[ ${DEB_HOST_ARCH} = 'amd64' ] && echo >> debian/lsb-compat.substvars "depends=libc6:i386 | libc6-i386, zlib1g:i386 | lib32z1" || true
-	@[ ${DEB_HOST_ARCH} = 'kfreebsd-amd64' ] && echo >> debian/lsb-compat.substvars "depends=libc0.1:kfreebsd-i386 | libc0.1-i386, zlib1g:kfreebsd-i386 | lib32z1" || true
-	dh_gencontrol

@@ -1,3 +1,12 @@
+lsb (9.20170807) unstable; urgency=medium
+
+  * Remove the lsb-compat package to force migration away from LSB packages
+  * Update Homepage URL
+  * Update Vcs-* URLs for https counterparts
+  * Bump Standards-Version to 4.0.1
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 Aug 2017 10:33:54 -0400
+
 lsb (9.20161125) unstable; urgency=medium
 
   [ Didier Raboud ]

@@ -12,8 +12,8 @@ Build-Depends: debhelper (>> 9.0),
 X-Python3-Version: >= 3.4
 Standards-Version: 3.9.8
 Homepage: https://wiki.linuxfoundation.org/lsb/start
-Vcs-Git: git://anonscm.debian.org/collab-maint/lsb.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/lsb.git
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lsb.git
 
 Package: lsb-base
 Architecture: all

@@ -2,7 +2,7 @@ Source: lsb
 Section: misc
 Priority: extra
 Maintainer: Debian LSB Team <debian-lsb@lists.debian.org>
-Uploaders: Didier Raboud <odyx@debian.org>, Jeff Licquia <licquia@debian.org>
+Uploaders: Didier Raboud <odyx@debian.org>
 Build-Depends: debhelper (>> 9.0),
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
@@ -10,10 +10,10 @@ Build-Depends: debhelper (>> 9.0),
  dh-python,
  distro-info-data,
 X-Python3-Version: >= 3.4
-Standards-Version: 3.9.8
-Homepage: http://www.linuxfoundation.org/collaborate/workgroups/lsb
-Vcs-Git: git://anonscm.debian.org/collab-maint/lsb.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lsb.git
+Standards-Version: 4.0.1
+Homepage: https://wiki.linuxfoundation.org/lsb/start
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/lsb.git
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lsb.git
 
 Package: lsb-base
 Architecture: all
@@ -52,33 +52,3 @@ Description: Linux Standard Base version reporting utility
  While it is intended for use by LSB packages, this command may also
  be useful for programmatically distinguishing between a pure Debian
  installation and derived distributions.
-
-Package: lsb-compat
-Architecture: any
-Depends: lsb-release (>= ${source:Version}),
- lsb-base (>= ${source:Version}),
- ${glibc},
- ${python3:Depends},
- ${misc:Depends},
- ${depends},
-# printer drivers, such as epson-inkjet-printer-201106w
- libcups2,
- libcupsimage2,
- ghostscript,
- cups-filters (>= 1.0.36),
-Provides: ${provides},
- lsb-core (= 4.1),
- lsb (= 4.1),
-Conflicts:
- lsb-core,
- lsb
-Replaces:
- lsb-core,
- lsb
-Description: Linux Standard Base Compatibility
- The Linux Standard Base (http://www.linuxbase.org/) was a standard
- core system that third-party applications written for Linux could
- depend upon.
- .
- This package provides the most minimal layer to be able to install and run
- selected legacy LSB packages on Debian.

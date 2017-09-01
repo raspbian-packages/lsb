@@ -1,4 +1,4 @@
-lsb (9.20161125+rpi1) stretch-staging; urgency=medium
+lsb (9.20170808+rpi1) buster-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
@@ -7,7 +7,24 @@ lsb (9.20161125+rpi1) stretch-staging; urgency=medium
   * Try and fail to fix testsuite to work with our new settings
   * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Sun, 04 Dec 2016 07:31:21 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Fri, 01 Sep 2017 08:27:17 +0000
+
+lsb (9.20170808) unstable; urgency=medium
+
+  * Remove Jeff Licquia from Uploaders, with thanks for his past work
+    (Closes: #854224)
+  * Fix number-to-release typo in lsb-release's README.Debian (Closes: #862041)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 Aug 2017 10:50:21 -0400
+
+lsb (9.20170807) unstable; urgency=medium
+
+  * Remove the lsb-compat package to force migration away from LSB packages
+  * Update Homepage URL
+  * Update Vcs-* URLs for https counterparts
+  * Bump Standards-Version to 4.0.1
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 Aug 2017 10:33:54 -0400
 
 lsb (9.20161125) unstable; urgency=medium
 

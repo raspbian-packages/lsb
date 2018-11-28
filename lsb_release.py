@@ -2,6 +2,7 @@
 
 # LSB release detection module for Debian
 # (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
+# (C) 2018 Didier Raboud <odyx@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -313,14 +314,14 @@ def guess_debian_release():
 
     return distinfo
 
-# Whatever is guessed above can be overridden in /etc/lsb-release
-def get_lsb_information():
+# Whatever is guessed above can be overridden in /usr/lib/os-release by derivatives
+def get_os_release():
     distinfo = {}
-    etc_lsb_release = os.environ.get('LSB_ETC_LSB_RELEASE','/etc/lsb-release')
-    if os.path.exists(etc_lsb_release):
+    os_release = os.environ.get('LSB_OS_RELEASE', '/usr/lib/os-release')
+    if os.path.exists(os_release):
         try:
-            with open(etc_lsb_release) as lsb_release_file:
-                for line in lsb_release_file:
+            with open(os_release) as os_release_file:
+                for line in os_release_file:
                     line = line.strip()
                     if not line:
                         continue
@@ -328,19 +329,27 @@ def get_lsb_information():
                     if not '=' in line:
                         continue
                     var, arg = line.split('=', 1)
-                    if var.startswith('DISTRIB_'):
-                        var = var[8:]
-                        if arg.startswith('"') and arg.endswith('"'):
-                            arg = arg[1:-1]
-                        if arg: # Ignore empty arguments
-                            distinfo[var] = arg.strip()
+                    if arg.startswith('"') and arg.endswith('"'):
+                        arg = arg[1:-1]
+                    if arg: # Ignore empty arguments
+                        # Concert os-release to lsb-release-style
+                        if var == 'VERSION_ID':
+                            # It'll ignore point-releases
+                            distinfo['RELEASE'] = arg.strip()
+                        elif var == 'VERSION_CODENAME':
+                            distinfo['CODENAME'] = arg.strip()
+                        elif var == 'ID':
+                            # ID=debian
+                            distinfo['ID'] = arg.strip().title()
+                        elif var == 'PRETTY_NAME':
+                            distinfo['DESCRIPTION'] = arg.strip()
         except IOError as msg:
-            print('Unable to open ' + etc_lsb_release + ':', str(msg), file=sys.stderr)
-            
+            print('Unable to open ' + os_release + ':', str(msg), file=sys.stderr)
+
     return distinfo
 
 def get_distro_information():
-    lsbinfo = get_lsb_information()
+    lsbinfo = get_os_release()
     # OS is only used inside guess_debian_release anyway
     for key in ('ID', 'RELEASE', 'CODENAME', 'DESCRIPTION',):
         if key not in lsbinfo:

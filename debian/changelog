@@ -1,3 +1,18 @@
+lsb (10.2018112800) unstable; urgency=medium
+
+  * Remove support for /etc/lsb-release in favour of /usr/lib/os-release
+    (Closes: #914287)
+  * Rephrase lsb-release's README.Debian
+
+  * Packaging cleanup
+    - Bump S-V without changes needed
+    - Bump debhelper compat to 11
+    - Move Vcs to Salsa, update Vcs-*
+    - Drop obsolete X-Python3-Version from d/control
+    - d/copyright: use https URL
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 28 Nov 2018 20:21:37 +0100
+
 lsb (9.20170808) unstable; urgency=medium
 
   * Remove Jeff Licquia from Uploaders, with thanks for his past work

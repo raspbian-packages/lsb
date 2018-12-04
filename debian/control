@@ -3,17 +3,16 @@ Section: misc
 Priority: extra
 Maintainer: Debian LSB Team <debian-lsb@lists.debian.org>
 Uploaders: Didier Raboud <odyx@debian.org>
-Build-Depends: debhelper (>> 9.0),
+Build-Depends: debhelper (>> 11~),
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
  python3-all:any,
  dh-python,
  distro-info-data,
-X-Python3-Version: >= 3.4
-Standards-Version: 4.0.1
+Standards-Version: 4.2.1
 Homepage: https://wiki.linuxfoundation.org/lsb/start
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/lsb.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lsb.git
+Vcs-Browser: https://salsa.debian.org/debian/lsb
+Vcs-Git: https://salsa.debian.org/debian/lsb.git
 
 Package: lsb-base
 Architecture: all

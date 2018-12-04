@@ -274,19 +274,23 @@ class TestLSBRelease(unittest.TestCase):
 		os.environ.pop('LSB_ETC_DEBIAN_VERSION')
 		os.environ.pop('TEST_APT_CACHE_UNSTABLE')
 
-	def test_get_lsb_information(self):
-		# Test that an inexistant /etc/lsb-release leads to empty output
+	def test_get_os_release(self):
+		# Test that an inexistant /usr/lib/os-release leads to empty output
 		supposed_output = {}
-		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/inexistant_file_' + rnd_string(2,5)
-		self.assertEqual(lr.get_lsb_information(),supposed_output)
-		# Test that a fake /etc/lsb-release leads to output with only the content we want
+		os.environ['LSB_OS_RELEASE'] = 'test/inexistant_file_' + rnd_string(2,5)
+		self.assertEqual(lr.get_os_release(),supposed_output)
+		# Test that a fake full /usr/lib/os-release leads to output with only the content we want
 		supposed_output = {'RELEASE': '(The release number)',
-				   'CODENAME': '(The codename for the release)',
-				   'ID': '(Distributor ID)',
+				   'ID': '(Distributor Id)',
 				   'DESCRIPTION': '(A human-readable description of the release)'}
-		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/lsb-release'
-		self.assertEqual(lr.get_lsb_information(),supposed_output)
-		os.environ.pop('LSB_ETC_LSB_RELEASE')
+		os.environ['LSB_OS_RELEASE'] = 'test/os-release'
+		self.assertEqual(lr.get_os_release(),supposed_output)
+		# Test that a fake minimal /usr/lib/os-release leads to output with only the content we want
+		supposed_output = {'ID': '(Distributor Id)',
+				   'DESCRIPTION': '(A human-readable description of the release)'}
+		os.environ['LSB_OS_RELEASE'] = 'test/os-release-minimal'
+		self.assertEqual(lr.get_os_release(),supposed_output)
+		os.environ.pop('LSB_OS_RELEASE')
 
 	def test_get_distro_information_no_distinfo_file(self):
 		# Test that a missing /usr/share/distro-info/{distro}.csv indeed falls
@@ -296,12 +300,12 @@ class TestLSBRelease(unittest.TestCase):
 		self.assertEqual(debian_info, other_distro_info)
 
 	def test_get_distro_information(self):
-		# Test that an inexistant /etc/lsb-release leads to empty output
+		# Test that an inexistant /usr/lib/os-release leads to empty output
 		supposed_output = get_arch_distinfo()
 		supposed_output['RELEASE']     = 'testing/unstable';
 		supposed_output['DESCRIPTION'] = '%(ID)s %(OS)s %(RELEASE)s' % supposed_output
 
-		os.environ['LSB_ETC_LSB_RELEASE'] = 'test/inexistant_file_' + rnd_string(2,5)
+		os.environ['LSB_OS_RELEASE'] = 'test/inexistant_file_' + rnd_string(2,5)
 		fn = 'test/debian_version_' + rnd_string(5,12)
 		f = open(fn,'w')
 		f.write('testing/sid')

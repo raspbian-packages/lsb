@@ -141,7 +141,7 @@ killproc () {
     if [ ! $pidfile ]; then
         name_param="--name $base --pidfile /var/run/$base.pid"
     else
-        name_param="--pidfile $pidfile"
+        name_param="--name $base --pidfile $pidfile"
     fi
 
     sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')

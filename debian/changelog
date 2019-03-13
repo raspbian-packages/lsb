@@ -1,3 +1,11 @@
+lsb (10.2019031300) unstable; urgency=low
+
+  [ Dmitry Bogatov ]
+  * init-functions: in killproc, pass '--name' to start-stop-daemon
+    (Closes: #921558)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 13 Mar 2019 21:42:26 +0100
+
 lsb (10.2018112800) unstable; urgency=medium
 
   * Remove support for /etc/lsb-release in favour of /usr/lib/os-release

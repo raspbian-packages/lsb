@@ -1,4 +1,4 @@
-lsb (10.2018112800+rpi1) buster-staging; urgency=medium
+lsb (10.2019031300+rpi1) buster-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
@@ -7,7 +7,15 @@ lsb (10.2018112800+rpi1) buster-staging; urgency=medium
   * Try and fail to fix testsuite to work with our new settings
   * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Tue, 04 Dec 2018 19:54:54 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Tue, 19 Mar 2019 16:23:39 +0000
+
+lsb (10.2019031300) unstable; urgency=low
+
+  [ Dmitry Bogatov ]
+  * init-functions: in killproc, pass '--name' to start-stop-daemon
+    (Closes: #921558)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 13 Mar 2019 21:42:26 +0100
 
 lsb (10.2018112800) unstable; urgency=medium
 

@@ -1,10 +1,10 @@
-lsb (10.2019032400) experimental; urgency=medium
+lsb (10.2019051400) unstable; urgency=medium
 
   [ Harald Dunkel ]
   * pidofproc: use "pidof -c" to avoid pidofproc results from containers or chroots
     (Closes: #888743)
 
- -- Didier Raboud <odyx@debian.org>  Sun, 24 Mar 2019 14:28:26 +0100
+ -- Didier Raboud <odyx@debian.org>  Tue, 14 May 2019 08:50:39 +0200
 
 lsb (10.2019031300) unstable; urgency=low
 

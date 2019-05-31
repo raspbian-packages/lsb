@@ -107,7 +107,7 @@ pidofproc () {
        # pid file doesn't exist, try to find the pid nevertheless
        if [ -x /bin/pidof ] && [ ! "$specified" ]; then
          status="0"
-         /bin/pidof -o %PPID -x $1 || status="$?"
+         /bin/pidof -c -o %PPID -x $1 || status="$?"
          if [ "$status" = 1 ]; then
              return 3 # program is not running
          fi

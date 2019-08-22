@@ -8,6 +8,10 @@ PY3VERSIONS=$(shell [ -x /usr/bin/py3versions ] && py3versions -vr)
 %:
 	dh $@ --with python3
 
+override_dh_auto_build:
+	dh_auto_build
+	ionit -c conf -t init-functions.d
+
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)

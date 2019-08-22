@@ -1,4 +1,4 @@
-lsb (10.2019051400+rpi1) buster-staging; urgency=medium
+lsb (11.1.0+rpi1) bullseye-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
@@ -7,13 +7,42 @@ lsb (10.2019051400+rpi1) buster-staging; urgency=medium
   * Try and fail to fix testsuite to work with our new settings
   * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Fri, 31 May 2019 05:54:31 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Thu, 22 Aug 2019 16:08:26 +0000
+
+lsb (11.1.0) unstable; urgency=medium
+
+  * Drop cursor-moving code from init-functions
+    (Closes: #934502, #670144, #672929)
+
+ -- Dmitry Bogatov <KAction@debian.org>  Fri, 16 Aug 2019 05:20:52 +0000
+
+lsb (11.0.1) unstable; urgency=medium
+
+  * Improve portability of init-functions.d/00-verbose.
+    Thanks to Thorsten Glaser <t.glaser@tarent.de>
+
+ -- Dmitry Bogatov <KAction@debian.org>  Wed, 14 Aug 2019 22:31:15 +0000
+
+lsb (11.0.0) unstable; urgency=medium
+
+  * New maintainer (Closes: #924519)
+  * Introduce logging functions that check ${VERBOSE} (Closes: #928920)
+  * Trim trailing whitespace.
+  * Bump debhelper from old 11 to 12.
+  * Change priority extra to priority optional.
+  * Update standards version to 4.4.0
+  * Reformat debian/changelog to fit 80 column
+  * Remove unused `debian/gbp.conf'
+  * Remove redundant priority field in bin:lsb-release
+  * Remove suggestion for non-existent bin:lsb
+
+ -- Dmitry Bogatov <KAction@debian.org>  Tue, 13 Aug 2019 18:24:19 +0000
 
 lsb (10.2019051400) unstable; urgency=medium
 
   [ Harald Dunkel ]
-  * pidofproc: use "pidof -c" to avoid pidofproc results from containers or chroots
-    (Closes: #888743)
+  * pidofproc: use "pidof -c" to avoid pidofproc results from containers
+    or chroots (Closes: #888743)
 
  -- Didier Raboud <odyx@debian.org>  Tue, 14 May 2019 08:50:39 +0200
 
@@ -540,7 +569,7 @@ lsb (3.2-26) unstable; urgency=low
   * Move lsb(8) to lsb-core package.  (Closes: #589101)
   * Update da translation of debconf templates; thanks to Joe Dalton.
     (Closes: #599461)
-  
+
  -- Chris Lawrence <lawrencc@debian.org>  Wed, 06 Oct 2010 20:35:30 -0500
 
 lsb (3.2-25) unstable; urgency=low
@@ -636,7 +665,7 @@ lsb (3.2-20) unstable; urgency=low
 lsb (3.2-19) unstable; urgency=low
 
   * Return 0 in log_failure_msg too.
-  
+
  -- Chris Lawrence <lawrencc@debian.org>  Mon, 04 Aug 2008 20:29:54 -0500
 
 lsb (3.2-18) unstable; urgency=low

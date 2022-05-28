@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # LSB release detection module for Debian
 # (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
 # (C) 2018 Didier Raboud <odyx@debian.org>
@@ -18,9 +16,6 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
 
-# Python3-compatible print() function
-from __future__ import print_function
-
 import sys
 import subprocess
 import os
@@ -29,15 +24,10 @@ import warnings
 import csv
 
 def get_distro_info(origin='Debian'):
-    try:
-        FileNotFoundException = FileNotFoundError
-    except NameError:
-        # There is no FileNotFoundError in python2
-        FileNotFoundException = IOError
 
     try:
         csvfile = open('/usr/share/distro-info/%s.csv' % origin.lower())
-    except FileNotFoundException:
+    except FileNotFoundError:
         # Unknown distro, fallback to Debian
         csvfile = open('/usr/share/distro-info/debian.csv')
 
@@ -45,7 +35,7 @@ def get_distro_info(origin='Debian'):
     global RELEASE_CODENAME_LOOKUP, RELEASES_ORDER, TESTING_CODENAME
     RELEASE_CODENAME_LOOKUP = { r['version']: r['series'] for r in reader if r['version']}
     RELEASES_ORDER = list(RELEASE_CODENAME_LOOKUP.items())
-    RELEASES_ORDER.sort(key=lambda n: float(n[0]))
+    RELEASES_ORDER.sort(key=lambda n: [int(v) for v in re.split('\D+', n[0]) if v.isdigit()])
     RELEASES_ORDER = list(list(zip(*RELEASES_ORDER))[1])
 
     if origin.lower() == 'debian':
@@ -171,11 +161,16 @@ def parse_apt_policy():
     data = []
     
     C_env = os.environ.copy(); C_env['LC_ALL'] = 'C.UTF-8'
-    policy = subprocess.Popen(['apt-cache','policy'],
-                              env=C_env,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              close_fds=True).communicate()[0].decode('utf-8')
+    try:
+        policy = subprocess.Popen(['apt-cache','policy'],
+                                  env=C_env,
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE,
+                                  close_fds=True).communicate()[0].decode('utf-8')
+    except Exception as e:
+        print('Failed to run apt-cache:', e, file=sys.stderr)
+        return
+
     for line in policy.split('\n'):
         line = line.strip()
         m = re.match(r'(-?\d+)', line)

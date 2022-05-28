@@ -1,4 +1,4 @@
-lsb (11.1.0+rpi1) bullseye-staging; urgency=medium
+lsb (11.2+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
@@ -7,7 +7,40 @@ lsb (11.1.0+rpi1) bullseye-staging; urgency=medium
   * Try and fail to fix testsuite to work with our new settings
   * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Thu, 22 Aug 2019 16:08:26 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Sat, 28 May 2022 17:41:53 +0000
+
+lsb (11.2) unstable; urgency=medium
+
+  * d/control: update to Standards Version 4.6.1 (no changes).
+
+ -- Mark Hindley <leepen@debian.org>  Mon, 23 May 2022 10:41:54 +0100
+
+lsb (11.2~rc1) experimental; urgency=medium
+
+  [ Mark Hindley ]
+  * Add myself to uploaders.
+  * Remove Dmitry Bogatov from uploaders (Closes: #991031).
+  * Update to Standards Version 4.6.0 (no changes).
+  * Remove obsolete python2 support (Closes: #1003625).
+  * d/control: add missing newline at end.
+  * Ignore strings when sorting release versions. (Closes: #980566)
+  * Suppress our own deprecation warning when testing compare_release().
+  * Catch exceptions from running apt-cache and warn but continue.
+    (Closes: #951651)
+  * lsb_release.1: remove reference to obsolete lsb(8). (Closes: #962969)
+
+
+  [ Trek ]
+  * Hardcode ANSI escapes to replace tput in logging functions.
+    Thanks to Adam Borowski <kilobyte@angband.pl>
+  * Fix the return value of vlog* functions when VERBOSE=no
+  * Preserve FANCYTTY after log_use_fancy_output calls
+  * Quote parameters when calling logging functions.
+    Thanks to Bjarni Ingi Gislason <bjarniig@rhi.hi.is> (Closes: #660790)
+  * Optimize killproc using parameter expansions.
+    Thanks to Carl Albing <carl-albing@bethel.edu>
+
+ -- Mark Hindley <leepen@debian.org>  Tue, 10 May 2022 17:57:45 +0100
 
 lsb (11.1.0) unstable; urgency=medium
 

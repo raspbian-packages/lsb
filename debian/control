@@ -2,7 +2,7 @@ Source: lsb
 Section: misc
 Priority: optional
 Maintainer: Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>
-Uploaders: Dmitry Bogatov <KAction@debian.org>
+Uploaders: Mark Hindley <leepen@debian.org>
 Build-Depends:
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
@@ -11,7 +11,7 @@ Build-Depends:
  distro-info-data,
  ionit,
  debhelper-compat (= 12)
-Standards-Version: 4.4.0
+Standards-Version: 4.6.1
 Homepage: https://wiki.linuxfoundation.org/lsb/start
 Vcs-Browser: https://salsa.debian.org/debian/lsb
 Vcs-Git: https://salsa.debian.org/debian/lsb.git

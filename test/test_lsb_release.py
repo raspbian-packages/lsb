@@ -107,8 +107,13 @@ class TestLSBRelease(unittest.TestCase):
 		fake_release_equal = rnd_string(1,25)
 		x = [rnd_string(1,12), {'suite': fake_release_equal}]
 		y = [rnd_string(1,12), {'suite': fake_release_equal}]
-		self.assertEqual(lr.compare_release(x,y),0)
-		
+		with warnings.catch_warnings():
+			warnings.simplefilter("ignore", category=DeprecationWarning)
+			# test/test_lsb_release.py:120: DeprecationWarning:
+			# compare_release(x,y) is deprecated; please use the
+			# release_index(x) as key for sort() instead.
+			self.assertEqual(lr.compare_release(x,y),0)
+
 		# Test that sequences in RELEASES_ORDER lead to reliable output
 		RO_min = 0
 		RO_max = len(lr.RELEASES_ORDER) - 1
@@ -117,9 +122,14 @@ class TestLSBRelease(unittest.TestCase):
 		x[1]['suite'] = lr.RELEASES_ORDER[x_suite_i]
 		y[1]['suite'] = lr.RELEASES_ORDER[y_suite_i]
 		supposed_output = y_suite_i - x_suite_i
-		self.assertEqual(lr.compare_release(x,y),
-				 supposed_output,
-				 'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))
+		with warnings.catch_warnings():
+			warnings.simplefilter("ignore", category=DeprecationWarning)
+			# test/test_lsb_release.py:120: DeprecationWarning:
+			# compare_release(x,y) is deprecated; please use the
+			# release_index(x) as key for sort() instead.
+			self.assertEqual(lr.compare_release(x,y),
+                                         supposed_output,
+				         'compare_release(' + x[1]['suite'] + ',' + y[1]['suite'] + ') =? ' + str(supposed_output))
 
 	def test_parse_apt_policy(self):
 		# Test almost-empty apt-cache policy

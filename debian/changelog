@@ -1,4 +1,4 @@
-lsb (11.2+rpi1) bookworm-staging; urgency=medium
+lsb (11.4+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
@@ -7,7 +7,22 @@ lsb (11.2+rpi1) bookworm-staging; urgency=medium
   * Try and fail to fix testsuite to work with our new settings
   * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Sat, 28 May 2022 17:41:53 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Sun, 25 Sep 2022 01:56:38 +0000
+
+lsb (11.4) unstable; urgency=medium
+
+  * Team upload.
+  * lsb-base: add a dependency on sysvinit-utils 3.05-4 (Closes: #1019661)
+
+ -- Adam Borowski <kilobyte@angband.pl>  Tue, 13 Sep 2022 20:08:57 +0200
+
+lsb (11.3) unstable; urgency=medium
+
+  * Team upload.
+  * Make the lsb-base package empty; debootstrap doesn't understand
+    "Provides".
+
+ -- Adam Borowski <kilobyte@angband.pl>  Mon, 12 Sep 2022 20:54:36 +0200
 
 lsb (11.2) unstable; urgency=medium
 

@@ -1,0 +1,22 @@
+Source: lsb
+Section: misc
+Priority: optional
+Maintainer: Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>
+Uploaders: Mark Hindley <leepen@debian.org>
+Build-Depends:
+ debhelper-compat (= 12)
+Standards-Version: 4.6.1
+Homepage: https://wiki.linuxfoundation.org/lsb/start
+Vcs-Browser: https://salsa.debian.org/debian/lsb
+Vcs-Git: https://salsa.debian.org/debian/lsb.git
+
+Package: lsb-base
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}, sysvinit-utils (>= 3.05-4~)
+Pre-Depends: ${misc:Pre-Depends}
+Section: oldlibs
+Priority: optional
+Description: transitional package for Linux Standard Base init script functionality
+ This is an empty package; it's needed only because of Provides: not being
+ supported in debootstrap.  It can be safely removed.

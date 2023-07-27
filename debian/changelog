@@ -1,13 +1,29 @@
-lsb (11.4+rpi1) bookworm-staging; urgency=medium
+lsb (11.6+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 4.1+Debian13+rpi1+nmu1 by Peter Michael Green <plugwash@raspbian.org> at Sat, 08 Nov 2014 12:56:07 +0000]
   * change origin and label to look for when interrogating apt for 
     distribution information to match those used in the raspbian repository.
     (LP: 1069141)
-  * Try and fail to fix testsuite to work with our new settings
-  * Disable testsuite
 
- -- Raspbian forward porter <root@raspbian.org>  Sun, 25 Sep 2022 01:56:38 +0000
+ -- Peter Michael Green <plugwash@raspbian.org>  Thu, 27 Jul 2023 22:23:19 +0000
+
+lsb (11.6) unstable; urgency=medium
+
+  * Team upload.
+  [ Adam Borowski ]
+  * Update README.Debian wrt lsb-base dematerialization; closes: #1030597.
+  [ Jelmer Vernooĳ ]
+  * Move transitional package lsb-base to oldlibs/optional.
+  * Bump debhelper from old 12 to 13.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Sun, 05 Feb 2023 18:12:07 +0100
+
+lsb (11.5) unstable; urgency=medium
+
+  * Team upload.
+  * Drop lsb-release, taken over by src:lsb-release-minimal.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Wed, 02 Nov 2022 01:41:43 +0100
 
 lsb (11.4) unstable; urgency=medium
 
